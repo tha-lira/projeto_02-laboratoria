@@ -13,25 +13,26 @@ O objetivo deste projeto é analisar dados do Spotify para identificar padrões 
 
 # 🔧 Processar e preparar a base de dados
 
-### Conectar/importar dados para outras ferramentas
+### ➡️ Conectar/importar dados para outras ferramentas
 
 Criei o projeto na plataforma **Google Cloud** com o ID:
-- spotify-projeto2-465223
+
+- ✅ spotify-analysis-465623
 
 Em seguida, criei o **conjunto de dados** (dataset) no BigQuery com o nome:
-- spotify_dados
 
-Observei que algumas bases estavam corrompidas (com caracteres inválidos). Para garantir a integridade dos dados durante a importação:
-
-- Desenvolvi um script em Python que percorre os arquivos CSV, Remove espaços e caracteres especiais nos nomes das colunas, Corrige a codificação para UTF-8, E salva novas versões limpas para facilitar a leitura pelo BigQuery.
+- ✅ spotify_data
 
 ### 📂 Bases de Dados Importadas
 Foram importadas e organizadas três principais tabelas no BigQuery:
-✅ track_spotify
+
+- ✅ track_in_spotify
 Contém os dados principais das faixas, como: Nome da música e do artista, Data de lançamento, Presença em playlists e rankings, Número de streams.
-✅ track_competition
+
+- ✅ track_in_competition
 Inclui informações sobre músicas em competição, podendo conter dados de comparação de desempenho, relevância ou participações em rankings.
-✅ track_technical
+
+- ✅ track_technical
 Apresenta informações técnicas complementares das faixas, como: BPM, tonalidade, duração, energia, dançabilidade, entre outros atributos úteis para análise musical.
 
 ## Identificar e tratar valores nulos
