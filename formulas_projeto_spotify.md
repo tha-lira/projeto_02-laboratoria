@@ -3,7 +3,7 @@
 Este documento contém as principais fórmulas e cálculos utilizados no Projeto 2 da Jornada de Dados da Laboratória, que envolveu a análise de dados musicais do Spotify.
 
 
-### 📂 Tratamento de valores nulos
+### 📍 Identificar e tratar valores nulos
 
 - 🔍 Análise de Valores Nulos na Tabela **track_in_competition**
 
@@ -56,9 +56,7 @@ Este documento contém as principais fórmulas e cálculos utilizados no Projeto
  FROM `spotify-analysis-465623.spotify_data.track_technical`
 ```
 
-### Visualizar valores nulos
-
-- 🔍 visualizar as células com o valor NULL **track_in_competition**.
+- 🔍  Visualização de Registros com NULL **track_in_competition**.
 
 ```
 SELECT
@@ -78,4 +76,28 @@ SELECT
  where
  key
  is null
+```
+
+### 📍Identificar e tratar valores duplicados
+
+- Detecção de registros duplicados por nome da música e artista:
+
+```
+SELECT
+track_name,
+artist_s__name,
+count(*)
+FROM
+`spotify-analysis-465623.spotify_data.track_in_spotify`
+group by track_name, artist_s__name
+having count(*) > 1
+```
+- Visualização de duplicatas específicas (ex: Rosa Linn): 
+
+```
+SELECT
+*
+FROM `spotify-analysis-465623.spotify_data.track_in_spotify`
+WHERE
+artist_s__name = 'Rosa Linn'
 ```
