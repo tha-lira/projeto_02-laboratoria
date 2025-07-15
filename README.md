@@ -11,7 +11,7 @@ O objetivo deste projeto é analisar dados do Spotify para identificar padrões 
 - PowerBi
 - Python
 
-# 🔧 Processar e preparar a base de dados
+## 🔧 Processar e preparar a base de dados
 
 ## 📍Conectar/importar dados para as ferramentas
 
