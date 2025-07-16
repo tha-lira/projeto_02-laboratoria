@@ -80,25 +80,40 @@ Para cada música duplicada, foi mantido apenas o registro com o maior número d
 
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
-## 📍Identificar e gerenciar dados fora do escopo de análise
+## 📍Identificar dados fora do escopo de análise
+Durante a análise, foram identificados registros que estavam fora do escopo temporal definido para o projeto, como músicas com ano de lançamento muito antigo (ex: 1930), que destoavam do restante da base (que abrange majoritariamente os anos 2000 a 2025).
 
 ### 🧼 Tratamento realizado
+Para garantir a consistência da análise e evitar distorções nos resultados, esses registros foram excluídos utilizando a cláusula WHERE released_year BETWEEN 2000 AND 2025.
+
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
-## 📍Identificar e tratar dados discrepantes em variáveis ​​categóricas
+## 📍Identificar dados discrepantes em variáveis ​​categóricas
 
-### 🧼 Tratamento realizado
+Durante a análise exploratória, foram identificados possíveis dados discrepantes em variáveis categóricas, como track_name e artist_s__name. Esses dados, por conterem caracteres especiais, emojis ou acentos variados, poderiam comprometer agrupamentos e contagens precisas.
+
+### 🧼 Tratamento realizado 
+
+Para isso, aplicamos a função REGEXP_REPLACE() para limpar esses campos, removendo tudo que não fosse letra, número ou espaço.
+
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
-## 📍Identificar e tratar dados discrepantes em variáveis ​​numéricas
+## 📍Identificar dados discrepantes em variáveis ​​numéricas
 
+As variáveis numéricas também foram avaliadas para detectar valores que estivessem fora do padrão esperado. Um exemplo claro foi a variável released_year, que continha valores como 1930, muito fora do intervalo esperado para a base.
 
 ### 🧼 Tratamento realizado
+
+Com base nessa análise, foi definido um intervalo válido entre os anos de 2000 e 2025, considerando a relevância e atualidade dos dados. Registros com ano de lançamento fora desse intervalo foram considerados fora do escopo e excluídos da visualização consolidada.
+
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
 ## 📍Verificar e alterar os tipos de dados
 
-### 🧼 Tratamento realizado
+Para garantir que todos os campos estivessem no formato correto para análise, foi feita a conversão de algumas colunas de texto para número. 
+
+### 🧼 Tratamento realizado 
+
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
 ## 📍Unir (join) as tabelas de dados
