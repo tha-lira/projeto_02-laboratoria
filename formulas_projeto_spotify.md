@@ -5,7 +5,7 @@ Este documento contém as principais fórmulas e cálculos utilizados no Projeto
 
 ### 📍 Identificar valores nulos
 
-Como primeiro passo, utilizei a função **SELECT COUNT(*)** para contar o total de registros e a função **COUNTIF(campo IS NULL)** para identificar a quantidade de valores nulos em cada coluna da base:
+Como primeiro passo, utilizei a função **SELECT COUNT(*)** para contar o total de registros e a função **COUNTIF(variável IS NULL)** para identificar a quantidade de valores nulos em cada coluna da base:
 
 ```
  SELECT
@@ -19,7 +19,7 @@ Como primeiro passo, utilizei a função **SELECT COUNT(*)** para contar o total
  FROM `spotify-analysis-465623.spotify_data.track_in_competition`
 ```
 
-Além disso, apliquei um **SELECT * WHERE** in_shazam_charts **IS NULL** para inspecionar os registros ausentes nessa coluna antes de tratá-los.
+Além disso, apliquei um **SELECT * WHERE** variável **IS NULL** para inspecionar os registros ausentes nessa coluna antes de tratá-las.
 
 ```
  SELECT
@@ -34,14 +34,14 @@ Além disso, apliquei um **SELECT * WHERE** in_shazam_charts **IS NULL** para in
 
 - SELECT COUNT(*) → Conta todas as linhas da tabela.
 
-- COUNTIF(campo IS NULL) → Conta quantas linhas têm valor nulo em uma coluna específica.
+- COUNTIF(variável IS NULL) → Conta quantas linhas têm valor nulo em uma coluna específica.
 
 - SELECT * FROM tabela WHERE coluna IS NULL → Mostra as linhas com valor nulo em determinada coluna.
 
 
 ### 📍Identificar valores duplicados
 
-Para o tratamento dos valores duplicados,usei **GROUP BY com HAVING COUNT(*) > 1** foram identificados, através do track_name, os artist_s__name das músicas duplicadas. 
+Para o tratamento dos valores duplicados,usei **GROUP BY com HAVING COUNT(*) > 1** foram identificados, através do track_name, os artist_s__name quatro músicas duplicadas. 
 
 ```
  SELECT
@@ -85,25 +85,23 @@ Para detectar anos fora do intervalo de análise (ex: 1930):
 
 - ORDER BY → Organiza os valores em ordem crescente (ou decrescente).
 
-## 📍Identificar e tratar dados discrepantes em variáveis ​​categóricas
-Para padronizar textos (remover caracteres especiais em track_name e artist_s__name): 
+## 📍Identificar dados discrepantes em variáveis ​​categóricas
+
+Para identificar valores que apresentam discrepâncias, utilizamos a seguinte consulta SQL:
 
 ```
- SELECT
- track_name,
- REGEXP_REPLACE(track_name, r'[^a-zA-Z0-9 ]', '') AS track_name_limpo,
- artist_s__name,
- REGEXP_REPLACE(artist_s__name, r'[^a-zA-Z0-9 ]', '') AS artist_name_limpo
- FROM `spotify-analysis-465623.spotify_data.track_in_spotify`;
+ SELECT artist_s__name, track_name
+ FROM `spotify-analysis-465623.spotify_data.track_in_spotify`
+ WHERE REGEXP_CONTAINS(artist_s__name, r'[^\x20-\x7E]')
 ```
 
 #### 📌 Explicação rápida:
 
-- REGEXP_REPLACE(texto, padrão, substituto) → Substitui padrões usando expressões regulares.
+- REGEXP_CONTAINS(campo, 'padrão') → verifica se o texto no campo contém o padrão definido pela expressão regular e retorna TRUE ou FALSE.
 
 ## 📍Identificar e tratar dados discrepantes em variáveis ​​numéricas
 
-Ao verificar a variavel streams occoreu uma divergencia de dados.
+- Ao verificar a variável `streams`, identificamos divergências nos dados, como valores muito baixos ou muito altos que podem indicar outliers.
 
 ```
  SELECT
@@ -111,6 +109,9 @@ Ao verificar a variavel streams occoreu uma divergencia de dados.
  MAX(streams) AS maior_stream,
  FROM `spotify-analysis-465623.spotify_data.track_in_spotify`
 ```
+#### 📌 Explicação rápida:
+
+- MIN() e MAX() retornam, respectivamente, o menor e o maior valor da coluna streams, ajudando a identificar possíveis valores discrepantes.
 
 ## 📍Verificar e alterar os tipos de dados
 Para converter a coluna streams para tipo numérico inteiro:
