@@ -64,7 +64,10 @@ Na etapa de análise exploratória dos dados, realizamos a verificação de valo
 
 ### 🧼 Tratamento realizado
 - A variável **key**, representa o tom musical da música foi removida devido à alta proporção de valores nulos (95 registros) e à baixa relevância para os objetivos da análise, que não contemplam aspectos harmônicos da música.
-- A variável **in_shazam_charts**, representa presença e classificação da música nas paradas da Shazam. Teve valores nulos (50 registros) substituídos por 0, com base na premissa de que a ausência de entrada indica que a música não esteve nas paradas do Shazam.
+
+- A variável **in_shazam_charts**, representa presença e classificação da música nas paradas da Shazam. Teve valores nulos (50 registros) substituídos por 0, com base na premissa de que a ausência de entrada indica que a música não esteve nas paradas do Shazam. 
+
+[Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
 ## 📍 Identificar e tratar valores duplicados
 
@@ -75,30 +78,40 @@ Durante a etapa de limpeza e preparação dos dados, foi identificado que alguma
 ### 🧼 Tratamento realizado
 Para cada música duplicada, foi mantido apenas o registro com o maior número de streams, considerando também, em caso de empate, o maior número de in_spotify_playlists e, posteriormente, in_spotify_charts. Essa abordagem garante que os dados utilizados nas análises refletem a versão mais atual e representativa da popularidade de cada faixa. Ao final do processo, a base de dados ficou livre de duplicidades, assegurando maior precisão na apuração de métricas e geração de insights.
 
+[Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
+
 ## 📍Identificar e gerenciar dados fora do escopo de análise
 
 ### 🧼 Tratamento realizado
+[Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
 ## 📍Identificar e tratar dados discrepantes em variáveis ​​categóricas
 
 ### 🧼 Tratamento realizado
+[Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
 ## 📍Identificar e tratar dados discrepantes em variáveis ​​numéricas
 
+
 ### 🧼 Tratamento realizado
+[Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
 ## 📍Verificar e alterar os tipos de dados
 
 ### 🧼 Tratamento realizado
+[Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
 ## 📍Unir (join) as tabelas de dados
 
 ### 🧼 Tratamento realizado
+[Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
 ## 📍Criar novas variáveis
 
 ### 🧼 Tratamento realizado ​​
+[Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
 ## 📍Construir tabelas de dados auxiliares
 
 ### 🧼 Tratamento realizado
+[Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
