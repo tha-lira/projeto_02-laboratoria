@@ -71,12 +71,58 @@ Na etapa de análise exploratória dos dados, realizamos a verificação de valo
 
 ## 📍 Identificar e tratar valores duplicados
 
-Durante a etapa de limpeza e preparação dos dados, foi identificado que algumas músicas estavam presentes mais de uma vez na base(track_in_spotify), com mesmo nome, mesmo artista e mesma data de lançamento, porém com variações nos valores das métricas, como streams, in_spotify_playlists e in_spotify_charts.
+Durante a análise da base de dados, foi identificada a presença de múltiplos registros para uma mesma música, como nos casos abaixo:
 
-- Esses registros foram classificados como duplicatas com divergência de dados, provavelmente decorrentes da consolidação de fontes distintas ou atualizações em momentos diferentes.
+- **SNAP** (Rosa Linn): **track_id** 5675634 e 3814670
 
-### 🧼 Tratamento realizado
-Para cada música duplicada, foi mantido apenas o registro com o maior número de streams, considerando também, em caso de empate, o maior número de in_spotify_playlists e, posteriormente, in_spotify_charts. Essa abordagem garante que os dados utilizados nas análises refletem a versão mais atual e representativa da popularidade de cada faixa. Ao final do processo, a base de dados ficou livre de duplicidades, assegurando maior precisão na apuração de métricas e geração de insights.
+- **About Damn Time** (Lizzo): **track_id** 7173596 e 5080031
+
+- **Take My Breath** (The Weeknd): **track_id** 1119309 e 4586215
+
+- **SPIT IN MY FACE!** (ThxSoMch): **track_id** 4967469 e 8173823
+
+Essa duplicidade ocorre porque uma mesma faixa pode estar cadastrada com diferentes identificadores, seja por versões lançadas em momentos distintos, inclusão em álbuns ou singles separados, edições remixadas ou por outras estratégias de distribuição nas plataformas de streaming.
+
+Para garantir a consistência da análise, foi necessário investigar cada caso individualmente e decidir qual registro manter. A escolha se baseou no número de streams e na completude dos metadados técnicos. Essa etapa foi fundamental para evitar distorções nos resultados e garantir que cada música fosse considerada apenas uma vez nas análises estatísticas e de desempenho.
+
+### 🎧 Análise individual das músicas
+
+#### SNAP – Rosa Linn
+
+- Registros com mesmo BPM e modo.
+
+- Diferença pequena no número de playlists e streams.
+
+- 🧼 Conclusão: Trata-se da mesma versão da música distribuída com dois track_id. Mantivemos o registro com maior número de streams.
+
+#### About Damn Time – Lizzo
+
+- Valores idênticos de BPM, tonalidade, modo e streams.
+
+- Diferença apenas nas playlists associadas.
+
+- 🧼 Conclusão: Duplicata técnica. Optamos por manter apenas um dos registros.
+
+#### Take My Breath – The Weeknd
+
+- Mesmo BPM, mas tonalidades e modos distintos, além de diferenças de popularidade.
+
+- 🧼 Conclusão: São versões diferentes (ex: versão do álbum e remix). Mantivemos a versão com maior número de streams para evitar viés.
+
+#### SPIT IN MY FACE! – ThxSoMch
+
+- BPMs e tonalidades diferentes sugerem edições distintas.
+
+- Ambas as versões apresentam números relevantes de streams.
+
+- 🧼 Conclusão: São versões diferentes da mesma faixa. Ambas foram mantidas para possibilitar uma análise mais completa sobre o comportamento de consumo.
+
+
+✅  Ações realizadas
+
+- Identificamos e tratamos duplicatas técnicas, mantendo apenas uma versão da música para evitar distorções nas métricas.
+
+- Mantivemos versões distintas quando os dados indicaram diferenças reais nas características sonoras ou no comportamento de consumo.
 
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
