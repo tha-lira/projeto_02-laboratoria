@@ -4,7 +4,8 @@
 O objetivo deste projeto é analisar dados do Spotify para identificar padrões de comportamento relacionados às músicas, artistas e seu desempenho em playlists, rankings (charts) e número de streams. A análise visa gerar insights estratégicos que possam orientar ações de marketing, posicionamento de faixas e crescimento da plataforma.
 
 ### 👥 Equipe
-...
+👩‍💻 Thais Lira Apolinario
+👩‍💻 Stephanie Cerqueira Silva
 
 ### 🛠️ Ferramentas e Tecnologias Utilizadas
 - BigQuery
@@ -87,29 +88,29 @@ Para garantir a consistência da análise, foi necessário investigar cada caso 
 
 ### 🎧 Análise individual das músicas
 
-#### SNAP – Rosa Linn
+#### SNAP – Rosa Linn Track_id = 5675634 e 3814670
 
 - Registros com mesmo BPM e modo.
 
 - Diferença pequena no número de playlists e streams.
 
-- 🧼 Conclusão: Trata-se da mesma versão da música distribuída com dois track_id. Mantivemos o registro com maior número de streams.
+- 🧼 Conclusão: Duplicata técnica. Optamos por manter apenas um dos registros com maior número de streams. Item excluido ID: 3814670
 
-#### About Damn Time – Lizzo
+#### About Damn Time – Lizzo track_id: 7173596 e 5080031
 
 - Valores idênticos de BPM, tonalidade, modo e streams.
 
 - Diferença apenas nas playlists associadas.
 
-- 🧼 Conclusão: Duplicata técnica. Optamos por manter apenas um dos registros.
+- 🧼 Conclusão: Duplicata técnica. Optamos por manter apenas um dos registros com maior número de streams. Item excluido ID: 5080031
 
-#### Take My Breath – The Weeknd
+#### Take My Breath – The Weeknd  track_id: 1119309 e 4586215
 
 - Mesmo BPM, mas tonalidades e modos distintos, além de diferenças de popularidade.
 
-- 🧼 Conclusão: São versões diferentes (ex: versão do álbum e remix). Mantivemos a versão com maior número de streams para evitar viés.
+- 🧼 Conclusão: São versões diferentes da mesma faixa. Ambas foram mantidas para possibilitar uma análise mais completa sobre o comportamento de consumo.
 
-#### SPIT IN MY FACE! – ThxSoMch
+#### SPIT IN MY FACE! – ThxSoMch  track_id: 4967469 e 8173823
 
 - BPMs e tonalidades diferentes sugerem edições distintas.
 
@@ -122,7 +123,7 @@ Para garantir a consistência da análise, foi necessário investigar cada caso 
 
 - Identificamos e tratamos duplicatas técnicas, mantendo apenas uma versão da música para evitar distorções nas métricas.
 
-- Mantivemos versões distintas quando os dados indicaram diferenças reais nas características sonoras ou no comportamento de consumo.
+- Mantivemos as versões os dados indicaram diferenças reais nas características sonoras ou no comportamento de consumo.
 
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 

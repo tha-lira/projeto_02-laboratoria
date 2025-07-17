@@ -5,7 +5,7 @@ Este documento contém as principais fórmulas e cálculos utilizados no Projeto
 
 ### 📍 Identificar valores nulos
 
-Como primeiro passo, utilizei a função **SELECT COUNT(*)** para contar o total de registros e a função **COUNTIF(variável IS NULL)** para identificar a quantidade de valores nulos em cada coluna da base:
+Iniciamos a análise com **SELECT COUNT(*)** para contar os registros totais e **COUNTIF(coluna IS NULL)** para identificar a quantidade de valores ausentes em cada coluna.
 
 ```
  SELECT
@@ -41,7 +41,7 @@ Além disso, apliquei um **SELECT * WHERE** variável **IS NULL** para inspecion
 
 ### 📍Identificar valores duplicados
 
-Para o tratamento dos valores duplicados,usei **GROUP BY com HAVING COUNT(*) > 1** foram identificados, através do track_name, os artist_s__name quatro músicas duplicadas. 
+🎧 Durante a análise, utilizamos a função **GROUP BY** combinada com **HAVING COUNT(*) > 1** para identificar possíveis duplicatas com base na combinação de **track_name** e **artist_s__name**. Esse procedimento revelou quatro músicas com múltiplos registros associados ao mesmo artista e título:
 
 ```
  SELECT
@@ -53,7 +53,8 @@ Para o tratamento dos valores duplicados,usei **GROUP BY com HAVING COUNT(*) > 1
  group by track_name, artist_s__name
  having count(*) > 1
 ```
-- Para inspecionar uma duplicata específica (ex: Rosa Linn):
+
+🎧 Após identificar os casos, investigamos individualmente os registros utilizando o nome do artista. Por exemplo, para analisar os dados de Rosa Linn, utilizamos a seguinte consulta:
 
 ```
 SELECT
@@ -63,13 +64,29 @@ WHERE
 artist_s__name = 'Rosa Linn'
 ```
 
+🎧 Em seguida, recuperamos os dados técnicos das faixas usando o track_id, o que permitiu verificar diferenças em aspectos como BPM, tonalidade, modo, número de playlists e streams:
+
+```
+SELECT
+ *
+FROM `spotify-analysis-465623.spotify_data.track_technical`
+WHERE track_id IN (
+  '5675634', '3814670',
+  '7173596', '5080031',
+  '1119309','4586215',
+  '4967469', '8173823'
+)
+```
+
 #### 📌 Explicação rápida:
 
-- GROUP BY → Agrupa os dados por uma ou mais colunas.
+- GROUP BY → Agrupa os dados por uma ou mais colunas, permitindo realizar agregações, como contar quantas vezes cada combinação aparece.
 
-- HAVING COUNT(*) > 1 → Mostra apenas os grupos que têm duplicatas.
+- HAVING COUNT(*) > 1 → Filtra os grupos formados pelo GROUP BY, retornando apenas aqueles com mais de uma ocorrência (ou seja, duplicatas).
 
-- SELECT * WHERE condição → Filtra e exibe os registros conforme critério definido.
+- SELECT * WHERE condição → Filtra e exibe todos os registros da tabela que atendem a uma condição específica, útil para investigar mais a fundo registros suspeitos ou específicos.
+
+- IN() → Permite filtrar múltiplos valores de uma vez, útil para consultar vários track_id ao mesmo tempo.
 
 ## 📍Identificar e gerenciar dados fora do escopo de análise
 Para detectar anos fora do intervalo de análise (ex: 1930):
