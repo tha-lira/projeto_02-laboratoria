@@ -1,11 +1,11 @@
 # 📊 
 
 ### 🎯 Objetivo do Projeto
-O objetivo deste projeto é analisar dados do Spotify para identificar padrões de comportamento relacionados às músicas, artistas e seu desempenho em playlists, rankings (charts) e número de streams. A análise visa gerar insights estratégicos que possam orientar ações de marketing, posicionamento de faixas e crescimento da plataforma.
+O objetivo deste projeto é analisar dados de **faixas musicais presentes no Spotify** a fim de identificar padrões que influenciam o desempenho das músicas na plataforma. A análise busca compreender como características técnicas e comportamentais das faixas — como presença em playlists, rankings e número de streams — se relacionam com seu sucesso. A partir desses insights, pretende-se apoiar a tomada de decisões estratégicas em áreas como marketing musical, curadoria de conteúdo e posicionamento de artistas.
 
 ### 👥 Equipe
-👩‍💻 Thais Lira Apolinario
-👩‍💻 Stephanie Cerqueira Silva
+- 👩‍💻 Thais Lira Apolinario
+- 👩‍💻 Stephanie Cerqueira Silva
 
 ### 🛠️ Ferramentas e Tecnologias Utilizadas
 - BigQuery
@@ -64,7 +64,7 @@ Na etapa de análise exploratória dos dados, realizamos a verificação de valo
 
 
 ### 🧼 Tratamento realizado
-- A variável **key**, representa o tom musical da música foi removida devido à alta proporção de valores nulos (95 registros) e à baixa relevância para os objetivos da análise, que não contemplam aspectos harmônicos da música.
+- A variável **key**, que representa o tom musical da faixa, foi removida devido à alta proporção de valores nulos (95 registros) e à baixa relevância para os objetivos da análise, que não contemplam aspectos harmônicos da música.
 
 - A variável **in_shazam_charts**, representa presença e classificação da música nas paradas da Shazam. Teve valores nulos (50 registros) substituídos por 0, com base na premissa de que a ausência de entrada indica que a música não esteve nas paradas do Shazam. 
 
@@ -82,7 +82,7 @@ Durante a análise da base de dados, foi identificada a presença de múltiplos 
 
 - **SPIT IN MY FACE!** (ThxSoMch): **track_id** 4967469 e 8173823
 
-Essa duplicidade ocorre porque uma mesma faixa pode estar cadastrada com diferentes identificadores, seja por versões lançadas em momentos distintos, inclusão em álbuns ou singles separados, edições remixadas ou por outras estratégias de distribuição nas plataformas de streaming.
+Essa duplicidade ocorre porque uma mesma faixa pode ser cadastrada com diferentes identificadores, seja por versões lançadas em momentos distintos, inclusão em álbuns ou singles separados, edições remixadas ou por outras estratégias de distribuição nas plataformas de streaming.
 
 Para garantir a consistência da análise, foi necessário investigar cada caso individualmente e decidir qual registro manter. A escolha se baseou no número de streams e na completude dos metadados técnicos. Essa etapa foi fundamental para evitar distorções nos resultados e garantir que cada música fosse considerada apenas uma vez nas análises estatísticas e de desempenho.
 
@@ -128,37 +128,39 @@ Para garantir a consistência da análise, foi necessário investigar cada caso 
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
 ## 📍Identificar dados fora do escopo de análise
-Durante a análise, foram identificados registros que estavam fora do escopo temporal definido para o projeto, como músicas com ano de lançamento muito antigo (ex: 1930), que destoavam do restante da base (que abrange majoritariamente os anos 2000 a 2025).
 
-### 🧼 Tratamento realizado
-Para garantir a consistência da análise e evitar distorções nos resultados, esses registros foram excluídos utilizando a cláusula WHERE released_year BETWEEN 2000 AND 2025.
-
-[Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
+Por enquanto, não identificamos valores que estejam claramente fora do escopo da análise. Todas as variáveis presentes parecem relevantes neste momento. No entanto, alguns casos poderão ser reavaliados durante as próximas etapas da análise, como por exemplo a quantidade de artistas por faixa.
 
 ## 📍Identificar dados discrepantes em variáveis ​​categóricas
 
-Durante a análise exploratória, foram identificados possíveis dados discrepantes em variáveis categóricas, como track_name e artist_s__name. Esses dados, por conterem caracteres especiais, emojis ou acentos variados, poderiam comprometer agrupamentos e contagens precisas.
+Durante a análise exploratória, foram identificados possíveis dados discrepantes em variáveis categóricas, como **track_name** e **artist_s__name**, totalizando **48 ocorrências**. Esses registros apresentavam caracteres especiais, emojis ou variações de acentuação, o que poderia comprometer a padronização, além de impactar negativamente agrupamentos, contagens e comparações futuras. 
 
 ### 🧼 Tratamento realizado 
 
-Para isso, aplicamos a função REGEXP_REPLACE() para limpar esses campos, removendo tudo que não fosse letra, número ou espaço.
+Para garantir a padronização dos dados categóricos, aplicamos a função REGEXP_REPLACE() com o objetivo de remover caracteres especiais, símbolos e emojis, mantendo apenas letras, números e espaços. Em seguida, utilizamos a função LOWER() para padronizar todos os valores em letras minúsculas, evitando divergências em contagens e agrupamentos causadas por diferenças de formatação.
 
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
 ## 📍Identificar dados discrepantes em variáveis ​​numéricas
 
-As variáveis numéricas também foram avaliadas para detectar valores que estivessem fora do padrão esperado. Um exemplo claro foi a variável released_year, que continha valores como 1930, muito fora do intervalo esperado para a base.
+Durante a análise exploratória, não foram encontradas discrepâncias relevantes nas tabelas track_in_competition e track_technical. Embora inicialmente valores como 0 em variáveis como instrumentalness_% parecessem inconsistências, observamos que ocorrem em 866 registros — o que indica que se trata de um padrão legítimo e frequente no conjunto de dados.
+
+Já na tabela track_in_spotify, foram identificados alguns dados que destoam do esperado:
+
+- Ano de lançamento incorreto: músicas com ano de lançamento 1930, associadas a artistas contemporâneos como Styrx, Utku INC e Thezth, o que sugere um possível erro de digitação ou preenchimento.
+
+- Texto em campos numéricos: presença de valores textuais em colunas que deveriam conter apenas números.
+
+- Registro com dados ausentes: a linha de ID 4061483 possui valor nulo para streams e outras variáveis importantes, comprometendo sua relevância para a análise.
 
 ### 🧼 Tratamento realizado
 
-Com base nessa análise, foi definido um intervalo válido entre os anos de 2000 e 2025, considerando a relevância e atualidade dos dados. Registros com ano de lançamento fora desse intervalo foram considerados fora do escopo e excluídos da visualização consolidada.
+Corrigimos o ano de lançamento das músicas que estavam incorretas, utilizando uma referência média de lançamentos dos respectivos artistas (quando possível). Removemos registros inconsistentes, como a linha com ID 4061483, que apresentava streams nulo e demais variáveis com valores muito baixos. Garantimos que campos numéricos estivessem corretamente preenchidos, eliminando ou ajustando valores textuais indevidos.
 
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
 ## 📍Verificar e alterar os tipos de dados
-
-Para garantir que todos os campos estivessem no formato correto para análise, foi feita a conversão de algumas colunas de texto para número. 
-
+ 
 ### 🧼 Tratamento realizado 
 
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
@@ -170,10 +172,22 @@ Para garantir que todos os campos estivessem no formato correto para análise, f
 
 ## 📍Criar novas variáveis
 
-### 🧼 Tratamento realizado ​​
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
 ## 📍Construir tabelas de dados auxiliares
 
-### 🧼 Tratamento realizado
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
+
+## ✅ Conclusão da Limpeza de Dados
+
+Após todas as etapas de inspeção, limpeza e padronização, obtivemos uma base consolidada, confiável e pronta para análise. As ações aplicadas garantem:
+
+- Eliminação de duplicidades técnicas;
+
+- Padronização de nomes e formatos;
+
+- Correção e exclusão de dados discrepantes;
+
+- Preenchimento ou remoção de valores nulos conforme o contexto.
+
+Essa preparação foi essencial para garantir a qualidade e integridade dos dados, permitindo que as próximas análises sejam mais precisas e relevantes para os objetivos do projeto.
