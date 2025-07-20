@@ -1,11 +1,10 @@
 # 📊 Fórmulas Utilizadas – Para analisar os dados 
 
-Este documento contém as principais fórmulas e cálculos utilizados no Projeto 2 da Jornada de Dados da Laboratória, que envolveu a análise de dados musicais.
-
+Este documento apresenta as principais consultas SQL utilizadas no Projeto 2 da Jornada de Dados da Laboratória, explicando por que e como cada uma delas foi aplicada na análise de dados musicais.
 
 ### 📍 Identificar valores nulos
 
-Iniciamos a análise com **SELECT COUNT(*)** para contar os registros totais e **COUNTIF(coluna IS NULL)** para identificar a quantidade de valores ausentes em cada coluna.
+Para verificar a integridade dos dados, iniciamos a análise identificando registros com valores ausentes. Usamos **COUNT(*)** para saber o total de linhas da tabela e **COUNTIF(coluna IS NULL)** para contar quantos valores estão ausentes em cada coluna:
 
 ```
  SELECT
@@ -19,29 +18,29 @@ Iniciamos a análise com **SELECT COUNT(*)** para contar os registros totais e *
  FROM `spotify-analysis-465623.spotify_data.track_in_competition`
 ```
 
-Além disso, apliquei um **SELECT * WHERE** variável **IS NULL** para inspecionar os registros ausentes nessa coluna antes de tratá-las.
+Depois, inspecionamos os dados ausentes:
 
 ```
- SELECT
- *
- FROM `spotify-analysis-465623.spotify_data.track_in_competition`
- where
- in_shazam_charts 
- is null
+SELECT
+  *
+FROM `spotify-analysis-465623.spotify_data.track_in_competition`
+where
+  in_shazam_charts 
+is null
 ```
 
 #### 📌 Explicação rápida:
 
-- SELECT COUNT(*) → Conta todas as linhas da tabela.
+- COUNT(*) → Conta o total de registros.
 
-- COUNTIF(variável IS NULL) → Conta quantas linhas têm valor nulo em uma coluna específica.
+- COUNTIF(coluna IS NULL) → Identifica quantos valores estão ausentes em cada coluna.
 
-- SELECT * FROM tabela WHERE coluna IS NULL → Mostra as linhas com valor nulo em determinada coluna.
+- WHERE coluna IS NULL → Permite inspecionar detalhadamente os registros com valores nulos.
 
 
 ### 📍Identificar valores duplicados
 
-🎧 Durante a análise, utilizamos a função **GROUP BY** combinada com **HAVING COUNT(*) > 1** para identificar possíveis duplicatas com base na combinação de **track_name** e **artist_s__name**. Esse procedimento revelou quatro músicas com múltiplos registros associados ao mesmo artista e título:
+Identificar duplicatas é essencial para evitar contagens erradas e distorções nas análises. Usamos **GROUP BY** com **HAVING COUNT(*) > 1** para encontrar registros duplicados baseados em track_name e artist_s__name:
 
 ```
  SELECT
@@ -54,7 +53,7 @@ Além disso, apliquei um **SELECT * WHERE** variável **IS NULL** para inspecion
  having count(*) > 1
 ```
 
-🎧 Após identificar os casos, investigamos individualmente os registros utilizando o nome do artista. Por exemplo, para analisar os dados de Rosa Linn, utilizamos a seguinte consulta:
+Depois, investigamos caso a caso:
 
 ```
 SELECT
@@ -64,7 +63,7 @@ WHERE
 artist_s__name = 'Rosa Linn'
 ```
 
-🎧 Em seguida, recuperamos os dados técnicos das faixas usando o track_id, o que permitiu verificar diferenças em aspectos como BPM, tonalidade, modo, número de playlists e streams:
+E, por fim, comparamos os dados técnicos dessas músicas:
 
 ```
 SELECT
@@ -89,100 +88,124 @@ WHERE track_id IN (
 - IN() → Permite filtrar múltiplos valores de uma vez, útil para consultar vários track_id ao mesmo tempo.
 
 ## 📍Identificar e gerenciar dados fora do escopo de análise
-Para detectar anos fora do intervalo de análise (ex: 1930):
 
-```
- SELECT DISTINCT released_year
- FROM `spotify-analysis-465623.spotify_data.track_in_spotify`
- ORDER BY released_year;
-```
-#### 📌 Explicação rápida:
-
-- SELECT DISTINCT → Retorna apenas valores únicos.
-
-- ORDER BY → Organiza os valores em ordem crescente (ou decrescente).
+Por enquanto, não identificamos valores que estejam claramente fora do escopo da análise. Todas as variáveis presentes parecem relevantes neste momento. No entanto, alguns casos poderão ser reavaliados durante as próximas etapas da análise, como por exemplo a quantidade de artistas por faixa.
 
 ## 📍Identificar dados discrepantes em variáveis ​​categóricas
 
-Para identificar valores que apresentam discrepâncias, utilizamos a seguinte consulta SQL:
+Valores categóricos (como nomes de artistas ou músicas) podem conter caracteres especiais, acentos incomuns, emojis ou símbolos invisíveis, o que pode comprometer a consistência dos dados e causar erros em agrupamentos, contagens e visualizações.
+
+Para identificar essas discrepâncias, usamos a seguinte consulta:
 
 ```
- SELECT artist_s__name, track_name
- FROM `spotify-analysis-465623.spotify_data.track_in_spotify`
- WHERE REGEXP_CONTAINS(artist_s__name, r'[^\x20-\x7E]')
+SELECT  
+artists_name,
+REGEXP_REPLACE(artists_name, r'[^\x20-\x7E]', ' ') AS artists_name_ok
+FROM `musicproject2-466100.spotify_data.track_in_spotify`
 ```
 
 #### 📌 Explicação rápida:
 
-- REGEXP_CONTAINS(campo, 'padrão') → verifica se o texto no campo contém o padrão definido pela expressão regular e retorna TRUE ou FALSE.
+- REGEXP_CONTAINS() → Verifica se a variável contém caracteres fora da faixa ASCII padrão (letras, números e sinais comuns).
+
+- A expressão r'[^\x20-\x7E]' identifica quaisquer símbolos especiais, acentos diferentes, emojis ou espaços invisíveis.
+
+- Essa etapa é importante para detectar dados que podem ter sido inseridos de forma inconsistente (ex: “Beyoncé”, “Beyoncé”, “BEYONCÉ”).
 
 ## 📍Identificar e tratar dados discrepantes em variáveis ​​numéricas
 
-- Ao verificar a variável `streams`, identificamos divergências nos dados, como valores muito baixos ou muito altos que podem indicar outliers.
+Para verificar possíveis discrepâncias em variáveis numéricas, utilizamos a seguinte query, que nos ajuda a identificar valores muito baixos ou muito altos, que podem indicar outliers:
 
 ```
  SELECT
- MIN(streams) AS menor_stream,
- MAX(streams) AS maior_stream,
+  MIN(Variavel) AS menor_variavel,
+  MAX(Variavel) AS maior_variavel,
+  AVG(Variavel) AS media_variavel,
  FROM `spotify-analysis-465623.spotify_data.track_in_spotify`
 ```
+
+Essa análise fornece uma visão geral da distribuição dos dados e possibilita identificar se há valores extremos que precisam ser investigados ou tratados.
+
 #### 📌 Explicação rápida:
 
-- MIN() e MAX() retornam, respectivamente, o menor e o maior valor da coluna streams, ajudando a identificar possíveis valores discrepantes.
+- MIN() → Retorna o menor valor da variável.
+
+- MAX() → Retorna o maior valor da variável.
+
+- AVG() → Retorna a média dos valores da variável.
 
 ## 📍Verificar e alterar os tipos de dados
-Para converter a coluna streams para tipo numérico inteiro:
+
+
+
+
+## ✅ Conclusão da Limpeza de Dados
+
+Para unir corretamente as tabelas e garantir a integridade dos dados, realizamos limpezas específicas com base na análise inicial. Abaixo estão descritas as ações executadas em cada tabela, seguidas das queries utilizadas.
+
+### 🎯 O que precisa ser feito na tabela track_in_spotify
+
+| Coluna           | Ação                                                                              |
+| ---------------- | --------------------------------------------------------------------------------- |
+| `track_name`     | Remover caracteres especiais e deixar tudo em letra **minúscula**                 |
+| `artist_s__name` | Mesmo tratamento: remover especiais e deixar **minúsculo**                        |
+| Duplicatas       | Remover os IDs: **5080031 e 3814670**                                             |
+| `streams`        | Remover linha com ID **4061483** e converter a coluna para **numérica** (`INT64`) |
+
+### 🧪 Query de Tratamento
 
 ```
- SELECT
- SAFE_CAST(streams AS INT64) AS streams_limpo
- FROM `spotify-analysis-465623.spotify_data.track_in_spotify`
+CREATE OR REPLACE TABLE `spotify-analysis-465623.spotify_data.track_in_spotify_tratado` AS
+WITH
+limpeza_texto AS (
+  SELECT
+    track_id,
+    LOWER(REGEXP_REPLACE(artist_s__name, r'[^\x20-\x7E]', '')) AS artists_name_tratado,
+    LOWER(REGEXP_REPLACE(track_name, r'[^\x20-\x7E]', '')) AS track_name_tratado,
+    
+    * EXCEPT (artist_s__name, track_name)
+  FROM `spotify-analysis-465623.spotify_data.track_in_spotify`
+),
+remocao_duplicatas AS (
+  SELECT *
+  FROM limpeza_texto
+  WHERE track_id NOT IN (5080031, 3814670)
+),
+tratamento_streams AS (
+  SELECT
+    *,
+    SAFE_CAST(streams AS INT64) AS streams_tratado
+  FROM remocao_duplicatas
+  WHERE track_id != 4061483
+)
+SELECT
+  track_id,
+  artists_name_tratado AS artists_name,
+  track_name_tratado AS track_name,
+  artist_count,
+  released_year,
+  released_month,
+  released_day,
+  in_spotify_playlists,
+  in_spotify_charts,
+  streams_tratado AS streams
+FROM tratamento_streams;
 ```
 
-#### 📌 Explicação rápida:
+### 🎯 O que precisa ser feito na tabela track_in_competition
 
-- SAFE_CAST(coluna AS tipo) → Tenta converter o valor de forma segura (sem erro se falhar).
-
-## 🧼 Criação da tabela final tratada
-
-A consulta abaixo:
-
-- Remove duplicatas (mantendo a com mais streams).
-
-- Remove anos fora do intervalo 2000 a 2025.
-
-- Padroniza nomes.
-
-- Substitui valores nulos de in_shazam_charts por 0 (ajuste incluído).
-
-- Remove a coluna key.
+### 🧪 Query de Tratamento 
 ```
- CREATE OR REPLACE VIEW spotify-analysis-465623.spotify_data.track_in_spotify_consolidade AS
- SELECT
- track_id,
- REGEXP_REPLACE(track_name, r'[^a-zA-Z0-9 ]', '') AS track_name, REGEXP_REPLACE(artist_s__name, r'[^a-zA-Z0-9 ]', '') AS artist_name, artist_count, released_year, released_month, released_day, in_spotify_playlists, in_spotify_charts, streams FROM ( SELECT *, ROW_NUMBER() OVER(PARTITION BY track_name, artist_s__name ORDER BY streams DESC) AS ordem FROM spotify-analysis-465623.spotify_data.track_in_spotify ) WHERE ordem = 1 AND released_year BETWEEN 2000 AND 2025 -- Exclusão de valores fora do escopo, como 1930
 ```
-📌 Explicação rápida:
 
-- ROW_NUMBER() OVER(PARTITION BY ... ORDER BY ...) → Numera os registros, mantendo só o primeiro (mais relevante).
+### 🎯 O que precisa ser feito na tabela track_technical
 
-- IFNULL(campo, valor) → Substitui valores nulos por um valor definido.
-
-- CREATE OR REPLACE VIEW → Cria ou atualiza uma view (tabela virtual com dados tratados).
+### 🧪 Query de Tratamento 
+```
+```
 
 ## 📍Unir (join) as tabelas de dados
 
-
 ## 📍Criar novas variáveis
-
-Adição de uma nova variável (data_de_lançamento):
-
-```
-SELECT released_year, released_month, released_day
-```
-
-```
-PARSE_DATE('%Y-%m-%d', FORMAT('%04d-%02d-%02d', released_year, released_month, released_day)) AS data_de_lanc
-```
 
 ## 📍Construir tabelas de dados auxiliares
