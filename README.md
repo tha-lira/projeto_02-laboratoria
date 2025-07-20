@@ -129,7 +129,15 @@ Para garantir a consistência da análise, foi necessário investigar cada caso 
 
 ## 📍Identificar dados fora do escopo de análise
 
-020
+Durante a análise do escopo do projeto, optamos por manter todas as variáveis disponíveis, com o objetivo de explorar o contexto musical de forma ampla. Essa decisão foi tomada para garantir uma visão mais completa dos fatores que influenciam o desempenho das faixas nas plataformas de streaming e suas características musicais.
+
+Dessa forma, foram mantidas as seguintes variáveis por tabela:
+
+- 🎵 track_in_spotify: `track_id`, `track_name`, `artist_s__name`, `artist_count`, `released_year`, `released_month`, `released_day`, `in_spotify_playlists`, `in_spotify_charts`, `streams`;
+
+- 🎵 track_in_competition: `track_id`, `in_apple_playlists`, `in_apple_charts`, `in_deezer_playlists`, `in_deezer_charts`, `in_shazam_charts`;
+
+- 🎵 track_technical:  `track_id`, `bpm`, `key`, `mode`, `danceability_%`, `valence_%`, `energy_%`, `acousticness_%`, `instrumentalness_%`, `liveness_%`, `speechiness_%`;
 
 ## 📍Identificar dados discrepantes em variáveis ​​categóricas
 
@@ -186,6 +194,17 @@ Essa preparação foi essencial para garantir a qualidade e integridade dos dado
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
 ## 📍Criar novas variáveis
+
+Nesta etapa, o objetivo foi criar novas variáveis derivadas para enriquecer a base de dados e permitir análises mais profundas sobre o comportamento musical dos artistas, distribuição de lançamentos e volume de produção.
+
+#### 🧩 Variáveis Criadas
+
+| Variável                      | Descrição                                                                                            |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `data_lancamento`             | Data de lançamento no formato `YYYY-MM-DD`, criada a partir do ano, mês e dia das colunas originais. |
+| `total_musicas_por_artista`   | Total de faixas únicas cadastradas por cada artista.                                                 |
+| `quantidade_musicas_por_data` | Total de músicas lançadas por data específica.                                                       |
+
 
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
