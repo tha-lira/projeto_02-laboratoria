@@ -129,7 +129,7 @@ Para garantir a consistência da análise, foi necessário investigar cada caso 
 
 ## 📍Identificar dados fora do escopo de análise
 
-Por enquanto, não identificamos valores que estejam claramente fora do escopo da análise. Todas as variáveis presentes parecem relevantes neste momento. No entanto, alguns casos poderão ser reavaliados durante as próximas etapas da análise, como por exemplo a quantidade de artistas por faixa.
+020
 
 ## 📍Identificar dados discrepantes em variáveis ​​categóricas
 
@@ -165,18 +165,6 @@ Corrigimos o ano de lançamento das músicas que estavam incorretas, utilizando 
 
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
-## 📍Unir (join) as tabelas de dados
-
-### 🧼 Tratamento realizado
-[Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
-
-## 📍Criar novas variáveis
-
-[Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
-
-## 📍Construir tabelas de dados auxiliares
-
-[Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
 ## ✅ Conclusão da Limpeza de Dados
 
@@ -191,3 +179,17 @@ Após todas as etapas de inspeção, limpeza e padronização, obtivemos uma bas
 - Preenchimento ou remoção de valores nulos conforme o contexto.
 
 Essa preparação foi essencial para garantir a qualidade e integridade dos dados, permitindo que as próximas análises sejam mais precisas e relevantes para os objetivos do projeto.
+
+## 📍Unir (join) as tabelas de dados
+
+### 🧼 Tratamento realizado
+[Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
+
+## 📍Criar novas variáveis
+
+[Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
+
+## 📍Construir tabelas de dados auxiliares
+
+[Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
+
