@@ -202,8 +202,7 @@ Nesta etapa, o objetivo foi criar novas variáveis derivadas para enriquecer a b
 | Variável                      | Descrição                                                                                            |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- |
 | `data_lancamento`             | Data de lançamento no formato `YYYY-MM-DD`, criada a partir do ano, mês e dia das colunas originais. |
-| `total_musicas_por_artista`   | Total de faixas únicas cadastradas por cada artista.                                                 |
-| `quantidade_musicas_por_data` | Total de músicas lançadas por data específica.                                                       |
+| `total_playlists`   | soma das participações nas playlists (Apple e Deezer).                                                 |                     
 
 
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
