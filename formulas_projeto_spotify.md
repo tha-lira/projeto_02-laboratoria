@@ -135,77 +135,216 @@ Essa análise fornece uma visão geral da distribuição dos dados e possibilita
 - AVG() → Retorna a média dos valores da variável.
 
 ## 📍Verificar e alterar os tipos de dados
+SELECT  
+SAFE_cast(streams AS INT64) AS streams_ok
+FROM `musicproject2-466100.spotify_data.track_in_spotify
 
-
-
+Modificação do tipo de dados de string para integer, trocando para nulo a variável
 
 ## ✅ Conclusão da Limpeza de Dados
 
 Para unir corretamente as tabelas e garantir a integridade dos dados, realizamos limpezas específicas com base na análise inicial. Abaixo estão descritas as ações executadas em cada tabela, seguidas das queries utilizadas.
 
-### 🎯 O que precisa ser feito na tabela track_in_spotify
+### tabela track_in_spotify
 
-| Coluna           | Ação                                                                              |
-| ---------------- | --------------------------------------------------------------------------------- |
-| `track_name`     | Remover caracteres especiais e deixar tudo em letra **minúscula**                 |
-| `artist_s__name` | Mesmo tratamento: remover especiais e deixar **minúsculo**                        |
-| Duplicatas       | Remover os IDs: **5080031 e 3814670**                                             |
-| `streams`        | Remover linha com ID **4061483** e converter a coluna para **numérica** (`INT64`) |
+- Padronização de texto: os nomes de artistas e faixas foram convertidos para letras minúsculas e limpos de caracteres especiais.
+
+- Remoção de duplicatas: registros duplicados com track_id específico foram excluídos para evitar distorções analíticas.
+
+- Conversão da coluna streams: valores não numéricos foram tratados e convertidos para o tipo INT64, removendo linhas com dados inconsistentes.
 
 ### 🧪 Query de Tratamento
 
 ```
-CREATE OR REPLACE TABLE `spotify-analysis-465623.spotify_data.track_in_spotify_tratado` AS
+CREATE OR REPLACE TABLE `spotify-analysis-465623.spotify_data.track_in_spotify_tratado` AS 
 WITH
+-- Etapa 1: Limpeza de texto
 limpeza_texto AS (
   SELECT
-    track_id,
     LOWER(REGEXP_REPLACE(artist_s__name, r'[^\x20-\x7E]', '')) AS artists_name_tratado,
     LOWER(REGEXP_REPLACE(track_name, r'[^\x20-\x7E]', '')) AS track_name_tratado,
-    
     * EXCEPT (artist_s__name, track_name)
   FROM `spotify-analysis-465623.spotify_data.track_in_spotify`
 ),
+
+-- Etapa 2: Remoção de duplicatas
 remocao_duplicatas AS (
   SELECT *
   FROM limpeza_texto
-  WHERE track_id NOT IN (5080031, 3814670)
+  WHERE track_id NOT IN ('5080031', '3814670')
 ),
+
+-- Etapa 3: Conversão da coluna streams e remoção de valor inválido
 tratamento_streams AS (
   SELECT
     *,
     SAFE_CAST(streams AS INT64) AS streams_tratado
   FROM remocao_duplicatas
-  WHERE track_id != 4061483
+  WHERE track_id != '4061483'
 )
+
+-- Resultado final
+SELECT
+  t.track_id,
+  t.artists_name_tratado AS artists_name,
+  t.track_name_tratado AS track_name,
+  t.artist_count,
+  t.released_year,
+  t.released_month,
+  t.released_day,
+  t.in_spotify_playlists,
+  t.in_spotify_charts,
+  t.streams_tratado AS streams
+FROM tratamento_streams t;
+```
+
+### tabela track_in_competition
+- Tratamento de valores nulos: a coluna in_shazam_charts apresentava valores ausentes que foram substituídos por zero com uso da função IFNULL(). Essa decisão garante consistência na análise de presença em plataformas, sem interferência de nulos.
+
+### 🧪 Query de Tratamento 
+
+```
+CREATE OR REPLACE TABLE `spotify-analysis-465623.spotify_data.track_in_competition_tratado` AS
 SELECT
   track_id,
-  artists_name_tratado AS artists_name,
-  track_name_tratado AS track_name,
-  artist_count,
-  released_year,
-  released_month,
-  released_day,
-  in_spotify_playlists,
-  in_spotify_charts,
-  streams_tratado AS streams
-FROM tratamento_streams;
+  in_apple_playlists,
+  in_apple_charts,
+  in_deezer_playlists,
+  in_deezer_charts,
+  IFNULL(in_shazam_charts, 0) AS in_shazam_charts
+FROM `spotify-analysis-465623.spotify_data.track_in_competition`;
 ```
+#### ✅ Explicação
 
-### 🎯 O que precisa ser feito na tabela track_in_competition
+- Por que usamos **IFNULL**?
+A função **IFNULL(coluna, valor)** substitui os valores nulos da coluna por um valor padrão — neste caso, zero.
+Isso é importante porque valores nulos poderiam afetar análises estatísticas, somatórios ou visualizações gráficas. Substituir por 0 representa ausência de presença nas paradas do Shazam.
+
+### tabela track_technical
+
+- Padronização de nomes de variáveis: foram removidos os símbolos % para facilitar análises futuras e evitar erros.
+
+- Filtragem de nulos: registros com valores ausentes na coluna key foram excluídos, já que essa variável é relevante para análises técnicas das faixas.
 
 ### 🧪 Query de Tratamento 
 ```
-```
-
-### 🎯 O que precisa ser feito na tabela track_technical
-
-### 🧪 Query de Tratamento 
-```
+CREATE OR REPLACE TABLE `spotify-analysis-465623.spotify_data.track_technical_tratado` AS
+SELECT
+  track_id,
+  bpm,
+  `key`,
+  mode,
+  `danceability_%` AS danceability,
+  `valence_%` AS valence,
+  `energy_%` AS energy,
+  `acousticness_%` AS acousticness,
+  `instrumentalness_%` AS instrumentalness,
+  `liveness_%` AS liveness,
+  `speechiness_%` AS speechiness
+FROM
+  `spotify-analysis-465623.spotify_data.track_technical`
+WHERE
+  `key` IS NOT NULL;
 ```
 
 ## 📍Unir (join) as tabelas de dados
 
+A união foi feita com base na coluna track_id, comum às três tabelas, utilizando a instrução INNER JOIN, que garante que apenas os registros presentes em todas as tabelas sejam considerados. Abaixo, a query utilizada:
+
+```
+CREATE OR REPLACE TABLE `spotify-analysis-465623.spotify_data.tabela_unificada_tratada` AS
+
+WITH
+  sp AS (
+    SELECT *
+    FROM `spotify-analysis-465623.spotify_data.track_in_spotify_tratado`
+  ),
+  tc AS (
+    SELECT *
+    FROM `spotify-analysis-465623.spotify_data.track_technical_tratado`
+  ),
+  comp AS (
+    SELECT *
+    FROM `spotify-analysis-465623.spotify_data.track_in_competition_tratado`
+  )
+
+SELECT
+  sp.track_id,
+  sp.artists_name,
+  sp.track_name,
+  sp.artist_count,
+  sp.released_year,
+  sp.released_month,
+  sp.released_day,
+  sp.in_spotify_playlists,
+  sp.in_spotify_charts,
+  sp.streams,
+  tc.bpm,
+  tc.key,
+  tc.mode,
+  tc.danceability,
+  tc.valence,
+  tc.energy,
+  tc.acousticness,
+  tc.instrumentalness,
+  tc.liveness,
+  tc.speechiness,
+  comp.in_apple_playlists,
+  comp.in_apple_charts,
+  comp.in_deezer_playlists,
+  comp.in_deezer_charts,
+  comp.in_shazam_charts
+FROM sp
+LEFT JOIN tc ON sp.track_id = tc.track_id
+LEFT JOIN comp ON sp.track_id = comp.track_id
+
+WHERE
+  sp.track_id IS NOT NULL
+  AND sp.artists_name IS NOT NULL
+  AND sp.track_name IS NOT NULL
+  AND sp.streams IS NOT NULL
+  AND tc.bpm IS NOT NULL
+  AND tc.key IS NOT NULL
+  AND tc.mode IS NOT NULL
+  AND tc.danceability IS NOT NULL
+  AND tc.valence IS NOT NULL
+  AND tc.energy IS NOT NULL
+  AND tc.acousticness IS NOT NULL
+  AND tc.instrumentalness IS NOT NULL
+  AND tc.liveness IS NOT NULL
+  AND tc.speechiness IS NOT NULL
+  AND comp.in_apple_playlists IS NOT NULL
+  AND comp.in_apple_charts IS NOT NULL
+  AND comp.in_deezer_playlists IS NOT NULL
+  AND comp.in_deezer_charts IS NOT NULL
+  AND comp.in_shazam_charts IS NOT NULL;
+```
+
 ## 📍Criar novas variáveis
+
+- Criação da variável data
+
+```
+SELECT  
+DATE (CONCAT(CAST(released_year AS STRING), "-", CAST(released_month AS STRING),"-", CAST(released_day AS STRING))),
+FROM `musicproject2-466100.spotify_data.track_in_spotify`
+```
+
+- Total de participação em playlists
+
+```
+SELECT
+  t1.track_id,
+  -- Soma as três colunas. Use IFNULL para tratar músicas que podem não estar na tabela do Spotify.
+  t1.in_apple_playlists + t1.in_deezer_playlists + IFNULL(t2.in_spotify_playlists, 0) AS total_playlists
+FROM
+  `musicproject2-466100.spotify_data.track_in_competition` AS t1
+LEFT JOIN
+  `musicproject2-466100.spotify_data.track_in_spotify` AS t2
+ON
+  t1.track_id = t2.track_id
+ORDER BY
+  total_playlists DESC;
+```
 
 ## 📍Construir tabelas de dados auxiliares

@@ -188,7 +188,23 @@ Após todas as etapas de inspeção, limpeza e padronização, obtivemos uma bas
 
 Essa preparação foi essencial para garantir a qualidade e integridade dos dados, permitindo que as próximas análises sejam mais precisas e relevantes para os objetivos do projeto.
 
-## 📍Unir (join) as tabelas de dados
+## 📍Unir (join) as tabelas de dados 
+
+Após a realização das limpezas individuais em cada uma das tabelas brutas, foi possível realizar a junção dos dados com segurança e consistência. A união teve como objetivo centralizar as informações técnicas e de desempenho das faixas musicais em uma única tabela, facilitando as análises exploratórias e estatísticas.
+
+Para garantir a integridade dos dados, a query de união foi elaborada considerando apenas os registros cujo track_id estava presente simultaneamente em todas as tabelas. 
+
+Essa abordagem permitiu evitar que fossem incluídos na tabela unificada registros com valores nulos oriundos de track_id ausentes em uma das fontes. Dessa forma, não foi necessário realizar uma exclusão posterior dos nulos, pois a query já foi desenhada para filtrar esses casos desde o início.
+
+Foram utilizadas três tabelas tratadas:
+
+- track_in_spotify_tratado (alias: ts): contém informações sobre nome da faixa, artista, data de lançamento e métricas de desempenho no Spotify.
+
+- track_in_competition_tratado (alias: tc): traz os dados sobre a presença das faixas em plataformas concorrentes como Apple Music, Deezer e Shazam.
+
+- track_technical_tratado (alias: tt): armazena as características técnicas das músicas, como BPM, tonalidade, energia e dançabilidade.
+
+A união foi feita com base na coluna track_id, comum às três tabelas, utilizando a instrução INNER JOIN, que garante que apenas os registros presentes em todas as tabelas sejam considerados. Abaixo, a query utilizada:
 
 ### 🧼 Tratamento realizado
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
@@ -203,8 +219,6 @@ Nesta etapa, o objetivo foi criar novas variáveis derivadas para enriquecer a b
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- |
 | `data_lancamento`             | Data de lançamento no formato `YYYY-MM-DD`, criada a partir do ano, mês e dia das colunas originais. |
 | `total_playlists`   | soma das participações nas playlists (Apple e Deezer).                                                 |                     
-
-
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
 ## 📍Construir tabelas de dados auxiliares
