@@ -252,23 +252,30 @@ WHERE
 A união foi feita com base na coluna track_id, comum às três tabelas, utilizando a instrução INNER JOIN, que garante que apenas os registros presentes em todas as tabelas sejam considerados. Abaixo, a query utilizada:
 
 ```
+-- Cria ou substitui a tabela unificada tratada com novas variáveis derivadas
 CREATE OR REPLACE TABLE `spotify-analysis-465623.spotify_data.tabela_unificada_tratada` AS
 
 WITH
+  -- Dados do Spotify
   sp AS (
     SELECT *
     FROM `spotify-analysis-465623.spotify_data.track_in_spotify_tratado`
   ),
+  
+  -- Dados técnicos das faixas
   tc AS (
     SELECT *
     FROM `spotify-analysis-465623.spotify_data.track_technical_tratado`
   ),
+  
+  -- Dados de presença nas plataformas concorrentes
   comp AS (
     SELECT *
     FROM `spotify-analysis-465623.spotify_data.track_in_competition_tratado`
   )
 
 SELECT
+  -- Informações básicas
   sp.track_id,
   sp.artists_name,
   sp.track_name,
@@ -276,9 +283,16 @@ SELECT
   sp.released_year,
   sp.released_month,
   sp.released_day,
+
+  -- Criação da variável derivada: data_lancamento (como campo de data)
+  PARSE_DATE('%Y-%m-%d', FORMAT('%04d-%02d-%02d', sp.released_year, sp.released_month, sp.released_day)) AS data_lancamento,
+
+  -- Métricas do Spotify
   sp.in_spotify_playlists,
   sp.in_spotify_charts,
   sp.streams,
+
+  -- Métricas técnicas
   tc.bpm,
   tc.key,
   tc.mode,
@@ -289,15 +303,22 @@ SELECT
   tc.instrumentalness,
   tc.liveness,
   tc.speechiness,
+
+  -- Métricas das outras plataformas
   comp.in_apple_playlists,
   comp.in_apple_charts,
   comp.in_deezer_playlists,
   comp.in_deezer_charts,
-  comp.in_shazam_charts
+  comp.in_shazam_charts,
+
+  -- Criação da variável derivada: total_playlists
+  (sp.in_spotify_playlists + comp.in_apple_playlists + comp.in_deezer_playlists) AS total_playlists
+
 FROM sp
 LEFT JOIN tc ON sp.track_id = tc.track_id
 LEFT JOIN comp ON sp.track_id = comp.track_id
 
+-- Filtros para garantir qualidade dos dados (sem nulos)
 WHERE
   sp.track_id IS NOT NULL
   AND sp.artists_name IS NOT NULL
@@ -318,33 +339,6 @@ WHERE
   AND comp.in_deezer_playlists IS NOT NULL
   AND comp.in_deezer_charts IS NOT NULL
   AND comp.in_shazam_charts IS NOT NULL;
-```
-
-## 📍Criar novas variáveis
-
-- Criação da variável data
-
-```
-SELECT  
-DATE (CONCAT(CAST(released_year AS STRING), "-", CAST(released_month AS STRING),"-", CAST(released_day AS STRING))),
-FROM `musicproject2-466100.spotify_data.track_in_spotify`
-```
-
-- Total de participação em playlists
-
-```
-SELECT
-  t1.track_id,
-  -- Soma as três colunas. Use IFNULL para tratar músicas que podem não estar na tabela do Spotify.
-  t1.in_apple_playlists + t1.in_deezer_playlists + IFNULL(t2.in_spotify_playlists, 0) AS total_playlists
-FROM
-  `musicproject2-466100.spotify_data.track_in_competition` AS t1
-LEFT JOIN
-  `musicproject2-466100.spotify_data.track_in_spotify` AS t2
-ON
-  t1.track_id = t2.track_id
-ORDER BY
-  total_playlists DESC;
 ```
 
 ## 📍Construir tabelas de dados auxiliares
