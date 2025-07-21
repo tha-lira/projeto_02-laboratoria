@@ -64,7 +64,7 @@ Na etapa de análise exploratória dos dados, realizamos a verificação de valo
 
 
 ### 🧼 Tratamento realizado
-- A variável **key**, que representa o tom musical da faixa, foi removida devido à alta proporção de valores nulos (95 registros) e à baixa relevância para os objetivos da análise, que não contemplam aspectos harmônicos da música.
+- A variável **key**, que representa o tom musical da faixa, foi emover as linhas com valores nulos na coluna, com o objetivo de manter apenas faixas com tonalidade definida e garantir consistência na análise técnica. embora a variável key não seja central para os objetivos da análise, optou-se por manter os registros completos e evitar distorções nos dados derivados de campos incompletos.
 
 - A variável **in_shazam_charts**, representa presença e classificação da música nas paradas da Shazam. Teve valores nulos (50 registros) substituídos por 0, com base na premissa de que a ausência de entrada indica que a música não esteve nas paradas do Shazam. 
 
