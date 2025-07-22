@@ -219,9 +219,19 @@ Nesta etapa, o objetivo foi criar novas variáveis derivadas para enriquecer a b
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- |
 | `data_lancamento`             | Data de lançamento no formato `YYYY-MM-DD`, criada a partir do ano, mês e dia das colunas originais. |
 | `total_playlists`   | soma das participações nas playlists (Apple e Deezer).                                                 |                     
-[Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
-
 ## 📍Construir tabelas de dados auxiliares
+
+1. Tabela Auxiliar: musicas_recentes
+
+Objetivo: Criar uma base auxiliar contendo apenas as músicas lançadas após o ano de 2020. Essa filtragem permite explorar tendências musicais mais atuais, ajudando a identificar artistas em ascensão, gêneros populares no período recente e mudanças no perfil das faixas em relação a atributos técnicos (como danceability, valence e energy).
+
+Justificativa Técnica: O uso da função EXTRACT(YEAR FROM data_lancamento) possibilita isolar o ano da data de lançamento, permitindo a filtragem das faixas mais recentes. A ordenação descendente por data_lancamento facilita a visualização cronológica das novidades no catálogo.
+
+2. Tabela Auxiliar: ranking_streams
+
+Objetivo: Criar uma tabela de apoio com as 100 músicas mais tocadas, com base na métrica de streams. Essa tabela é essencial para analisar quais faixas dominam a audiência nas plataformas de streaming, fornecendo insumos para análise de popularidade, padrões de sucesso e possíveis correlações com atributos técnicos ou estratégias de divulgação.
+
+Justificativa Técnica: A ordenação por streams em ordem decrescente, seguida do uso de LIMIT 100, garante a seleção apenas das faixas com maior volume de execução, permitindo foco nas músicas com maior alcance e relevância entre os usuários.
 
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 

@@ -342,3 +342,34 @@ WHERE
 ```
 
 ## 📍Construir tabelas de dados auxiliares
+
+1. Tabela Auxiliar: musicas_recentes
+
+```
+WITH musicas_recentes AS (
+  SELECT
+    track_name,
+    artists_name,
+    data_lancamento
+  FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+  WHERE EXTRACT(YEAR FROM data_lancamento) > 2020
+)
+
+SELECT *
+FROM musicas_recentes
+ORDER BY data_lancamento DESC;
+```
+
+2. Tabela Auxiliar: ranking_streams
+
+```
+WITH ranking_streams AS (
+  SELECT *
+  FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+  ORDER BY streams DESC
+  LIMIT 100
+)
+
+SELECT *
+FROM ranking_streams;
+```
