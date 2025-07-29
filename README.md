@@ -235,3 +235,10 @@ Justificativa Técnica: A ordenação por streams em ordem decrescente, seguida 
 
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
+
+
+#### Limitações
+
+Durante o desenvolvimento deste projeto, a ferramenta inicialmente proposta para a construção do dashboard foi o Power BI. No entanto, a execução local do Power BI Desktop apresentou limitações técnicas, principalmente devido à incompatibilidade com o sistema operacional Ubuntu utilizado no meu equipamento pessoal, além de restrições de hardware que inviabilizaram o uso de máquinas virtuais com Windows.
+
+Diante desse cenário, optei pelo uso do Looker Studio (antigo Data Studio), uma ferramenta de visualização de dados do Google, 100% baseada na web, que se integra de forma nativa com o Google BigQuery, onde os dados tratados do projeto estavam armazenados. Essa escolha se mostrou tecnicamente viável, gratuita, compatível com o ambiente Linux e adequada aos objetivos da análise.
