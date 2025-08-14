@@ -198,11 +198,11 @@ Essa abordagem permitiu evitar que fossem incluídos na tabela unificada registr
 
 Foram utilizadas três tabelas tratadas:
 
-- track_in_spotify_tratado (alias: ts): contém informações sobre nome da faixa, artista, data de lançamento e métricas de desempenho no Spotify.
+- track_in_spotify_tratado (ts): contém informações sobre nome da faixa, artista, data de lançamento e métricas de desempenho no Spotify.
 
-- track_in_competition_tratado (alias: tc): traz os dados sobre a presença das faixas em plataformas concorrentes como Apple Music, Deezer e Shazam.
+- track_in_competition_tratado (tc): traz os dados sobre a presença das faixas em plataformas concorrentes como Apple Music, Deezer e Shazam.
 
-- track_technical_tratado (alias: tt): armazena as características técnicas das músicas, como BPM, tonalidade, energia e dançabilidade.
+- track_technical_tratado (tt): armazena as características técnicas das músicas, como BPM, tonalidade, energia e dançabilidade.
 
 A união foi feita com base na coluna track_id, comum às três tabelas, utilizando a instrução INNER JOIN, que garante que apenas os registros presentes em todas as tabelas sejam considerados. Abaixo, a query utilizada:
 
@@ -235,7 +235,31 @@ Justificativa Técnica: A ordenação por streams em ordem decrescente, seguida 
 
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
+## 📍 Verificação de Variáveis Categóricas
 
+Nesta etapa do projeto, foram identificadas as variáveis categóricas da tabela tabela_unificada_tratada. Essas variáveis representam atributos descritivos e são essenciais para segmentações, agrupamentos e aplicação de filtros durante a análise exploratória e construção dos dashboards.
+
+As variáveis categóricas identificadas na base são:
+
+- track_id – Identificador único da faixa;
+
+- artists_name – Nome do(s) artista(s);
+
+- track_name – Nome da música;
+
+- key – Tom musical (ex: C, D#, F#m);
+
+- mode – Modo musical (ex: maior, menor);
+
+- released_year – Ano de lançamento;
+
+- released_month – Mês de lançamento;
+
+- released_day – Dia do lançamento;
+
+- data_lancamento – Data de lançamento.
+
+Essas variáveis foram utilizadas como dimensões de análise no Looker Studio, permitindo a criação de visualizações que evidenciam padrões de comportamento musical, popularidade de artistas e distribuição das faixas entre plataformas de streaming.
 
 #### Limitações
 
