@@ -219,6 +219,7 @@ Nesta etapa, o objetivo foi criar novas variáveis derivadas para enriquecer a b
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- |
 | `data_lancamento`             | Data de lançamento no formato `YYYY-MM-DD`, criada a partir do ano, mês e dia das colunas originais. |
 | `total_playlists`   | soma das participações nas playlists (Apple e Deezer).                                                 |                     
+
 ## 📍Construir tabelas de dados auxiliares
 
 1. Tabela Auxiliar: musicas_recentes
@@ -260,6 +261,22 @@ As variáveis categóricas identificadas na base são:
 - data_lancamento – Data de lançamento.
 
 Essas variáveis foram utilizadas como dimensões de análise no Looker Studio, permitindo a criação de visualizações que evidenciam padrões de comportamento musical, popularidade de artistas e distribuição das faixas entre plataformas de streaming.
+
+### 📌 Ver variáveis ​​categóricas
+
+- 📊 Gráfico 1: Top 10 artistas com mais músicas
+
+O gráfico mostra os 10 artistas com o maior número de músicas no conjunto de dados. A artista com maior presença é Taylor Swift(29), seguida de SZA(17) e Bad Bunny(16). Isso indica que esses artistas são os mais produtivos (ou com mais músicas listadas na base de dados). Artistas como The Weeknd, Harry Styles, Kendrick Lamar e BTS também aparecem, mostrando forte presença musical. BTS(8) é o último do top 10, com uma quantidade menor de músicas em relação aos demais.
+
+### 📌 Aplicar medidas de tendência central
+
+- 📊 Gráfico 2: Média de streams por artista
+
+Este gráfico apresenta os 10 artistas com maior média de streams por música. A artista com a maior média de streams é Tones and I, o que sugere que, embora possa ter poucas músicas, elas são altamente populares. Em seguida, aparecem Post Malone, Swae Lee, Drake, Wizkid e Kyla, todos com média de streams muito elevada, indicando grande alcance por música.
+
+Artistas como The Weeknd, que estavam no gráfico anterior (com muitas músicas), aparecem aqui em posição intermediária. Isso indica que, mesmo com muitos lançamentos, a média de streams por música não é a mais alta.
+
+Na parte inferior do ranking estão The Chainsmokers e Coldplay, o que mostra que, em média, suas músicas são menos ouvidas em comparação com os líderes do gráfico, mesmo que sejam artistas conhecidos.
 
 #### Limitações
 
