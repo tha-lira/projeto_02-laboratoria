@@ -2,6 +2,8 @@
 
 Este documento apresenta as principais consultas SQL utilizadas no Projeto 2 da Jornada de Dados da Laboratória, explicando por que e como cada uma delas foi aplicada na análise de dados musicais.
 
+## 🎯 Processar e preparar a base de dados
+
 ### 📍 Identificar valores nulos
 
 Para verificar a integridade dos dados, iniciamos a análise identificando registros com valores ausentes. Usamos **COUNT(*)** para saber o total de linhas da tabela e **COUNTIF(coluna IS NULL)** para contar quantos valores estão ausentes em cada coluna:
@@ -87,11 +89,11 @@ WHERE track_id IN (
 
 - IN() → Permite filtrar múltiplos valores de uma vez, útil para consultar vários track_id ao mesmo tempo.
 
-## 📍Identificar e gerenciar dados fora do escopo de análise
+### 📍Identificar e gerenciar dados fora do escopo de análise
 
 Por enquanto, não identificamos valores que estejam claramente fora do escopo da análise. Todas as variáveis presentes parecem relevantes neste momento. No entanto, alguns casos poderão ser reavaliados durante as próximas etapas da análise, como por exemplo a quantidade de artistas por faixa.
 
-## 📍Identificar dados discrepantes em variáveis ​​categóricas
+### 📍Identificar dados discrepantes em variáveis ​​categóricas
 
 Valores categóricos (como nomes de artistas ou músicas) podem conter caracteres especiais, acentos incomuns, emojis ou símbolos invisíveis, o que pode comprometer a consistência dos dados e causar erros em agrupamentos, contagens e visualizações.
 
@@ -112,7 +114,7 @@ FROM `musicproject2-466100.spotify_data.track_in_spotify`
 
 - Essa etapa é importante para detectar dados que podem ter sido inseridos de forma inconsistente (ex: “Beyoncé”, “Beyoncé”, “BEYONCÉ”).
 
-## 📍Identificar e tratar dados discrepantes em variáveis ​​numéricas
+### 📍Identificar e tratar dados discrepantes em variáveis ​​numéricas
 
 Para verificar possíveis discrepâncias em variáveis numéricas, utilizamos a seguinte query, que nos ajuda a identificar valores muito baixos ou muito altos, que podem indicar outliers:
 
@@ -134,7 +136,7 @@ Essa análise fornece uma visão geral da distribuição dos dados e possibilita
 
 - AVG() → Retorna a média dos valores da variável.
 
-## 📍Verificar e alterar os tipos de dados
+### 📍Verificar e alterar os tipos de dados
 SELECT  
 SAFE_cast(streams AS INT64) AS streams_ok
 FROM `musicproject2-466100.spotify_data.track_in_spotify
@@ -227,6 +229,7 @@ Isso é importante porque valores nulos poderiam afetar análises estatísticas,
 - Filtragem de nulos: registros com valores ausentes na coluna key foram excluídos, já que essa variável é relevante para análises técnicas das faixas.
 
 ### 🧪 Query de Tratamento 
+
 ```
 CREATE OR REPLACE TABLE `spotify-analysis-465623.spotify_data.track_technical_tratado` AS
 SELECT
@@ -247,7 +250,7 @@ WHERE
   `key` IS NOT NULL;
 ```
 
-## 📍Unir (join) as tabelas de dados
+### 📍Unir (join) as tabelas de dados
 
 A união foi feita com base na coluna track_id, comum às três tabelas, utilizando a instrução INNER JOIN, que garante que apenas os registros presentes em todas as tabelas sejam considerados. Abaixo, a query utilizada:
 
@@ -341,7 +344,7 @@ WHERE
   AND comp.in_shazam_charts IS NOT NULL;
 ```
 
-## 📍Construir tabelas de dados auxiliares
+### 📍Construir tabelas de dados auxiliares
 
 1. Tabela Auxiliar: musicas_recentes
 
@@ -372,4 +375,173 @@ WITH ranking_streams AS (
 
 SELECT *
 FROM ranking_streams;
+```
+
+# 🎯 Análise exploratória	
+
+### 📍 Agrupar dados por variáveis categóricas
+
+```
+-- Top 10 artistas com mais músicas
+
+SELECT 
+  artists_name,
+  COUNT(track_id) AS qtd_musicas
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+GROUP BY artists_name
+ORDER BY qtd_musicas DESC
+LIMIT 10;
+
+-- Distribuição de músicas por ano de lançamento
+
+SELECT 
+  released_year,
+  COUNT(track_id) AS qtd_musicas
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+GROUP BY released_year
+ORDER BY released_year;
+
+-- Distribuição por tonalidade (key)
+
+SELECT 
+  key,
+  COUNT(track_id) AS qtd_musicas
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+GROUP BY key
+ORDER BY qtd_musicas DESC;
+
+-- Distribuição por modo (maior/menor)
+
+SELECT 
+  mode,
+  COUNT(track_id) AS qtd_musicas
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+GROUP BY mode
+ORDER BY qtd_musicas DESC;
+```
+
+### 📍 Visualizar variáveis ​​categóricas
+
+```
+-- Top 10 artistas com mais músicas
+SELECT artists_name, COUNT(track_id) AS qtd_musicas
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+GROUP BY artists_name
+ORDER BY qtd_musicas DESC
+LIMIT 10;
+
+-- Distribuição por ano
+SELECT released_year, COUNT(track_id) AS qtd_musicas
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+GROUP BY released_year
+ORDER BY released_year;
+
+-- Distribuição por tonalidade (key)
+SELECT key, COUNT(track_id) AS qtd_musicas
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+GROUP BY key
+ORDER BY qtd_musicas DESC;
+
+-- Distribuição por modo (maior/menor)
+SELECT mode, COUNT(track_id) AS qtd_musicas
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+GROUP BY mode
+ORDER BY qtd_musicas DESC;
+```
+
+### 📍 Aplicar medidas de tendência central
+
+```
+-- Estatísticas básicas: média, mínimo, máximo, desvio
+SELECT
+  'streams' AS variavel, AVG(streams) AS media, MIN(streams) AS minimo, MAX(streams) AS maximo
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+
+UNION ALL
+SELECT 'bpm', AVG(bpm), MIN(bpm), MAX(bpm)
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+
+UNION ALL
+SELECT 'danceability', AVG(danceability), MIN(danceability), MAX(danceability)
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
+```
+
+### 📍 Visualizar a distribuição dos dados
+
+```
+-- Distribuição de danceability por faixas
+SELECT ROUND(danceability,1) AS faixa_dance, COUNT(*) AS qtd
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+GROUP BY faixa_dance
+ORDER BY faixa_dance;
+
+-- Distribuição de energy
+SELECT ROUND(energy,1) AS faixa_energy, COUNT(*) AS qtd
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+GROUP BY faixa_energy
+ORDER BY faixa_energy;
+```
+
+### 📍 Aplicar medidas de dispersão
+
+```
+-- Estatísticas com desvio padrão incluído
+SELECT
+  'streams' AS variavel, STDDEV(streams) AS desvio
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+
+UNION ALL
+SELECT 'bpm', STDDEV(bpm)
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+
+UNION ALL
+SELECT 'energy', STDDEV(energy)
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
+```
+
+### 📍 Visualizar o comportamento dos dados ao longo do tempo
+
+```
+-- Streams médios por ano
+SELECT released_year, AVG(streams) AS media_streams
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+GROUP BY released_year
+ORDER BY released_year;
+
+-- Contagem de músicas lançadas por ano
+SELECT released_year, COUNT(track_id) AS qtd_musicas
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+GROUP BY released_year
+ORDER BY released_year;
+```
+
+### 📍 Calcular quartis, decis e percentis
+
+```
+-- Quartis de streams
+SELECT APPROX_QUANTILES(streams, 4) AS quartis
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
+
+-- Percentis (10 em 10)
+SELECT APPROX_QUANTILES(streams, 10) AS decis
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
+
+-- Percentil 95 (outliers)
+SELECT APPROX_QUANTILES(streams, 100)[OFFSET(95)] AS p95
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
+```
+
+### 📍 Calcular correlação entre variáveis ​​
+
+```
+SELECT
+  CORR(streams, danceability) AS corr_streams_dance,
+  CORR(streams, energy) AS corr_streams_energy,
+  CORR(streams, valence) AS corr_streams_valence,
+  CORR(streams, bpm) AS corr_streams_bpm,
+  CORR(streams, acousticness) AS corr_streams_acousticness,
+  CORR(streams, liveness) AS corr_streams_liveness,
+  CORR(streams, speechiness) AS corr_streams_speechiness,
+  CORR(streams, total_playlists) AS corr_streams_playlists
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
 ```
