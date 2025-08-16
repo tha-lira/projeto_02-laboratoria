@@ -236,33 +236,29 @@ Justificativa Técnica: A ordenação por streams em ordem decrescente, seguida 
 
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
-## 📍 Verificação de Variáveis Categóricas
+# Fazer uma análise exploratória	
 
-Nesta etapa do projeto, foram identificadas as variáveis categóricas da tabela tabela_unificada_tratada. Essas variáveis representam atributos descritivos e são essenciais para segmentações, agrupamentos e aplicação de filtros durante a análise exploratória e construção dos dashboards.
+### 📍 Agrupar dados por variáveis categóricas	
 
-As variáveis categóricas identificadas na base são:
+Foi realizada uma triagem das variáveis categóricas presentes na tabela tabela_unificada_tratada, utilizadas como dimensões na análise e nos dashboards no **Looker Studio**:
 
-- track_id – Identificador único da faixa;
+- track_id: Identificador único da faixa
 
-- artists_name – Nome do(s) artista(s);
+- artists_name: Nome do(s) artista(s)
 
-- track_name – Nome da música;
+- track_name: Nome da música
 
-- key – Tom musical (ex: C, D#, F#m);
+- key: Tom musical (ex: C, D#, F#m)
 
-- mode – Modo musical (ex: maior, menor);
+- mode: Modo musical (maior/menor)
 
-- released_year – Ano de lançamento;
+- released_year, released_month, released_day: Datas de lançamento
 
-- released_month – Mês de lançamento;
+- data_lancamento: Data completa de lançamento
 
-- released_day – Dia do lançamento;
+Essas variáveis permitiram segmentações por artista, data e características musicais, fundamentais para a geração de gráficos e insights.
 
-- data_lancamento – Data de lançamento.
-
-Essas variáveis foram utilizadas como dimensões de análise no Looker Studio, permitindo a criação de visualizações que evidenciam padrões de comportamento musical, popularidade de artistas e distribuição das faixas entre plataformas de streaming.
-
-### 📌 Ver variáveis ​​categóricas
+### 📌 Visualizar variáveis ​​categóricas
 
 - 📊 Gráfico 1: Top 10 artistas com mais músicas
 
@@ -270,13 +266,49 @@ O gráfico mostra os 10 artistas com o maior número de músicas no conjunto de 
 
 ### 📌 Aplicar medidas de tendência central
 
-- 📊 Gráfico 2: Média de streams por artista
+- 🎧 Média e Mediana de Streams e Playlists:
+
+Streams médios:     513.1 milhões  
+Streams mediana:    284.9 milhões  
+Playlists médias:   5.208  
+Playlists mediana:  2.163
+
+A média de streams é significativamente superior à mediana, evidenciando uma distribuição assimétrica onde poucas faixas de altíssimo sucesso puxam a média para cima.
+
+- 📊 Média de streams por artista
 
 Este gráfico apresenta os 10 artistas com maior média de streams por música. A artista com a maior média de streams é Tones and I, o que sugere que, embora possa ter poucas músicas, elas são altamente populares. Em seguida, aparecem Post Malone, Swae Lee, Drake, Wizkid e Kyla, todos com média de streams muito elevada, indicando grande alcance por música.
 
 Artistas como The Weeknd, que estavam no gráfico anterior (com muitas músicas), aparecem aqui em posição intermediária. Isso indica que, mesmo com muitos lançamentos, a média de streams por música não é a mais alta.
 
 Na parte inferior do ranking estão The Chainsmokers e Coldplay, o que mostra que, em média, suas músicas são menos ouvidas em comparação com os líderes do gráfico, mesmo que sejam artistas conhecidos.
+
+### 📌 Visualizar a distribuição dos dados
+
+| Faixa de Streams | Nº de Músicas |
+| ---------------- | ------------- |
+| 0 - 1M           | 1             |
+| 1M - 5M          | 1             |
+| 5M - 10M         | 0             |
+| **10M+**         | **854**       |
+
+A enorme concentração de músicas com mais de 10 milhões de streams e baixa presença em playlists mostra que o sucesso não depende apenas de curadoria — viralização e alcance orgânico também são determinantes.
+
+### 📌 Aplicar medidas de dispersão
+
+### 📌 Visualizar o comportamento dos dados ao longo do tempo
+
+- 📅 Lançamentos por Mês e Ano
+
+A análise da quantidade de faixas lançadas por mês e ano mostrou sazonalidade nos lançamentos, com alguns picos em meses específicos (a explorar mais no dashboard).
+
+- 📊 Média de Streams por Mês
+
+Revelou-se que a média de streams não acompanha exatamente o volume de lançamentos, sugerindo que existem momentos mais estratégicos para atingir altos números, independentemente da quantidade de faixas lançadas.
+
+### 📌 Calcular quartis, decis ou percentis
+
+### 📌 Calcular correlação entre variáveis ​​
 
 #### Limitações
 
