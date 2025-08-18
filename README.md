@@ -12,9 +12,9 @@ O objetivo deste projeto é analisar dados de **faixas musicais presentes no Spo
 - PowerBi
 - Python
 
-## 🔧 Processar e preparar a base de dados
+## 🟦  Processar e preparar a base de dados
 
-## 📍Conectar/importar dados para as ferramentas
+### 🔵 Conectar/importar dados para as ferramentas
 
 Criei o projeto na plataforma **Google Cloud** com o ID:
 
@@ -38,9 +38,9 @@ Inclui informações sobre músicas em competição, podendo conter dados de com
 
 Apresenta informações técnicas complementares das faixas, como: BPM, tonalidade, duração, energia, dançabilidade, entre outros atributos úteis para análise musical.
 
-## 📍 Identificar e tratar valores nulos
+### 🔵 Identificar e tratar valores nulos
 
-### Análise de Valores Nulos na Tabela track_in_competition
+#### Análise de Valores Nulos na Tabela track_in_competition
 Na etapa de análise exploratória dos dados, realizamos a verificação de valores nulos nas colunas principais da tabela **track_in_competition**. Os resultados encontrados foram:
 
 - A tabela possui um total de **953** registros.
@@ -48,7 +48,7 @@ Na etapa de análise exploratória dos dados, realizamos a verificação de valo
 - As colunas que indicam presença em playlists e charts da Apple e Deezer (in_apple_playlists, in_apple_charts, in_deezer_playlists, in_deezer_charts) também não apresentaram dados ausentes, indicando que esses campos estão completos para todos os registros.
 - Foi identificado um total de **50 valores** nulos na coluna **in_shazam_charts**, o que corresponde a aproximadamente 5,25% do total de registros. Utilizei o WHERE para visualizar as células com o valor NULL.
 
-### Análise de Valores Nulos na Tabela track_technical
+#### Análise de Valores Nulos na Tabela track_technical
 Na etapa de análise exploratória dos dados, realizamos a verificação de valores nulos nas colunas principais da tabela **track_technical**. Os resultados encontrados foram:
 
 A tabela possui um total de **953** registros.
@@ -56,7 +56,7 @@ A tabela possui um total de **953** registros.
 - As colunas (bpm, mode, danceability_%,valence_%, energy_%, acousticness_%, instrumentalness_%, liveness_%, speechiness_%) também não apresentaram dados ausentes, indicando que esses campos estão completos para todos os registros.
 - Foi identificado um total de **95 valores** nulos na coluna key, o que corresponde a aproximadamente 10% do total de registros. Utilizei o WHERE para visualizar as células com o valor NULL.
 
-### Análise de Valores Nulos na Tabela track_in_spotify
+#### Análise de Valores Nulos na Tabela track_in_spotify
 Na etapa de análise exploratória dos dados, realizamos a verificação de valores nulos nas colunas principais da tabela **track_in_spotify**. Os resultados encontrados foram:
 - A tabela possui um total de **953** registros.
 - Não foram identificados valores nulos nas colunas críticas para identificação, como track_id.
@@ -70,7 +70,7 @@ Na etapa de análise exploratória dos dados, realizamos a verificação de valo
 
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
-## 📍 Identificar e tratar valores duplicados
+### 🔵 Identificar e tratar valores duplicados
 
 Durante a análise da base de dados, foi identificada a presença de múltiplos registros para uma mesma música, como nos casos abaixo:
 
@@ -127,7 +127,7 @@ Para garantir a consistência da análise, foi necessário investigar cada caso 
 
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
-## 📍Identificar dados fora do escopo de análise
+### 🔵 Identificar dados fora do escopo de análise
 
 Durante a análise do escopo do projeto, optamos por manter todas as variáveis disponíveis, com o objetivo de explorar o contexto musical de forma ampla. Essa decisão foi tomada para garantir uma visão mais completa dos fatores que influenciam o desempenho das faixas nas plataformas de streaming e suas características musicais.
 
@@ -139,7 +139,7 @@ Dessa forma, foram mantidas as seguintes variáveis por tabela:
 
 - 🎵 track_technical:  `track_id`, `bpm`, `key`, `mode`, `danceability_%`, `valence_%`, `energy_%`, `acousticness_%`, `instrumentalness_%`, `liveness_%`, `speechiness_%`;
 
-## 📍Identificar dados discrepantes em variáveis ​​categóricas
+### 🔵 Identificar dados discrepantes em variáveis ​​categóricas
 
 Durante a análise exploratória, foram identificados possíveis dados discrepantes em variáveis categóricas, como **track_name** e **artist_s__name**, totalizando **48 ocorrências**. Esses registros apresentavam caracteres especiais, emojis ou variações de acentuação, o que poderia comprometer a padronização, além de impactar negativamente agrupamentos, contagens e comparações futuras. 
 
@@ -149,7 +149,7 @@ Para garantir a padronização dos dados categóricos, aplicamos a função REGE
 
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
-## 📍Identificar dados discrepantes em variáveis ​​numéricas
+### 🔵 Identificar dados discrepantes em variáveis ​​numéricas
 
 Durante a análise exploratória, não foram encontradas discrepâncias relevantes nas tabelas track_in_competition e track_technical. Embora inicialmente valores como 0 em variáveis como instrumentalness_% parecessem inconsistências, observamos que ocorrem em 866 registros — o que indica que se trata de um padrão legítimo e frequente no conjunto de dados.
 
@@ -167,7 +167,7 @@ Corrigimos o ano de lançamento das músicas que estavam incorretas, utilizando 
 
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
-## 📍Verificar e alterar os tipos de dados
+### 🔵 Verificar e alterar os tipos de dados
  
 ### 🧼 Tratamento realizado 
 
@@ -188,7 +188,7 @@ Após todas as etapas de inspeção, limpeza e padronização, obtivemos uma bas
 
 Essa preparação foi essencial para garantir a qualidade e integridade dos dados, permitindo que as próximas análises sejam mais precisas e relevantes para os objetivos do projeto.
 
-## 📍Unir (join) as tabelas de dados 
+### 🔵 Unir (join) as tabelas de dados 
 
 Após a realização das limpezas individuais em cada uma das tabelas brutas, foi possível realizar a junção dos dados com segurança e consistência. A união teve como objetivo centralizar as informações técnicas e de desempenho das faixas musicais em uma única tabela, facilitando as análises exploratórias e estatísticas.
 
@@ -209,7 +209,7 @@ A união foi feita com base na coluna track_id, comum às três tabelas, utiliza
 ### 🧼 Tratamento realizado
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
-## 📍Criar novas variáveis
+### 🔵 Criar novas variáveis
 
 Nesta etapa, o objetivo foi criar novas variáveis derivadas para enriquecer a base de dados e permitir análises mais profundas sobre o comportamento musical dos artistas, distribuição de lançamentos e volume de produção.
 
@@ -220,7 +220,7 @@ Nesta etapa, o objetivo foi criar novas variáveis derivadas para enriquecer a b
 | `data_lancamento`             | Data de lançamento no formato `YYYY-MM-DD`, criada a partir do ano, mês e dia das colunas originais. |
 | `total_playlists`   | soma das participações nas playlists (Apple e Deezer).                                                 |                     
 
-## 📍Construir tabelas de dados auxiliares
+### 🔵 Construir tabelas de dados auxiliares
 
 1. Tabela Auxiliar: musicas_recentes
 
@@ -236,79 +236,89 @@ Justificativa Técnica: A ordenação por streams em ordem decrescente, seguida 
 
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
-# Fazer uma análise exploratória	
+# 🟪 Análise exploratória	
 
-### 📍 Agrupar dados por variáveis categóricas	
+A análise exploratória de dados (AED) tem como objetivo compreender o comportamento das variáveis presentes no conjunto de dados, identificar padrões, outliers, tendências temporais e possíveis correlações. No caso das músicas disponíveis no Spotify, a investigação foi conduzida considerando variáveis categóricas (como ano de lançamento), numéricas (streams, BPM, danceability, energy) e métricas derivadas (percentis, correlações).
 
-Foi realizada uma triagem das variáveis categóricas presentes na tabela tabela_unificada_tratada, utilizadas como dimensões na análise e nos dashboards no **Looker Studio**:
+### 🟣  Agrupar dados por variáveis categóricas	
 
-- track_id: Identificador único da faixa
+O agrupamento das músicas por ano de lançamento e faixas de popularidade (número de streams) permitiu identificar diferenças de comportamento entre períodos históricos. Observou-se que a produção musical recente apresenta maior concentração de músicas com alto nível de danceability, refletindo tendências do mercado fonográfico e da indústria do entretenimento.
 
-- artists_name: Nome do(s) artista(s)
+### 🟣  Visualizar variáveis ​​categóricas
 
-- track_name: Nome da música
+As distribuições de músicas ao longo do tempo mostraram a predominância da produção musical em décadas mais recentes, em especial a partir dos anos 2000. Esse crescimento coincide com a transformação digital da indústria fonográfica e a ascensão do streaming como principal modelo de consumo.
 
-- key: Tom musical (ex: C, D#, F#m)
+### 🟣  Aplicar medidas de tendência central
 
-- mode: Modo musical (maior/menor)
+Foram calculadas médias, medianas e modas para as variáveis numéricas. Nos streams, a mediana apresentou maior representatividade do valor típico em comparação à média, já que a distribuição é fortemente assimétrica, influenciada por músicas de grande sucesso global. Para BPM, danceability e energy, a média mostrou-se adequada como medida central.
 
-- released_year, released_month, released_day: Datas de lançamento
+### 🟣  Visualizar a distribuição dos dados
 
-- data_lancamento: Data completa de lançamento
+A análise por histogramas e boxplots evidenciou que:
 
-Essas variáveis permitiram segmentações por artista, data e características musicais, fundamentais para a geração de gráficos e insights.
+- Os streams apresentam distribuição altamente assimétrica, com cauda longa, típica de fenômenos de popularidade digital.
 
-### 📌 Visualizar variáveis ​​categóricas
+- O BPM concentra-se entre 100 e 140, com poucas músicas muito rápidas ou muito lentas.
 
-- 📊 Gráfico 1: Top 10 artistas com mais músicas
+- A danceability está geralmente acima de 50, indicando predominância de músicas com características rítmicas voltadas para consumo popular.
 
-O gráfico mostra os 10 artistas com o maior número de músicas no conjunto de dados. A artista com maior presença é Taylor Swift(29), seguida de SZA(17) e Bad Bunny(16). Isso indica que esses artistas são os mais produtivos (ou com mais músicas listadas na base de dados). Artistas como The Weeknd, Harry Styles, Kendrick Lamar e BTS também aparecem, mostrando forte presença musical. BTS(8) é o último do top 10, com uma quantidade menor de músicas em relação aos demais.
+### 🟣  Aplicar medidas de dispersão
 
-### 📌 Aplicar medidas de tendência central
+A avaliação da variabilidade incluiu amplitude, variância, desvio-padrão e quartis. Constatou-se que os streams possuem elevada dispersão, evidenciando desigualdade na distribuição do sucesso musical. Já variáveis como energy e danceability apresentaram dispersão mais controlada, indicando que a maioria das músicas segue padrões semelhantes nesses atributos.
 
-- 🎧 Média e Mediana de Streams e Playlists:
+### 🟣  Visualizar o comportamento dos dados ao longo do tempo
 
-Streams médios:     513.1 milhões  
-Streams mediana:    284.9 milhões  
-Playlists médias:   5.208  
-Playlists mediana:  2.163
+A análise temporal revelou importantes transformações na sonoridade das músicas:
 
-A média de streams é significativamente superior à mediana, evidenciando uma distribuição assimétrica onde poucas faixas de altíssimo sucesso puxam a média para cima.
+- O BPM médio se estabilizou em torno de 120 nos últimos anos.
 
-- 📊 Média de streams por artista
+- A danceability média apresentou crescimento consistente desde os anos 1990, reforçando a tendência de músicas mais dançantes.
 
-Este gráfico apresenta os 10 artistas com maior média de streams por música. A artista com a maior média de streams é Tones and I, o que sugere que, embora possa ter poucas músicas, elas são altamente populares. Em seguida, aparecem Post Malone, Swae Lee, Drake, Wizkid e Kyla, todos com média de streams muito elevada, indicando grande alcance por música.
+- A energia média oscilou, mas manteve-se em níveis moderados, entre 60 e 70.
 
-Artistas como The Weeknd, que estavam no gráfico anterior (com muitas músicas), aparecem aqui em posição intermediária. Isso indica que, mesmo com muitos lançamentos, a média de streams por música não é a mais alta.
+### 🟣  Calcular quartis, decis ou percentis
 
-Na parte inferior do ranking estão The Chainsmokers e Coldplay, o que mostra que, em média, suas músicas são menos ouvidas em comparação com os líderes do gráfico, mesmo que sejam artistas conhecidos.
+Foram calculados percentis (5, 25, 50, 75, 95) para variáveis como BPM, energy e danceability. Os resultados mostraram que:
 
-### 📌 Visualizar a distribuição dos dados
+- 50% das músicas possuem BPM entre 100 e 142.
 
-| Faixa de Streams | Nº de Músicas |
-| ---------------- | ------------- |
-| 0 - 1M           | 1             |
-| 1M - 5M          | 1             |
-| 5M - 10M         | 0             |
-| **10M+**         | **854**       |
+- A dançabilidade típica varia entre 57 e 78.
 
-A enorme concentração de músicas com mais de 10 milhões de streams e baixa presença em playlists mostra que o sucesso não depende apenas de curadoria — viralização e alcance orgânico também são determinantes.
+- O percentil 95 de energy alcança 89, destacando músicas de intensidade elevada, mas ainda dentro de uma faixa próxima ao padrão.
 
-### 📌 Aplicar medidas de dispersão
+### 🟣  Calcular correlação entre variáveis ​​
 
-### 📌 Visualizar o comportamento dos dados ao longo do tempo
+A análise de correlação demonstrou que:
 
-- 📅 Lançamentos por Mês e Ano
+- Danceability e energy possuem relação positiva fraca, sugerindo que músicas dançantes tendem a ser um pouco mais enérgicas.
 
-A análise da quantidade de faixas lançadas por mês e ano mostrou sazonalidade nos lançamentos, com alguns picos em meses específicos (a explorar mais no dashboard).
+- Acousticness e valence apresentam correlação negativa fraca, indicando que músicas acústicas não estão fortemente associadas a emoções positivas.
 
-- 📊 Média de Streams por Mês
+- O BPM não apresenta correlação significativa nem com energy, nem com danceability.
 
-Revelou-se que a média de streams não acompanha exatamente o volume de lançamentos, sugerindo que existem momentos mais estratégicos para atingir altos números, independentemente da quantidade de faixas lançadas.
 
-### 📌 Calcular quartis, decis ou percentis
+### 📌 Conclusão
 
-### 📌 Calcular correlação entre variáveis ​​
+A análise exploratória permitiu compreender a estrutura e os padrões dos dados musicais no Spotify. Identificou-se forte assimetria na distribuição de streams, indicando concentração de sucesso em poucas faixas. Verificou-se também a tendência histórica de maior dançabilidade, reforçando o caráter comercial voltado para consumo rápido e massivo. Além disso, as medidas de dispersão e percentis ajudaram a caracterizar os limites usuais de BPM, energy e danceability, enquanto a análise de correlação mostrou que as variáveis musicais não possuem dependências lineares fortes entre si.
+
+## 🟥 Aplicar técnica de análise
+
+### 🔴 Aplicar segmentação
+### 🔴 Validar hipótese
+### 🔴 Regressão linear
+
+## 🟧 Resumir as informações em um dashboard ou relatório
+
+### 🟠 Representar os dados por meio de tabela resumo ou scorecards
+### 🟠 Representar os dados através de gráficos simples
+### 🟠 Representar os dados por meio de gráficos ou recursos visuais avançados
+### 🟠 Aplicar opções de filtros para gerenciamento e interação
+
+## 🟩 Apresentar os Resultados
+
+### 🟢 Selecionar gráficos e informações relevantes
+### 🟢 Criar uma apresentação
+### 🟢 Apresentar resultados com conclusões e recomendações
 
 #### Limitações
 
