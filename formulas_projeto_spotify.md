@@ -515,6 +515,17 @@ GROUP BY released_year
 ORDER BY released_year;
 ```
 
+```
+SELECT
+  released_year,
+  AVG(danceability) AS media_danceability,
+  AVG(bpm) AS media_bpm,
+  AVG(energy) AS media_energy
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+GROUP BY released_year
+ORDER BY released_year;
+```
+
 ### 📍 Calcular quartis, decis e percentis
 
 ```
@@ -543,5 +554,14 @@ SELECT
   CORR(streams, liveness) AS corr_streams_liveness,
   CORR(streams, speechiness) AS corr_streams_speechiness,
   CORR(streams, total_playlists) AS corr_streams_playlists
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
+```
+
+```
+SELECT
+  CORR(danceability, energy) AS corr_dance_energy,
+  CORR(acousticness, valence) AS corr_acoustic_valence,
+  CORR(bpm, energy) AS corr_bpm_energy,
+  CORR(bpm, danceability) AS corr_bpm_dance
 FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
 ```
