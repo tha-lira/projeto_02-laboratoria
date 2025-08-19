@@ -1,42 +1,28 @@
-# 📊 
+# 📊 Relatório Técnico – Análise de Faixas Musicais no Spotify
 
 ### 🎯 Objetivo do Projeto
-O objetivo deste projeto é analisar dados de **faixas musicais presentes no Spotify** a fim de identificar padrões que influenciam o desempenho das músicas na plataforma. A análise busca compreender como características técnicas e comportamentais das faixas — como presença em playlists, rankings e número de streams — se relacionam com seu sucesso. A partir desses insights, pretende-se apoiar a tomada de decisões estratégicas em áreas como marketing musical, curadoria de conteúdo e posicionamento de artistas.
+
+Este projeto tem como finalidade analisar dados de faixas musicais disponíveis no Spotify a fim de identificar padrões que contribuem para o desempenho de músicas na plataforma. A análise busca mapear como aspectos técnicos (como BPM, tonalidade, dançabilidade) e fatores de visibilidade (como presença em playlists e rankings) influenciam a popularidade medida por número de streams. A partir desses insights, pretende-se subsidiar decisões estratégicas nas áreas de marketing musical, curadoria e posicionamento de artistas.
 
 ### 👥 Equipe
+
 - 👩‍💻 Thais Lira Apolinario
 - 👩‍💻 Stephanie Cerqueira Silva
 
 ### 🛠️ Ferramentas e Tecnologias Utilizadas
+
 - BigQuery
-- PowerBi
-- Python
+- Looker Studio
 
-## 🟦  Processar e preparar a base de dados
+## 🟦  Processamento e Preparação dos Dados
 
-### 🔵 Conectar/importar dados para as ferramentas
+### 🔵 Conexão e Importação de Dados
 
-Criei o projeto na plataforma **Google Cloud** com o ID:
+- track_in_spotify: dados de desempenho no Spotify.
 
-- ✅ spotify-analysis-465623
+- track_in_competition: presença em competidores (Apple, Deezer, Shazam).
 
-Em seguida, criei o **conjunto de dados** (dataset) no BigQuery com o nome:
-
-- ✅ spotify_data
-
-Foram importadas e organizadas três principais tabelas no BigQuery:
-
-- ✅ track_in_spotify
-
-Contém os dados principais das faixas, como: Nome da música e do artista, Data de lançamento, Presença em playlists e rankings, Número de streams.
-
-- ✅ track_in_competition
-
-Inclui informações sobre músicas em competição, podendo conter dados de comparação de desempenho, relevância ou participações em rankings.
-
-- ✅ track_technical
-
-Apresenta informações técnicas complementares das faixas, como: BPM, tonalidade, duração, energia, dançabilidade, entre outros atributos úteis para análise musical.
+- track_technical: atributos musicais (BPM, key, danceability, etc.).
 
 ### 🔵 Identificar e tratar valores nulos
 
@@ -61,7 +47,6 @@ Na etapa de análise exploratória dos dados, realizamos a verificação de valo
 - A tabela possui um total de **953** registros.
 - Não foram identificados valores nulos nas colunas críticas para identificação, como track_id.
 - As colunas (artists_name, artist_count, released_year, released_month, released_day, in_spotify_playlists, in_spotify_charts, streams) também não apresentaram dados ausentes, indicando que esses campos estão completos para todos os registros.
-
 
 ### 🧼 Tratamento realizado
 - A variável **key**, que representa o tom musical da faixa, foi emover as linhas com valores nulos na coluna, com o objetivo de manter apenas faixas com tonalidade definida e garantir consistência na análise técnica. embora a variável key não seja central para os objetivos da análise, optou-se por manter os registros completos e evitar distorções nos dados derivados de campos incompletos.
@@ -94,7 +79,7 @@ Para garantir a consistência da análise, foi necessário investigar cada caso 
 
 - Diferença pequena no número de playlists e streams.
 
-- 🧼 Conclusão: Duplicata técnica. Optamos por manter apenas um dos registros com maior número de streams. Item excluido ID: 3814670
+🧼 Conclusão: Duplicata técnica. Optamos por manter apenas um dos registros com maior número de streams. Item excluido ID: 3814670
 
 #### About Damn Time – Lizzo track_id: 7173596 e 5080031
 
@@ -102,13 +87,13 @@ Para garantir a consistência da análise, foi necessário investigar cada caso 
 
 - Diferença apenas nas playlists associadas.
 
-- 🧼 Conclusão: Duplicata técnica. Optamos por manter apenas um dos registros com maior número de streams. Item excluido ID: 5080031
+🧼 Conclusão: Duplicata técnica. Optamos por manter apenas um dos registros com maior número de streams. Item excluido ID: 5080031
 
 #### Take My Breath – The Weeknd  track_id: 1119309 e 4586215
 
 - Mesmo BPM, mas tonalidades e modos distintos, além de diferenças de popularidade.
 
-- 🧼 Conclusão: São versões diferentes da mesma faixa. Ambas foram mantidas para possibilitar uma análise mais completa sobre o comportamento de consumo.
+🧼 Conclusão: São versões diferentes da mesma faixa. Ambas foram mantidas para possibilitar uma análise mais completa sobre o comportamento de consumo.
 
 #### SPIT IN MY FACE! – ThxSoMch  track_id: 4967469 e 8173823
 
@@ -116,8 +101,7 @@ Para garantir a consistência da análise, foi necessário investigar cada caso 
 
 - Ambas as versões apresentam números relevantes de streams.
 
-- 🧼 Conclusão: São versões diferentes da mesma faixa. Ambas foram mantidas para possibilitar uma análise mais completa sobre o comportamento de consumo.
-
+🧼 Conclusão: São versões diferentes da mesma faixa. Ambas foram mantidas para possibilitar uma análise mais completa sobre o comportamento de consumo.
 
 ✅  Ações realizadas
 
@@ -143,7 +127,7 @@ Dessa forma, foram mantidas as seguintes variáveis por tabela:
 
 Durante a análise exploratória, foram identificados possíveis dados discrepantes em variáveis categóricas, como **track_name** e **artist_s__name**, totalizando **48 ocorrências**. Esses registros apresentavam caracteres especiais, emojis ou variações de acentuação, o que poderia comprometer a padronização, além de impactar negativamente agrupamentos, contagens e comparações futuras. 
 
-### 🧼 Tratamento realizado 
+#### 🧼 Tratamento realizado 
 
 Para garantir a padronização dos dados categóricos, aplicamos a função REGEXP_REPLACE() com o objetivo de remover caracteres especiais, símbolos e emojis, mantendo apenas letras, números e espaços. Em seguida, utilizamos a função LOWER() para padronizar todos os valores em letras minúsculas, evitando divergências em contagens e agrupamentos causadas por diferenças de formatação.
 
@@ -166,13 +150,6 @@ Já na tabela track_in_spotify, foram identificados alguns dados que destoam do 
 Corrigimos o ano de lançamento das músicas que estavam incorretas, utilizando uma referência média de lançamentos dos respectivos artistas (quando possível). Removemos registros inconsistentes, como a linha com ID 4061483, que apresentava streams nulo e demais variáveis com valores muito baixos. Garantimos que campos numéricos estivessem corretamente preenchidos, eliminando ou ajustando valores textuais indevidos.
 
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
-
-### 🔵 Verificar e alterar os tipos de dados
- 
-### 🧼 Tratamento realizado 
-
-[Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
-
 
 ## ✅ Conclusão da Limpeza de Dados
 
@@ -236,39 +213,194 @@ Justificativa Técnica: A ordenação por streams em ordem decrescente, seguida 
 
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
-# 🟪 Análise exploratória	
+## 🟪 Análise Exploratória de Dados
 
 A análise exploratória de dados (AED) tem como objetivo compreender o comportamento das variáveis presentes no conjunto de dados, identificar padrões, outliers, tendências temporais e possíveis correlações. No caso das músicas disponíveis no Spotify, a investigação foi conduzida considerando variáveis categóricas (como ano de lançamento), numéricas (streams, BPM, danceability, energy) e métricas derivadas (percentis, correlações).
 
 ### 🟣  Agrupar dados por variáveis categóricas	
 
-O agrupamento das músicas por ano de lançamento e faixas de popularidade (número de streams) permitiu identificar diferenças de comportamento entre períodos históricos. Observou-se que a produção musical recente apresenta maior concentração de músicas com alto nível de danceability, refletindo tendências do mercado fonográfico e da indústria do entretenimento.
+Objetivo: entender comportamentos médios ou totais com base em categorias.
+
+🔹 1. Streams por faixa de total de playlists:
+
+| Faixa       | Média de Streams |
+| ----------- | ---------------- |
+| `>5000`     | **1.16B**        |
+| `1001-5000` | 322M             |
+| `100-1000`  | 150M             |
+| `<100`      | 53M              |
+
+🔹 2. Top 20 artistas por total de streams no Spotify:
+
+| Rank | Artista            | Total de Streams | Percentual (%) |
+|------|---------------------|------------------|----------------|
+| 1    | Ed Sheeran          | 13,908,947,204   | 3.17%          |
+| 2    | Taylor Swift        | 11,851,151,082   | 2.70%          |
+| 3    | The Weeknd          | 10,069,328,661   | 2.29%          |
+| 4    | Bad Bunny           | 8,582,384,095    | 1.95%          |
+| 5    | Harry Styles        | 8,546,679,005    | 1.95%          |
+| 6    | Olivia Rodrigo      | 7,442,148,916    | 1.69%          |
+| 7    | Eminem              | 6,183,805,596    | 1.41%          |
+| 8    | Imagine Dragons     | 5,272,484,650    | 1.20%          |
+| 9    | Lewis Capaldi       | 4,734,698,360    | 1.08%          |
+| 10   | Doja Cat            | 4,702,294,655    | 1.07%          |
+| 11   | Adele               | 4,508,746,590    | 1.03%          |
+| 12   | BTS                 | 4,389,891,591    | 1.00%          |
+| 13   | SZA                 | 4,197,341,485    | 0.96%          |
+| 14   | Bruno Mars          | 4,185,733,280    | 0.95%          |
+| 15   | The Neighbourhood   | 4,010,009,939    | 0.91%          |
+| 16   | Justin Bieber       | 3,919,813,522    | 0.89%          |
+| 17   | Coldplay            | 3,825,176,058    | 0.87%          |
+| 18   | Avicii              | 3,426,754,746    | 0.78%          |
+| 19   | Dua Lipa            | 3,227,639,000    | 0.73%          |
+| 20   | Arctic Monkeys      | 3,055,659,795    | 0.70%          |
+
+Uma das principais formas de análise foi agrupar os dados com base na variável categórica artists_name, o que permitiu identificar os artistas mais ouvidos na base de dados. Ed Sheeran lidera o ranking com mais de 13,9 bilhões de streams, seguido por Taylor Swift com 11,8 bilhões e The Weeknd com 10 bilhões. Esses três artistas juntos concentram quase 9% de todos os streams do conjunto de dados, o que mostra uma concentração considerável de popularidade em poucos nomes.
 
 ### 🟣  Visualizar variáveis ​​categóricas
 
-As distribuições de músicas ao longo do tempo mostraram a predominância da produção musical em décadas mais recentes, em especial a partir dos anos 2000. Esse crescimento coincide com a transformação digital da indústria fonográfica e a ascensão do streaming como principal modelo de consumo.
+Objetivo: entender visualmente a distribuição em faixas/categorias.
+
+- Top 10 artistas com mais músicas
+
+| Artista         | Qtd. de Músicas |
+|------------------|------------------|
+| Taylor Swift     | 29               |
+| The Weeknd       | 17               |
+| SZA              | 17               |
+| Bad Bunny        | 16               |
+| Harry Styles     | 13               |
+| Kendrick Lamar   | 12               |
+| Morgan Wallen    | 9                |
+| Ed Sheeran       | 9                |
+| Feid             | 8                |
+| BTS              | 8                |
+
+📌 Taylor Swift lidera com folga (29 músicas), sugerindo uma forte presença no período analisado — provavelmente entre 2021–2023. Outros artistas populares como The Weeknd, Bad Bunny, Harry Styles indicam forte tendência para pop, R&B e reggaeton — gêneros predominantes nos últimos anos.
+
+- Distribuição por tonalidade (key)
+
+| Tonalidade (Key) | Qtd. de Músicas |
+|-------------------|------------------|
+| C#                | 120              |
+| G                 | 96               |
+| G#                | 91               |
+| F                 | 89               |
+| D                 | 81               |
+| B                 | 81               |
+| A                 | 74               |
+| F#                | 73               |
+| E                 | 62               |
+| A#                | 56               |
+| D#                | 33               |
+
+📌  C# domina com 120 músicas — comum em produções digitais modernas. A maioria das tonalidades mais usadas são sustenidas, reforçando o uso de produção eletrônica e vocais autotuneados. Clássicas como G, D, A e F continuam populares, o que indica diversidade de estilos
+
+- Quantidade de músicas lançadas por ano
+
+| Ano de Lançamento | Qtd. de Músicas |
+|--------------------|------------------|
+| 2013               | 11               |
+| 2014               | 13               |
+| 2015               | 9                |
+| 2016               | 18               |
+| 2017               | 21               |
+| 2018               | 10               |
+| 2019               | 33               |
+| 2020               | 29               |
+| 2021               | 107              |
+| 2022               | 361              |
+| 2023               | 159              |
+
+📌 A partir de 2019 há um crescimento acentuado. 2022 é o ano com mais lançamentos, representando mais de 42% do total recente.
 
 ### 🟣  Aplicar medidas de tendência central
 
-Foram calculadas médias, medianas e modas para as variáveis numéricas. Nos streams, a mediana apresentou maior representatividade do valor típico em comparação à média, já que a distribuição é fortemente assimétrica, influenciada por músicas de grande sucesso global. Para BPM, danceability e energy, a média mostrou-se adequada como medida central.
+Objetivo: calcular média, mediana, etc.
+
+- Estatísticas gerais (média, mínimo, máximo)
+
+| Variável         | Média          | Mínimo | Máximo        | Desvio Padrão  |
+| ---------------- | -------------- | ------ | ------------- | -------------- |
+| danceability     | 67.25          | 23     | 96            | 14.65          |
+| instrumentalness | 1.61           | 0      | 91            | 8.58           |
+| streams          | 513,109,400.48 | 2,762  | 3,703,895,074 | 571,774,193.76 |
+| bpm              | 122.86         | 65     | 206           | 28.21          |
+| speechiness      | 10.40          | 2      | 64            | 10.10          |
+| liveness         | 18.16          | 3      | 97            | 13.57          |
+| acousticness     | 26.66          | 0      | 97            | 25.70          |
+| energy           | 64.33          | 14     | 97            | 16.06          |
+| valence          | 51.20          | 4      | 97            | 23.60          |
+
+
+📌 Danceability tem uma média alta (67.25) — indica músicas dançantes, com foco em pop, reggaeton, R&B. BPM médio de ~123 indica uma predominância de músicas moderadamente rápidas, ideais para rádio e streaming. Streams variam de milhares a bilhões, sugerindo forte assimetria (grande desigualdade de popularidade entre músicas).
 
 ### 🟣  Visualizar a distribuição dos dados
 
-A análise por histogramas e boxplots evidenciou que:
+Objetivo: analisar como os dados se espalham em faixas.
 
-- Os streams apresentam distribuição altamente assimétrica, com cauda longa, típica de fenômenos de popularidade digital.
+- 📊 1. Danceability
 
-- O BPM concentra-se entre 100 e 140, com poucas músicas muito rápidas ou muito lentas.
+Faixa vai de 23 a 74
 
-- A danceability está geralmente acima de 50, indicando predominância de músicas com características rítmicas voltadas para consumo popular.
+Pico por volta de 56 a 74, com destaque para:
+
+56 → 27 músicas
+
+59 → 22 músicas
+
+60 → 19 músicas
+
+63 → 20 músicas
+
+65 → 24 músicas
+
+70 → 37 músicas (maior valor)
+
+- 📊 2. Energy
+
+Faixa vai de 14 a 69
+
+Distribuição mais "espalhada", com picos entre:
+
+62 → 28 músicas (pico máximo)
+
+60 → 22 músicas
+
+66 → 24 músicas
+
+65 e 67 → 20 músicas cada
+
+63 e 64 → 18–20 músicas
 
 ### 🟣  Aplicar medidas de dispersão
 
-A avaliação da variabilidade incluiu amplitude, variância, desvio-padrão e quartis. Constatou-se que os streams possuem elevada dispersão, evidenciando desigualdade na distribuição do sucesso musical. Já variáveis como energy e danceability apresentaram dispersão mais controlada, indicando que a maioria das músicas segue padrões semelhantes nesses atributos.
+Objetivo: entender a variabilidade dos dados.
+
+| Variável     | Desvio Padrão     |
+|--------------|-------------------|
+| Energy       | 16.06             |
+| Streams      | 571.77 milhões    |
+| BPM          | 28.21             |
+
+📌 A avaliação da variabilidade incluiu amplitude, variância, desvio-padrão e quartis. Constatou-se que os streams possuem elevada dispersão, evidenciando desigualdade na distribuição do sucesso musical. Já variáveis como energy e danceability apresentaram dispersão mais controlada, indicando que a maioria das músicas segue padrões semelhantes nesses atributos.
 
 ### 🟣  Visualizar o comportamento dos dados ao longo do tempo
 
-A análise temporal revelou importantes transformações na sonoridade das músicas:
+Objetivo: detectar tendências temporais.
+
+- Streams médios por ano
+
+| Ano   | Média de Streams     |
+|--------|----------------------|
+| 2015  | 910.4 milhões         |
+| 2017  | 1.47 bilhões          |
+| 2020  | 945.3 milhões         |
+| 2021  | 631.2 milhões         |
+| 2022  | 285.0 milhões         |
+| 2023  | 143.9 milhões         |
+
+📌 A análise temporal revelou importantes transformações na sonoridade das músicas:
 
 - O BPM médio se estabilizou em torno de 120 nos últimos anos.
 
@@ -278,28 +410,110 @@ A análise temporal revelou importantes transformações na sonoridade das músi
 
 ### 🟣  Calcular quartis, decis ou percentis
 
-Foram calculados percentis (5, 25, 50, 75, 95) para variáveis como BPM, energy e danceability. Os resultados mostraram que:
+Objetivo: entender distribuição de forma precisa.
 
-- 50% das músicas possuem BPM entre 100 e 142.
+🔍 1. Quartis (Q1, Q2, Q3)
 
-- A dançabilidade típica varia entre 57 e 78.
+| Variável         | Q0  | Q1  | Q2  | Q3  | Q4  |
+| ---------------- | -------- | --- | ------------ | --- | -------- |
+| instrumentalness | 0  | 0   | 0            | 0   | 91       |
+| speechiness      | 2  | 4   | 6            | 12  | 64       |
+| liveness         | 3        | 10  | 12           | 24  | 97       |
+| energy           | 14 | 53  | 65           | 76  | 97       |
+| valence          | 4  | 32  | 51           | 70  | 97       |
+| acousticness     | 0  | 5   | 17           | 42  | 97       |
+| bpm              | 65 | 100 | 121          | 142 | 206      |
+| danceability     | 23 | 57  | 69           | 78  | 96       |
 
-- O percentil 95 de energy alcança 89, destacando músicas de intensidade elevada, mas ainda dentro de uma faixa próxima ao padrão.
+📌 Os quartis dividem os dados em quatro partes iguais. Destacamos:
+
+- instrumentalness possui valores extremamente concentrados no zero (Q0 = Q1 = Q2 = Q3 = 0), com um valor máximo (Q4) de 91. Isso indica que a maioria das músicas não são instrumentais, e apenas alguns casos isolados possuem alto nível de instrumentalidade.
+
+- speechiness e liveness também têm valores baixos para a maior parte dos dados (medianas em 6 e 12, respectivamente), indicando baixa presença de fala ou "ambiência ao vivo" nas faixas.
+
+- energy, valence, danceability e bpm apresentam uma distribuição mais equilibrada, com mediana em:
+
+- Energy: 65
+
+- Valence: 51
+
+- Danceability: 69
+
+- BPM: 121
+
+Isso sugere que boa parte das músicas possuem energia e dançabilidade moderadas a altas, além de valores rítmicos compatíveis com músicas comerciais.
+
+🔍 2. Decis (10 em 10)
+
+| Variável         | D1 | D2 | D3 | D4  | D5  | D6  | D7  | D8  | D9  | Máx |
+| ---------------- | -- | -- | -- | --- | --- | --- | --- | --- | --- | --- |
+| instrumentalness | 0  | 0  | 0  | 0   | 0   | 0   | 0   | 0   | 0   | 91  |
+| liveness         | 3  | 8  | 9  | 10  | 11  | 12  | 15  | 19  | 28  | 97  |
+| speechiness      | 2  | 3  | 4  | 4   | 5   | 6   | 7   | 10  | 15  | 64  |
+| acousticness     | 0  | 1  | 4  | 7   | 11  | 17  | 26  | 36  | 49  | 97  |
+| bpm              | 65 | 89 | 96 | 104 | 113 | 121 | 128 | 138 | 146 | 206 |
+| valence          | 4  | 20 | 27 | 37  | 44  | 51  | 58  | 65  | 74  | 97  |
+| energy           | 14 | 43 | 51 | 56  | 62  | 65  | 70  | 74  | 79  | 97  |
+| danceability     | 23 | 46 | 55 | 60  | 65  | 70  | 73  | 77  | 80  | 96  |
+
+📌 Os decis nos permitem observar como os valores estão concentrados em intervalos menores. Alguns destaques:
+
+- instrumentalness reforça sua concentração total nos primeiros decis (D1 a D9 = 0), com 91 apenas no D10, caracterizando forte assimetria.
+
+- acousticness, apesar de também ter valores baixos nos primeiros decis, cresce gradualmente, sugerindo que embora muitas músicas sejam pouco acústicas, há uma porção considerável com características acústicas elevadas.
+
+- bpm apresenta uma distribuição bem espalhada, indo de 65 (D1) até 206 (máx), com distribuição crescente e consistente, o que reflete a variação nos estilos musicais.
+
+- valence e energy mostram uma distribuição mais homogênea, com aumento progressivo, indicando variedade de emoções e intensidade nas músicas.
+
+🔍 3. Percentil 95 (P95)
+
+| Variável         | Percentil 95 (P95) |
+| ---------------- | ------------------ |
+| bpm              | 174                |
+| danceability     | 90                 |
+| valence          | 90                 |
+| acousticness     | 81                 |
+| speechiness      | 34                 |
+| liveness         | 44                 |
+| energy           | 89                 |
+| instrumentalness | 5                  |
+
+📌 O P95 indica o valor abaixo do qual estão 95% dos dados. Valores acima disso são potenciais outliers. Veja os principais destaques:
+
+- bpm: 95% das músicas têm BPM até 174, o que indica que músicas com BPM acima disso são raras e provavelmente mais aceleradas (e.g., eletrônica ou techno).
+
+- speechiness: apenas 5% das faixas têm valor acima de 34, logo, músicas com muitos elementos de fala (como rap ou podcasts) são minoria.
+
+- instrumentalness: apesar do valor máximo ser 91, o P95 é apenas 5, reforçando que a grande maioria das faixas tem baixa ou nenhuma instrumentalidade.
+
+- danceability, valence, energy e acousticness têm P95 entre 81 e 90, sugerindo que faixas com altíssimos níveis nessas características são menos comuns, mas ainda relevantes.
 
 ### 🟣  Calcular correlação entre variáveis ​​
 
-A análise de correlação demonstrou que:
+Objetivo: entender relações lineares.
 
-- Danceability e energy possuem relação positiva fraca, sugerindo que músicas dançantes tendem a ser um pouco mais enérgicas.
+| Variável           | Correlação |
+|--------------------|------------|
+| Danceability       | -0.101     |
+| Energy             | -0.030     |
+| Valence            | -0.043     |
+| BPM                | -0.002     |
+| Acousticness       | +0.011     |
+| Liveness           | -0.055     |
+| Speechiness        | -0.113     |
+| Nº de Playlists    | **+0.782** |
 
-- Acousticness e valence apresentam correlação negativa fraca, indicando que músicas acústicas não estão fortemente associadas a emoções positivas.
+📌 A análise de correlação demonstrou que:
 
-- O BPM não apresenta correlação significativa nem com energy, nem com danceability.
+Streams x Playlists: forte correlação positiva (0,78).
+👉 Quanto mais playlists uma música aparece, maior seu número de streams.
 
+Streams x Danceability, Energy, Valence, BPM: correlação fraca (quase nula).
 
-### 📌 Conclusão
+Streams x Speechiness: leve correlação negativa (–0,11).
 
-A análise exploratória permitiu compreender a estrutura e os padrões dos dados musicais no Spotify. Identificou-se forte assimetria na distribuição de streams, indicando concentração de sucesso em poucas faixas. Verificou-se também a tendência histórica de maior dançabilidade, reforçando o caráter comercial voltado para consumo rápido e massivo. Além disso, as medidas de dispersão e percentis ajudaram a caracterizar os limites usuais de BPM, energy e danceability, enquanto a análise de correlação mostrou que as variáveis musicais não possuem dependências lineares fortes entre si.
+👉 Popularidade não depende do perfil sonoro, mas sim da exposição em playlists.
 
 ## 🟥 Aplicar técnica de análise
 
