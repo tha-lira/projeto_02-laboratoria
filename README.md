@@ -515,6 +515,8 @@ Streams x Speechiness: leve correlação negativa (–0,11).
 
 👉 Popularidade não depende do perfil sonoro, mas sim da exposição em playlists.
 
+[Relatório Final](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/relat%C3%B3rioAnalise.md)
+
 ## 🟥 Aplicar técnica de análise
 
 ### 🔴 Aplicar segmentação
