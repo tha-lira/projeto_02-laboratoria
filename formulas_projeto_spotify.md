@@ -565,3 +565,43 @@ SELECT
   CORR(bpm, danceability) AS corr_bpm_dance
 FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
 ```
+
+## 🎯 Aplicar técnica de análise
+
+### 📍 Aplicar segmentação
+
+```
+SELECT
+  CASE 
+    WHEN quartil = 1 THEN "Q1 - Muito Baixa"
+    WHEN quartil = 2 THEN "Q2 - Baixa/Média"
+    WHEN quartil = 3 THEN "Q3 - Média/Alta"
+    WHEN quartil = 4 THEN "Q4 - Muito Alta"
+  END AS categoria,
+  AVG(streams) AS media_streams,
+  COUNT(*) AS qtd_musicas
+FROM (
+  SELECT
+    track_id,
+    streams,
+    danceability,
+    NTILE(4) OVER (ORDER BY danceability) AS quartil
+  FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+)
+GROUP BY categoria
+ORDER BY categoria;
+```
+
+#### 📌 Explicação rápida:
+
+- NTILE(4) OVER (ORDER BY danceability) → divide todas as músicas em 4 grupos (quartis) 
+
+- CASE WHEN ... → só dá nomes bonitos para cada quartil (Q1, Q2, Q3, Q4).
+
+- MIN() → Retorna o menor valor da variável.
+
+- AVG(streams) → calcula a média de streams de cada grupo.
+
+- ACOUNT(*) → conta quantas músicas caíram em cada grupo.
+
+### 📍 Validar hipótese
