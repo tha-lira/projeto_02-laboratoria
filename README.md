@@ -520,7 +520,51 @@ Streams x Speechiness: leve correlação negativa (–0,11).
 ## 🟥 Aplicar técnica de análise
 
 ### 🔴 Aplicar segmentação
+
+| Variável        | Categoria         | Média de Streams |
+|-----------------|------------------|------------------|
+| Acousticness    | Q1 - Muito Baixa | 620.171.492      |
+| Acousticness    | Q2 - Baixa/Média | 436.783.424      |
+| Acousticness    | Q3 - Média/Alta  | 445.149.431      |
+| Acousticness    | Q4 - Muito Alta  | 550.333.254      |
+|-----------------|------------------|------------------|
+| BPM             | Q1 - Muito Baixa | 540.415.402      |
+| BPM             | Q2 - Baixa/Média | 538.812.898      |
+| BPM             | Q3 - Média/Alta  | 448.144.598      |
+| BPM             | Q4 - Muito Alta  | 525.064.704      |
+|-----------------|------------------|------------------|
+| Danceability    | Q1 - Muito Baixa | 583.840.158      |
+| Danceability    | Q2 - Baixa/Média | 533.939.249      |
+| Danceability    | Q3 - Média/Alta  | 505.183.992      |
+| Danceability    | Q4 - Muito Alta  | 429.474.202      |
+|-----------------|------------------|------------------|
+| Energy          | Q1 - Muito Baixa | 550.799.660      |
+| Energy          | Q2 - Baixa/Média | 503.034.486      |
+| Energy          | Q3 - Média/Alta  | 506.344.796      |
+| Energy          | Q4 - Muito Alta  | 492.258.660      |
+|-----------------|------------------|------------------|
+| Instrumentalness| Q1 - Muito Baixa | 861.370.606      |
+| Instrumentalness| Q2 - Baixa/Média | 228.355.325      |
+| Instrumentalness| Q3 - Média/Alta  | 670.259.919      |
+| Instrumentalness| Q4 - Muito Alta  | 292.451.752      |
+|-----------------|------------------|------------------|
+| Liveness        | Q1 - Muito Baixa | 578.523.706      |
+| Liveness        | Q2 - Baixa/Média | 507.008.092      |
+| Liveness        | Q3 - Média/Alta  | 496.602.340      |
+| Liveness        | Q4 - Muito Alta  | 470.303.463      |
+|-----------------|------------------|------------------|
+| Speechiness     | Q1 - Muito Baixa | 610.549.468      |
+| Speechiness     | Q2 - Baixa/Média | 517.771.052      |
+| Speechiness     | Q3 - Média/Alta  | 516.450.894      |
+| Speechiness     | Q4 - Muito Alta  | 407.666.189      |
+|-----------------|------------------|------------------|
+| Valence         | Q1 - Muito Baixa | 525.918.604      |
+| Valence         | Q2 - Baixa/Média | 557.138.298      |
+| Valence         | Q3 - Média/Alta  | 501.454.306      |
+| Valence         | Q4 - Muito Alta  | 467.926.394      |
+
 ### 🔴 Validar hipótese
+
 ### 🔴 Regressão linear
 
 ## 🟧 Resumir as informações em um dashboard ou relatório
