@@ -694,24 +694,28 @@ FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
 ### 📍 Calcular correlação entre variáveis ​​
 
 ```
+-- Correlações entre streams e variáveis musicais
+
 SELECT
-  CORR(streams, danceability) AS corr_streams_dance,
+  CORR(streams, danceability) AS corr_streams_danceability,
   CORR(streams, energy) AS corr_streams_energy,
   CORR(streams, valence) AS corr_streams_valence,
   CORR(streams, bpm) AS corr_streams_bpm,
   CORR(streams, acousticness) AS corr_streams_acousticness,
   CORR(streams, liveness) AS corr_streams_liveness,
   CORR(streams, speechiness) AS corr_streams_speechiness,
-  CORR(streams, total_playlists) AS corr_streams_playlists
+  CORR(streams, total_playlists) AS corr_streams_total_playlists,
 FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
 ```
 
 ```
+-- Correlações entre atributos musicais
+
 SELECT
-  CORR(danceability, energy) AS corr_dance_energy,
-  CORR(acousticness, valence) AS corr_acoustic_valence,
+  CORR(danceability, energy) AS corr_danceability_energy,
+  CORR(acousticness, valence) AS corr_acousticness_valence,
   CORR(bpm, energy) AS corr_bpm_energy,
-  CORR(bpm, danceability) AS corr_bpm_dance
+  CORR(bpm, danceability) AS corr_bpm_danceability
 FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
 ```
 

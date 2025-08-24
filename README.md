@@ -560,30 +560,31 @@ Objetivo: entender distribuição de forma precisa.
 
 ### 🟣  Calcular correlação entre variáveis ​​
 
-Objetivo: entender relações lineares.
+Objetivo: Entender relações lineares entre o número de streams e características musicais.
 
-| Variável           | Correlação |
-|--------------------|------------|
-| Danceability       | -0.101     |
-| Energy             | -0.030     |
-| Valence            | -0.043     |
-| BPM                | -0.002     |
-| Acousticness       | +0.011     |
-| Liveness           | -0.055     |
-| Speechiness        | -0.113     |
-| Nº de Playlists    | **+0.782** |
+- Resultados das correlações
 
-📌 A análise de correlação demonstrou que:
+| Variáveis                      | Correlação | Interpretação                                                                       |
+| ------------------------------ | ---------- | ----------------------------------------------------------------------------------- |
+| **streams × total\_playlists** | **+0.78**  | Correlação **forte positiva**. Músicas em mais playlists tendem a ter mais streams. |
+| **streams × danceability**     | -0.10      | Correlação fraca e **negativa**. Quase nenhuma relação.                             |
+| **streams × energy**           | -0.03      | Correlação fraca e **negativa**. Praticamente nula.                                 |
+| **streams × valence**          | -0.04      | Correlação muito fraca. Sem relação clara.                                          |
+| **streams × bpm**              | \~0.00     | Correlação inexistente.                                                             |
+| **streams × acousticness**     | +0.01      | Correlação quase nula.                                                              |
+| **streams × liveness**         | -0.05      | Correlação muito fraca e negativa.                                                  |
+| **streams × speechiness**      | -0.11      | Correlação fraca e negativa. Músicas muito faladas tendem a ter menos streams.      |
 
-Streams x Playlists: forte correlação positiva (0,78).
 
-👉 Quanto mais playlists uma música aparece, maior seu número de streams.
+- Correlação entre atributos musicais
 
-Streams x Danceability, Energy, Valence, BPM: correlação fraca (quase nula).
+| Variáveis                  | Correlação | Interpretação                                                                           |
+| -------------------------- | ---------- | --------------------------------------------------------------------------------------- |
+| **danceability × energy**  | +0.17      | Correlação fraca, mas **positiva**: músicas dançantes tendem a ser mais energéticas.    |
+| **acousticness × valence** | -0.07      | Correlação muito fraca e **negativa**.                                                  |
+| **bpm × energy**           | +0.02      | Quase nenhuma relação entre velocidade e energia.                                       |
+| **bpm × danceability**     | -0.16      | Correlação **fraca negativa**: músicas mais rápidas podem ser um pouco menos dançantes. |
 
-Streams x Speechiness: leve correlação negativa (–0,11).
-
-👉 Popularidade não depende do perfil sonoro, mas sim da exposição em playlists.
 
 [Relatório Final](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/relat%C3%B3rioAnalise.md)
 
