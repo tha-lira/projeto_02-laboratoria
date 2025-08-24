@@ -460,82 +460,103 @@ A partir de 1999, observa-se um aumento gradual na quantidade de lançamentos, q
 
 Objetivo: entender distribuição de forma precisa.
 
-🔍 1. Quartis (Q1, Q2, Q3)
+- 🔍 Dispersão e Percentis das Variáveis do Spotify
 
-| Variável         | Q0  | Q1  | Q2  | Q3  | Q4  |
-| ---------------- | -------- | --- | ------------ | --- | -------- |
-| instrumentalness | 0  | 0   | 0            | 0   | 91       |
-| speechiness      | 2  | 4   | 6            | 12  | 64       |
-| liveness         | 3        | 10  | 12           | 24  | 97       |
-| energy           | 14 | 53  | 65           | 76  | 97       |
-| valence          | 4  | 32  | 51           | 70  | 97       |
-| acousticness     | 0  | 5   | 17           | 42  | 97       |
-| bpm              | 65 | 100 | 121          | 142 | 206      |
-| danceability     | 23 | 57  | 69           | 78  | 96       |
+1. Quartis (Q0 a Q4)
 
-📌 Os quartis dividem os dados em quatro partes iguais. Destacamos:
+| Variável             | Mín (Q0) | Q1  | Q2 *(Mediana)* | Q3  | Máx (Q4) |
+| -------------------- | -------- | --- | -------------- | --- | -------- |
+| **instrumentalness** | 0        | 0   | 0              | 0   | 91       |
+| **speechiness**      | 2        | 4   | 6              | 12  | 64       |
+| **liveness**         | 3        | 10  | 12             | 24  | 97       |
+| **energy**           | 14       | 53  | 65             | 76  | 97       |
+| **valence**          | 4        | 32  | 51             | 70  | 97       |
+| **acousticness**     | 0        | 5   | 17             | 42  | 97       |
+| **bpm**              | 65       | 100 | 121            | 142 | 206      |
+| **danceability**     | 23       | 57  | 69             | 78  | 96       |
 
-- instrumentalness possui valores extremamente concentrados no zero (Q0 = Q1 = Q2 = Q3 = 0), com um valor máximo (Q4) de 91. Isso indica que a maioria das músicas não são instrumentais, e apenas alguns casos isolados possuem alto nível de instrumentalidade.
+💡 instrumentalness: Extremamente concentrada em 0 — maioria das músicas não instrumentais.
 
-- speechiness e liveness também têm valores baixos para a maior parte dos dados (medianas em 6 e 12, respectivamente), indicando baixa presença de fala ou "ambiência ao vivo" nas faixas.
+💡 speechiness: Concentrada entre 2 e 12 — baixo teor de fala, músicas mais cantadas que faladas.
 
-- energy, valence, danceability e bpm apresentam uma distribuição mais equilibrada, com mediana em:
+💡 energy, valence, danceability: Distribuições centradas e simétricas, sem valores extremos abaixo de Q1/Q3.
 
-- Energy: 65
+💡 acousticness: Mediana baixa (17), com alto Q3 (42), mostrando grande variação.
 
-- Valence: 51
+💡 bpm: Mediana em 121, típico de músicas pop/dançantes.
 
-- Danceability: 69
+2. Decis (Distribuição por Faixas de 10%)
+(Extraído com APPROX_QUANTILES(variável, 10))
 
-- BPM: 121
+| Variável             | D1 | D2 | D3 | D4  | D5 *(Mediana)* | D6  | D7  | D8  | D9  | Máx |
+| -------------------- | -- | -- | -- | --- | -------------- | --- | --- | --- | --- | --- |
+| **instrumentalness** | 0  | 0  | 0  | 0   | 0              | 0   | 0   | 0   | 0   | 91  |
+| **speechiness**      | 2  | 3  | 4  | 4   | 5              | 6   | 7   | 10  | 15  | 64  |
+| **liveness**         | 3  | 8  | 9  | 10  | 11             | 12  | 15  | 19  | 28  | 97  |
+| **acousticness**     | 0  | 1  | 4  | 7   | 11             | 17  | 26  | 36  | 49  | 97  |
+| **bpm**              | 65 | 89 | 96 | 104 | 113            | 121 | 128 | 138 | 146 | 206 |
+| **valence**          | 4  | 20 | 27 | 37  | 44             | 51  | 58  | 65  | 74  | 97  |
+| **energy**           | 14 | 43 | 51 | 56  | 62             | 65  | 70  | 74  | 79  | 97  |
+| **danceability**     | 23 | 46 | 55 | 60  | 65             | 70  | 73  | 77  | 80  | 96  |
 
-Isso sugere que boa parte das músicas possuem energia e dançabilidade moderadas a altas, além de valores rítmicos compatíveis com músicas comerciais.
 
-🔍 2. Decis (10 em 10)
+💡 instrumentalness: 90% das músicas têm valor 0 — apenas 10% têm alguma característica instrumental.
 
-| Variável         | D1 | D2 | D3 | D4  | D5  | D6  | D7  | D8  | D9  | Máx |
-| ---------------- | -- | -- | -- | --- | --- | --- | --- | --- | --- | --- |
-| instrumentalness | 0  | 0  | 0  | 0   | 0   | 0   | 0   | 0   | 0   | 91  |
-| liveness         | 3  | 8  | 9  | 10  | 11  | 12  | 15  | 19  | 28  | 97  |
-| speechiness      | 2  | 3  | 4  | 4   | 5   | 6   | 7   | 10  | 15  | 64  |
-| acousticness     | 0  | 1  | 4  | 7   | 11  | 17  | 26  | 36  | 49  | 97  |
-| bpm              | 65 | 89 | 96 | 104 | 113 | 121 | 128 | 138 | 146 | 206 |
-| valence          | 4  | 20 | 27 | 37  | 44  | 51  | 58  | 65  | 74  | 97  |
-| energy           | 14 | 43 | 51 | 56  | 62  | 65  | 70  | 74  | 79  | 97  |
-| danceability     | 23 | 46 | 55 | 60  | 65  | 70  | 73  | 77  | 80  | 96  |
+💡 bpm: Bem distribuído entre 90–140 bpm, faixa típica de músicas mainstream.
 
-📌 Os decis nos permitem observar como os valores estão concentrados em intervalos menores. Alguns destaques:
+💡 acousticness: Progresso lento nos decis — mostra uma distribuição assimétrica, com poucos valores altos.
 
-- instrumentalness reforça sua concentração total nos primeiros decis (D1 a D9 = 0), com 91 apenas no D10, caracterizando forte assimetria.
+3. Percentil 95 (P95)
 
-- acousticness, apesar de também ter valores baixos nos primeiros decis, cresce gradualmente, sugerindo que embora muitas músicas sejam pouco acústicas, há uma porção considerável com características acústicas elevadas.
+| Variável             | P95 | Interpretação                                                                   |
+| -------------------- | --- | ------------------------------------------------------------------------------- |
+| **instrumentalness** | 5   | 95% das faixas têm valor abaixo de 5, ou seja, são **quase totalmente vocais**. |
+| **speechiness**      | 34  | Faixas com **alto teor de fala** (como rap, podcasts) são **minoria**.          |
+| **liveness**         | 44  | Acima disso, indica possível **gravação ao vivo ou com presença de público**.   |
+| **energy**           | 89  | Faixas **muito energéticas** são menos comuns.                                  |
+| **valence**          | 90  | Poucas músicas são **extremamente positivas/emocionalmente alegres**.           |
+| **acousticness**     | 81  | Apenas 5% das faixas são **altamente acústicas**.                               |
+| **bpm**              | 174 | Músicas com BPM acima disso são **muito rápidas** (ex: eletrônica, techno).     |
+| **danceability**     | 90  | Faixas **extremamente dançantes** são menos frequentes.                         |
 
-- bpm apresenta uma distribuição bem espalhada, indo de 65 (D1) até 206 (máx), com distribuição crescente e consistente, o que reflete a variação nos estilos musicais.
+- 🔍 Análise de Dispersão: Quartis, Decis e Outliers de 
 
-- valence e energy mostram uma distribuição mais homogênea, com aumento progressivo, indicando variedade de emoções e intensidade nas músicas.
+1. Quartis (Q1, Q2, Q3)
 
-🔍 3. Percentil 95 (P95)
+| Quartil | Valor (`streams`)       | Interpretação                                    |
+| ------- | ----------------------- | ------------------------------------------------ |
+| Q1      | 138.517.666             | 25% das músicas têm até \~138 milhões de streams |
+| Q2      | 284.249.832 *(mediana)* | 50% das músicas têm até \~284 milhões            |
+| Q3      | 674.072.710             | 75% das músicas têm até \~674 milhões            |
+| Mínimo  | 2.762                   | Música com menos streams no dataset              |
+| Máximo  | 3.703.895.074           | Música com mais streams                          |
 
-| Variável         | Percentil 95 (P95) |
-| ---------------- | ------------------ |
-| bpm              | 174                |
-| danceability     | 90                 |
-| valence          | 90                 |
-| acousticness     | 81                 |
-| speechiness      | 34                 |
-| liveness         | 44                 |
-| energy           | 89                 |
-| instrumentalness | 5                  |
+💡 A mediana está bem abaixo da média geral (~513 milhões), indicando assimetria positiva — poucas músicas com números muito altos puxam a média para cima.
 
-📌 O P95 indica o valor abaixo do qual estão 95% dos dados. Valores acima disso são potenciais outliers. Veja os principais destaques:
+2. Decis (Distribuição em Faixas de 10%)
 
-- bpm: 95% das músicas têm BPM até 174, o que indica que músicas com BPM acima disso são raras e provavelmente mais aceleradas (e.g., eletrônica ou techno).
+| Decil | Valor (`streams`) | Observação                                      |
+| ----- | ----------------- | ----------------------------------------------- |
+| D1    | 70.106.975        | 10% das músicas têm até \~70 milhões de streams |
+| D2    | 117.747.907       | 20% têm até esse valor                          |
+| D3    | 159.240.673       | 30%                                             |
+| D4    | 211.372.494       | 40%                                             |
+| D5    | 284.819.874       | 50% (próximo da mediana Q2)                     |
+| D6    | 381.161.027       | 60%                                             |
+| D7    | 556.585.270       | 70%                                             |
+| D8    | 822.239.726       | 80%                                             |
+| D9    | 1.304.313.953     | 90%                                             |
+| D10   | 3.703.895.074     | 100% (valor máximo)                             |
 
-- speechiness: apenas 5% das faixas têm valor acima de 34, logo, músicas com muitos elementos de fala (como rap ou podcasts) são minoria.
+💡 A maior parte das músicas tem menos de 300 milhões de streams. Apenas os 10% mais populares ultrapassam 1,3 bilhão — reforçando a existência de poucos sucessos massivos.
 
-- instrumentalness: apesar do valor máximo ser 91, o P95 é apenas 5, reforçando que a grande maioria das faixas tem baixa ou nenhuma instrumentalidade.
+3. Percentil 95 (P95)
 
-- danceability, valence, energy e acousticness têm P95 entre 81 e 90, sugerindo que faixas com altíssimos níveis nessas características são menos comuns, mas ainda relevantes.
+| Percentil | Valor (`streams`) | Interpretação                                     |
+| --------- | ----------------- | ------------------------------------------------- |
+| P95       | 1.763.363.713     | Apenas 5% das músicas têm mais que \~1,76 bilhões |
+
+💡 A barreira de 1,7 bi define os outliers superiores — músicas de enorme sucesso global.
 
 ### 🟣  Calcular correlação entre variáveis ​​
 

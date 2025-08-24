@@ -648,21 +648,48 @@ GROUP BY released_year
 ORDER BY released_year;
 
 ```
+
 ### 📍 Calcular quartis, decis e percentis
 
 ```
+-- Estatísticas de streams
+
 -- Quartis de streams
+
 SELECT APPROX_QUANTILES(streams, 4) AS quartis
 FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
 
--- Percentis (10 em 10)
+-- Percentis (10 em 10) de streams
+
 SELECT APPROX_QUANTILES(streams, 10) AS decis
 FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
 
--- Percentil 95 (outliers)
+-- Percentil 95 (outliers) de streams
+
 SELECT APPROX_QUANTILES(streams, 100)[OFFSET(95)] AS p95
 FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
 ```
+
+```
+-- Quartis (Q0, Q1, Q2, Q3, Q4)
+
+SELECT 'quartis' AS tipo, APPROX_QUANTILES(energy, 4) AS valores
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
+
+-- Decis (D0 a D10)
+
+SELECT 'decis' AS tipo, APPROX_QUANTILES(energy, 10) AS valores
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
+
+
+-- Percentil 95 (P95)
+
+SELECT 'p95' AS tipo, APPROX_QUANTILES(energy, 100)[OFFSET(95)] AS valor
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
+
+```
+
+📌 A mesma query pode ser utilizada para outras variáveis (como valence, bpm, danceability, acousticness, etc.). Basta substituir o nome da variável energy na query pelo nome da variável desejada.
 
 ### 📍 Calcular correlação entre variáveis ​​
 
