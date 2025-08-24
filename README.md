@@ -356,39 +356,37 @@ Objetivo: Avaliar as principais características das músicas na base de dados, 
 
 Objetivo: analisar como os dados se espalham em faixas.
 
-- 📊 1. Danceability
+- Danceability
 
-Faixa vai de 23 a 74
+💡 A distribuição é concentrada entre as faixas 56 e 80, com picos em 70, 74, 77 e 80. Isso indica um claro viés para músicas dançantes, com apelo pop e urbano (reggaeton, R&B). Poucas faixas estão abaixo de 40 ou acima de 90.
 
-Pico por volta de 56 a 74, com destaque para:
+- Energy
 
-56 → 27 músicas
+💡 A maioria das músicas está entre 40 e 85, com destaque nas faixas 66, 74 e 76. A distribuição mostra tendência para músicas com alta energia, típicas de hits radiofônicos e baladas.
 
-59 → 22 músicas
+- Valence (positividade da música)
 
-60 → 19 músicas
+💡 Distribuição bastante homogênea, mas com leve concentração entre 30 e 70. Faixas mais felizes (valence > 70) são menos frequentes, enquanto tons mais neutros dominam. A presença de músicas tristes ou introspectivas também é significativa (valence < 30).
 
-63 → 20 músicas
+- Acousticness
 
-65 → 24 músicas
+💡 Forte assimetria: mais de 200 músicas com valores entre 0 e 5, sugerindo produção altamente eletrônica. Apenas uma minoria de músicas (pouco mais de 10%) apresenta altos níveis de elementos acústicos (>60). Tendência clara para sons digitais e pop contemporâneo.
 
-70 → 37 músicas (maior valor)
+- Liveness (presença de público ao vivo)
 
-- 📊 2. Energy
+💡 A maior parte das músicas tem valores baixos (entre 5 e 20), confirmando que são músicas de estúdio. Poucas faixas têm características de gravações ao vivo (valores acima de 60).
 
-Faixa vai de 14 a 69
+- Speechiness
 
-Distribuição mais "espalhada", com picos entre:
+💡 Grande parte está entre 3 e 6, que indica músicas com vocais cantados e não falados. Valores muito altos (>30) são raros e representam trechos falados, como rap ou skits.
 
-62 → 28 músicas (pico máximo)
+- Instrumentalness
 
-60 → 22 músicas
+💡 Quase todas as faixas têm instrumentalness próxima de zero: 779 de 861 músicas têm valor 0.0. Ou seja, são músicas com vocais predominantes, com pouquíssimas faixas realmente instrumentais.
 
-66 → 24 músicas
+- BPM (tempo)
 
-65 e 67 → 20 músicas cada
-
-63 e 64 → 18–20 músicas
+💡 Picos de frequência em 120 BPM e faixas próximas (90 a 140), faixa padrão de músicas pop e dançantes. Raridade de músicas muito lentas (<80 BPM) ou extremamente rápidas (>180 BPM). Distribuição mostra preferência por ritmos moderados a acelerados, comuns no mainstream.
 
 ### 🟣  Aplicar medidas de dispersão
 

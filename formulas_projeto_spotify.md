@@ -504,17 +504,79 @@ FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
 ### 📍 Visualizar a distribuição dos dados
 
 ```
--- Distribuição de danceability por faixas
-SELECT ROUND(danceability,1) AS faixa_dance, COUNT(*) AS qtd
+-- Distribuição de danceability
+
+SELECT 
+  ROUND(danceability, 1) AS faixa_dance, 
+  COUNT(*) AS qtd
 FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
 GROUP BY faixa_dance
 ORDER BY faixa_dance;
 
+
 -- Distribuição de energy
-SELECT ROUND(energy,1) AS faixa_energy, COUNT(*) AS qtd
+
+SELECT 
+  ROUND(energy, 1) AS faixa_energy, 
+  COUNT(*) AS qtd
 FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
 GROUP BY faixa_energy
 ORDER BY faixa_energy;
+
+-- Distribuição de valence
+
+SELECT 
+  ROUND(valence, 1) AS faixa_valence, 
+  COUNT(*) AS qtd
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+GROUP BY faixa_valence
+ORDER BY faixa_valence;
+
+-- Distribuição de acousticness
+
+SELECT 
+  ROUND(acousticness, 1) AS faixa_acousticness, 
+  COUNT(*) AS qtd
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+GROUP BY faixa_acousticness
+ORDER BY faixa_acousticness;
+
+-- Distribuição de liveness
+
+SELECT 
+  ROUND(liveness, 1) AS faixa_liveness, 
+  COUNT(*) AS qtd
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+GROUP BY faixa_liveness
+ORDER BY faixa_liveness;
+
+-- Distribuição de speechiness
+
+SELECT 
+  ROUND(speechiness, 1) AS faixa_speechiness, 
+  COUNT(*) AS qtd
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+GROUP BY faixa_speechiness
+ORDER BY faixa_speechiness;
+
+-- Distribuição de instrumentalness
+
+SELECT 
+  ROUND(instrumentalness, 1) AS faixa_instrumentalness, 
+  COUNT(*) AS qtd
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+GROUP BY faixa_instrumentalness
+ORDER BY faixa_instrumentalness;
+
+-- Distribuição de bpm
+
+SELECT 
+  FLOOR(bpm / 10) * 10 AS faixa_bpm, 
+  COUNT(*) AS qtd
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+GROUP BY faixa_bpm
+ORDER BY faixa_bpm;
+
 ```
 
 ### 📍 Aplicar medidas de dispersão
