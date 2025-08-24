@@ -390,15 +390,27 @@ Objetivo: analisar como os dados se espalham em faixas.
 
 ### 🟣  Aplicar medidas de dispersão
 
-Objetivo: entender a variabilidade dos dados.
+Objetivo: entender o quanto os valores de cada variável variam em torno da média — ou seja, o grau de dispersão dos dados.
 
-| Variável     | Desvio Padrão     |
-|--------------|-------------------|
-| Energy       | 16.06             |
-| Streams      | 571.77 milhões    |
-| BPM          | 28.21             |
+| Variável             | Desvio Padrão  |
+| -------------------- | -------------- |
+| **instrumentalness** | 8.58           |
+| **danceability**     | 14.65          |
+| **acousticness**     | 25.70          |
+| **liveness**         | 13.57          |
+| **valence**          | 23.60          |
+| **streams**          | 571,774,193.76 |
+| **bpm**              | 28.21          |
+| **speechiness**      | 10.10          |
+| **energy**           | 16.06          |
 
-📌 A avaliação da variabilidade incluiu amplitude, variância, desvio-padrão e quartis. Constatou-se que os streams possuem elevada dispersão, evidenciando desigualdade na distribuição do sucesso musical. Já variáveis como energy e danceability apresentaram dispersão mais controlada, indicando que a maioria das músicas segue padrões semelhantes nesses atributos.
+💡 Streams apresentam uma dispersão extremamente alta, o que reforça a assimetria e polarização de popularidade — algumas músicas dominam os números enquanto a maioria tem streams modestos.
+
+💡 Danceability, energy, e bpm têm desvios moderados (~14–28), indicando variedade entre músicas dançantes e ritmos mais ou menos acelerados.
+
+💡 Acousticness e valence têm dispersões elevadas (~23–25), o que sugere uma grande diversidade em características acústicas e sentimentos transmitidos (positividade/tristeza).
+
+💡 Speechiness e instrumentalness têm baixos desvios (< 10), revelando menor variação — ou seja, poucas músicas extremamente faladas ou instrumentais. nesses atributos.
 
 ### 🟣  Visualizar o comportamento dos dados ao longo do tempo
 

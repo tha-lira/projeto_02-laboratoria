@@ -582,17 +582,51 @@ ORDER BY faixa_bpm;
 ### 📍 Aplicar medidas de dispersão
 
 ```
--- Estatísticas com desvio padrão incluído
-SELECT
-  'streams' AS variavel, STDDEV(streams) AS desvio
-FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+-- Medidas de dispersão (Desvio Padrão) das variáveis numéricas
 
-UNION ALL
-SELECT 'bpm', STDDEV(bpm)
-FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+-- streams – Desvio Padrão
 
-UNION ALL
-SELECT 'energy', STDDEV(energy)
+SELECT STDDEV(streams) AS desvio_padrao_streams
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
+
+-- bpm – Desvio Padrão
+
+SELECT STDDEV(bpm) AS desvio_padrao_bpm
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
+
+-- energy – Desvio Padrão
+
+SELECT STDDEV(energy) AS desvio_padrao_energy
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
+
+-- valence – Desvio Padrão
+
+SELECT STDDEV(valence) AS desvio_padrao_valence
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
+
+-- liveness – Desvio Padrão
+
+SELECT STDDEV(liveness) AS desvio_padrao_liveness
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
+
+-- acousticness – Desvio Padrão
+
+SELECT STDDEV(acousticness) AS desvio_padrao_acousticness
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
+
+-- speechiness – Desvio Padrão
+
+SELECT STDDEV(speechiness) AS desvio_padrao_speechiness
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
+
+-- instrumentalness – Desvio Padrão
+
+SELECT STDDEV(instrumentalness) AS desvio_padrao_instrumentalness
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
+
+-- danceability – Desvio Padrão
+
+SELECT STDDEV(danceability) AS desvio_padrao_danceability
 FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
 ```
 
