@@ -420,17 +420,85 @@ ORDER BY qtd_musicas DESC;
 
 ```
 -- Estatísticas básicas: média, mínimo, máximo, desvio
-SELECT
-  'streams' AS variavel, AVG(streams) AS media, MIN(streams) AS minimo, MAX(streams) AS maximo
+SELECT 'danceability' AS variavel,
+       ROUND(AVG(danceability), 2) AS media,
+       MIN(danceability) AS minimo,
+       MAX(danceability) AS maximo,
+       ROUND(STDDEV(danceability), 2) AS desvio_padrao
 FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
 
 UNION ALL
-SELECT 'bpm', AVG(bpm), MIN(bpm), MAX(bpm)
+
+SELECT 'instrumentalness',
+       ROUND(AVG(instrumentalness), 2),
+       MIN(instrumentalness),
+       MAX(instrumentalness),
+       ROUND(STDDEV(instrumentalness), 2)
 FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
 
 UNION ALL
-SELECT 'danceability', AVG(danceability), MIN(danceability), MAX(danceability)
+
+SELECT 'streams',
+       ROUND(AVG(streams), 2),
+       MIN(streams),
+       MAX(streams),
+       ROUND(STDDEV(streams), 2)
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+
+UNION ALL
+
+SELECT 'bpm',
+       ROUND(AVG(bpm), 2),
+       MIN(bpm),
+       MAX(bpm),
+       ROUND(STDDEV(bpm), 2)
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+
+UNION ALL
+
+SELECT 'speechiness',
+       ROUND(AVG(speechiness), 2),
+       MIN(speechiness),
+       MAX(speechiness),
+       ROUND(STDDEV(speechiness), 2)
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+
+UNION ALL
+
+SELECT 'liveness',
+       ROUND(AVG(liveness), 2),
+       MIN(liveness),
+       MAX(liveness),
+       ROUND(STDDEV(liveness), 2)
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+
+UNION ALL
+
+SELECT 'acousticness',
+       ROUND(AVG(acousticness), 2),
+       MIN(acousticness),
+       MAX(acousticness),
+       ROUND(STDDEV(acousticness), 2)
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+
+UNION ALL
+
+SELECT 'energy',
+       ROUND(AVG(energy), 2),
+       MIN(energy),
+       MAX(energy),
+       ROUND(STDDEV(energy), 2)
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+
+UNION ALL
+
+SELECT 'valence',
+       ROUND(AVG(valence), 2),
+       MIN(valence),
+       MAX(valence),
+       ROUND(STDDEV(valence), 2)
 FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
+
 ```
 
 ### 📍 Visualizar a distribuição dos dados

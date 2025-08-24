@@ -320,24 +320,37 @@ Objetivo: entender visualmente a distribuição em faixas/categorias.
 
 ### 🟣  Aplicar medidas de tendência central
 
-Objetivo: calcular média, mediana, etc.
+Objetivo: Avaliar as principais características das músicas na base de dados, por meio de estatísticas descritivas — média, mínimo, máximo e desvio padrão — para variáveis relacionadas ao desempenho e atributos musicais.
 
 - Estatísticas gerais (média, mínimo, máximo)
 
-| Variável         | Média          | Mínimo | Máximo        | Desvio Padrão  |
-| ---------------- | -------------- | ------ | ------------- | -------------- |
-| danceability     | 67.25          | 23     | 96            | 14.65          |
-| instrumentalness | 1.61           | 0      | 91            | 8.58           |
-| streams          | 513,109,400.48 | 2,762  | 3,703,895,074 | 571,774,193.76 |
-| bpm              | 122.86         | 65     | 206           | 28.21          |
-| speechiness      | 10.40          | 2      | 64            | 10.10          |
-| liveness         | 18.16          | 3      | 97            | 13.57          |
-| acousticness     | 26.66          | 0      | 97            | 25.70          |
-| energy           | 64.33          | 14     | 97            | 16.06          |
-| valence          | 51.20          | 4      | 97            | 23.60          |
+| Variável                            | Média          | Mínimo | Máximo        | Desvio Padrão  |
+| ----------------------------------- | -------------- | ------ | ------------- | -------------- |
+| **Energy** (energia)                | 64.33          | 14     | 97            | 16.06          |
+| **Streams** (número de streams)     | 513,109,400.48 | 2,762  | 3,703,895,074 | 571,774,193.76 |
+| **BPM** (batidas por minuto)        | 122.86         | 65     | 206           | 28.21          |
+| **Valence** (positividade)          | 51.20          | 4      | 97            | 23.60          |
+| **Liveness** (presença de público)  | 18.16          | 3      | 97            | 13.57          |
+| **Acousticness** (acústica)         | 26.66          | 0      | 97            | 25.70          |
+| **Speechiness** (presença vocal)    | 10.40          | 2      | 64            | 10.10          |
+| **Instrumentalness** (instrumental) | 1.61           | 0      | 91            | 8.58           |
+| **Danceability** (dançabilidade)    | 67.25          | 23     | 96            | 14.65          |
 
+- Streams: A variável apresenta uma média de aproximadamente 513 milhões de reproduções, com valores que variam de poucos milhares até mais de 3,7 bilhões, indicando grande desigualdade na popularidade das músicas, típica em bases musicais onde poucos hits dominam as estatísticas.
 
-📌 Danceability tem uma média alta (67.25) — indica músicas dançantes, com foco em pop, reggaeton, R&B. BPM médio de ~123 indica uma predominância de músicas moderadamente rápidas, ideais para rádio e streaming. Streams variam de milhares a bilhões, sugerindo forte assimetria (grande desigualdade de popularidade entre músicas).
+- Danceability: Com média de 67.25, indica que a maior parte das músicas tem características favoráveis para serem dançadas, o que reforça a predominância de gêneros como pop, reggaeton e R&B.
+
+- BPM: A média de 122.86 bpm sugere uma preferência por músicas com ritmo moderadamente acelerado, adequado para consumo em plataformas de streaming e rádios.
+
+- Energy e Valence: Valores medianos em energy (64.33) e valence (51.20) indicam músicas geralmente animadas e com uma variação equilibrada entre sentimentos positivos e neutros.
+
+- Acousticness e Instrumentalness: Valores baixos em instrumentalness (1.61) e moderados em acousticness (26.66) sugerem uma predominância de músicas vocais e com produção eletrônica ou híbrida, em detrimento de faixas puramente acústicas ou instrumentais.
+
+- Speechiness: Com média baixa (10.40), a presença de elementos falados é rara, indicando predominância de canto tradicional.
+
+- Liveness: A média baixa (18.16) aponta para poucas gravações ao vivo, predominando faixas produzidas em estúdio.
+
+💡 Os dados refletem uma base musical caracterizada por forte presença de músicas comerciais, dançantes e com ritmos acelerados, voltadas para o consumo em massa nas plataformas digitais. A elevada variabilidade nos streams confirma o impacto de grandes sucessos isolados, enquanto a predominância de características como danceability e energy reforça tendências atuais do mercado musical.
 
 ### 🟣  Visualizar a distribuição dos dados
 
