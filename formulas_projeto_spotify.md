@@ -381,11 +381,81 @@ FROM ranking_streams;
 
 ### 📍 Agrupar dados por variáveis categóricas
 
+```
+-- Média de streams por faixa de total de playlists:
+
+SELECT
+  CASE
+    WHEN total_playlists > 5000 THEN '>5000'
+    WHEN total_playlists BETWEEN 1001 AND 5000 THEN '1001-5000'
+    WHEN total_playlists BETWEEN 100 AND 1000 THEN '100-1000'
+    ELSE '<100'
+  END AS faixa_total_playlists,
+  AVG(streams) AS media_streams
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+GROUP BY faixa_total_playlists
+ORDER BY
+  CASE
+    WHEN faixa_total_playlists = '>5000' THEN 1
+    WHEN faixa_total_playlists = '1001-5000' THEN 2
+    WHEN faixa_total_playlists = '100-1000' THEN 3
+    WHEN faixa_total_playlists = '<100' THEN 4
+  END;
+```
+
+```
+-- Top 10 artistas por total de streams
+
+SELECT
+  artists_name,
+  SUM(streams) AS total_streams,
+  ROUND(100 * SUM(streams) / (SELECT SUM(streams) FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`), 2) AS percentual
+FROM
+  `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+GROUP BY
+  artists_name
+ORDER BY
+  total_streams DESC
+LIMIT 10;
+
+```
+
+```
+-- Análise de popularidade relativa dos 10 primeiros artistas
+
+WITH top_10_artists AS (
+  SELECT
+    artists_name,
+    SUM(streams) AS total_streams
+  FROM
+    `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+  GROUP BY
+    artists_name
+  ORDER BY
+    total_streams DESC
+  LIMIT 10
+)
+
+SELECT
+  t.artists_name,
+  AVG(t2.streams) AS media_streams_por_musica,
+  APPROX_QUANTILES(t2.streams, 2)[OFFSET(1)] AS mediana_streams_por_musica,
+  COUNT(*) AS total_musicas
+FROM
+  top_10_artists t
+JOIN
+  `spotify-analysis-465623.spotify_data.tabela_unificada_tratada` t2
+ON
+  t.artists_name = t2.artists_name
+GROUP BY
+  t.artists_name
+ORDER BY
+  media_streams_por_musica DESC;
+```
 
 ### 📍 Visualizar variáveis ​​categóricas
 
 ```
-
 -- Top 10 artistas com mais músicas
 
 SELECT artists_name, COUNT(track_id) AS qtd_musicas

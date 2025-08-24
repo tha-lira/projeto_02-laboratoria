@@ -221,16 +221,20 @@ A análise exploratória de dados (AED) tem como objetivo compreender o comporta
 
 Objetivo: entender comportamentos médios ou totais com base em categorias.
 
-🔹 1. Streams por faixa de total de playlists:
+- Média de streams por faixa de total de playlists
 
-| Faixa       | Média de Streams |
-| ----------- | ---------------- |
-| `>5000`     | **1.16B**        |
-| `1001-5000` | 322M             |
-| `100-1000`  | 150M             |
-| `<100`      | 53M              |
+| Faixa       | Média de Streams  |
+|-------------|-------------------|
+| `>5000`     | **1.166.623.924** |
+| `1001-5000` | 322.036.600       |
+| `100-1000`  | 150.977.464       |
+| `<100`      | 53.157.364        |
 
-🔹 2. Top 20 artistas por total de streams no Spotify:
+Ao agrupar as músicas conforme a quantidade de playlists em que aparecem, observamos uma forte relação entre a presença nas playlists e o desempenho em número de streams. Músicas que estão em mais de 5000 playlists possuem uma média de streams de aproximadamente **1,16 bilhão**, o que demonstra uma exposição muito maior e, consequentemente, maior consumo.
+
+Na faixa seguinte, entre 1001 e 5000 playlists, a média cai para cerca de **322 milhões**, mostrando uma redução significativa, mas ainda considerável. Faixas presentes em menos de 100 playlists têm uma média de streams bastante modesta, de aproximadamente **53 milhões**, reforçando a importância da inclusão em playlists para a popularidade das músicas.
+
+- Total de Streams e Percentual dos 10 Artistas Mais Populares
 
 | Rank | Artista            | Total de Streams | Percentual (%) |
 |------|---------------------|------------------|----------------|
@@ -244,18 +248,25 @@ Objetivo: entender comportamentos médios ou totais com base em categorias.
 | 8    | Imagine Dragons     | 5,272,484,650    | 1.20%          |
 | 9    | Lewis Capaldi       | 4,734,698,360    | 1.08%          |
 | 10   | Doja Cat            | 4,702,294,655    | 1.07%          |
-| 11   | Adele               | 4,508,746,590    | 1.03%          |
-| 12   | BTS                 | 4,389,891,591    | 1.00%          |
-| 13   | SZA                 | 4,197,341,485    | 0.96%          |
-| 14   | Bruno Mars          | 4,185,733,280    | 0.95%          |
-| 15   | The Neighbourhood   | 4,010,009,939    | 0.91%          |
-| 16   | Justin Bieber       | 3,919,813,522    | 0.89%          |
-| 17   | Coldplay            | 3,825,176,058    | 0.87%          |
-| 18   | Avicii              | 3,426,754,746    | 0.78%          |
-| 19   | Dua Lipa            | 3,227,639,000    | 0.73%          |
-| 20   | Arctic Monkeys      | 3,055,659,795    | 0.70%          |
 
-Uma das principais formas de análise foi agrupar os dados com base na variável categórica artists_name, o que permitiu identificar os artistas mais ouvidos na base de dados. Ed Sheeran lidera o ranking com mais de 13,9 bilhões de streams, seguido por Taylor Swift com 11,8 bilhões e The Weeknd com 10 bilhões. Esses três artistas juntos concentram quase 9% de todos os streams do conjunto de dados, o que mostra uma concentração considerável de popularidade em poucos nomes.
+💡 Uma das principais abordagens para entender a popularidade foi agrupar os dados pela variável categórica artists_name, permitindo identificar os artistas mais ouvidos na base de dados. Ed Sheeran lidera o ranking com mais de 13,9 bilhões de streams, seguido por Taylor Swift com 11,8 bilhões e The Weeknd com 10 bilhões. Esses três artistas juntos concentram quase 9% do total de streams, evidenciando uma concentração significativa de audiência em poucos artistas.
+
+- Média, Mediana e Total de Músicas por Artista (Top 10)
+
+| Rank | Artista         | Média de Streams por Música | Mediana de Streams por Música | Total de Músicas |
+| ---- | --------------- | --------------------------- | ----------------------------- | ---------------- |
+| 1    | Imagine Dragons | 1,757,494,883               | 1,840,364,617                 | 3                |
+| 2    | Lewis Capaldi   | 1,578,232,787               | 1,608,045,237                 | 3                |
+| 3    | Eminem          | 1,545,951,399               | 1,424,589,568                 | 4                |
+| 4    | Ed Sheeran      | 1,545,438,578               | 1,555,511,105                 | 9                |
+| 5    | Olivia Rodrigo  | 1,063,164,131               | 850,608,354                   | 7                |
+| 6    | Doja Cat        | 783,715,776                 | 516,784,627                   | 6                |
+| 7    | Harry Styles    | 657,436,847                 | 334,733,572                   | 13               |
+| 8    | The Weeknd      | 592,313,451                 | 130,655,803                   | 17               |
+| 9    | Bad Bunny       | 536,399,006                 | 312,622,938                   | 16               |
+| 10   | Taylor Swift    | 408,660,382                 | 317,726,339                   | 29               |
+
+💡 Além do total de streams, foi feita uma análise da média e mediana de streams por música para esses artistas. Por exemplo, Imagine Dragons e Lewis Capaldi apresentam uma média de streams por faixa superior a 1,5 bilhão, embora tenham menos músicas lançadas, indicando que suas poucas músicas são altamente populares. Já artistas como Taylor Swift e Ed Sheeran, que possuem um catálogo maior, apresentam uma distribuição mais equilibrada de streams por música, refletindo tanto a quantidade quanto a consistência em seu sucesso.
 
 ### 🟣  Visualizar variáveis ​​categóricas
 
