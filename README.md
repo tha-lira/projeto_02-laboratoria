@@ -276,7 +276,7 @@ Objetivo: entender visualmente a distribuição em faixas/categorias.
 | Feid             | 8                |
 | BTS              | 8                |
 
-📌 Taylor Swift lidera com folga (29 músicas), sugerindo uma forte presença no período analisado — provavelmente entre 2021–2023. Outros artistas populares como The Weeknd, Bad Bunny, Harry Styles indicam forte tendência para pop, R&B e reggaeton — gêneros predominantes nos últimos anos.
+💡 Taylor Swift lidera com folga, com 29 músicas na base de dados — o que sugere uma presença marcante no período recente, especialmente entre 2021 e 2023. Artistas como The Weeknd, SZA, Bad Bunny e Harry Styles reforçam a dominância dos gêneros pop, R&B e reggaeton nos lançamentos mais populares do período analisado.
 
 - Distribuição por tonalidade (key)
 
@@ -294,25 +294,29 @@ Objetivo: entender visualmente a distribuição em faixas/categorias.
 | A#                | 56               |
 | D#                | 33               |
 
-📌  C# domina com 120 músicas — comum em produções digitais modernas. A maioria das tonalidades mais usadas são sustenidas, reforçando o uso de produção eletrônica e vocais autotuneados. Clássicas como G, D, A e F continuam populares, o que indica diversidade de estilos
+💡  A tonalidade C# aparece como a mais frequente, com 120 músicas — algo comum em produções eletrônicas contemporâneas. As tonalidades mais utilizadas são majoritariamente sustenidas, o que sugere o uso recorrente de produção digital e vocais processados (ex: autotune). Ainda assim, tonalidades clássicas como G, D, A e F permanecem relevantes, indicando diversidade de estilos musicais.
 
 - Quantidade de músicas lançadas por ano
 
 | Ano de Lançamento | Qtd. de Músicas |
 |--------------------|------------------|
-| 2013               | 11               |
-| 2014               | 13               |
-| 2015               | 9                |
-| 2016               | 18               |
-| 2017               | 21               |
-| 2018               | 10               |
 | 2019               | 33               |
 | 2020               | 29               |
 | 2021               | 107              |
 | 2022               | 361              |
 | 2023               | 159              |
 
-📌 A partir de 2019 há um crescimento acentuado. 2022 é o ano com mais lançamentos, representando mais de 42% do total recente.
+💡 A partir de 2019, nota-se um crescimento acelerado no número de lançamentos. O ano de 2022 representa o pico da série, concentrando mais de 42% do total de músicas lançadas nesse recorte recente. Em 2023 há uma leve queda, mas o volume ainda permanece elevado em relação aos anos anteriores.
+
+- Distribuição por modo (maior/menor)
+
+| Modo  | Qtd. de Músicas |
+| ----- | --------------- |
+| Maior | 474             |
+| Menor | 382             |
+
+
+💡 A maioria das músicas está em modo maior, com 474 faixas, contra 382 em modo menor. Isso sugere uma leve preferência por sonoridades mais alegres ou brilhantes, típicas de faixas pop comerciais — embora a presença significativa do modo menor indique também espaço para sonoridades mais introspectivas, comuns em R&B, trap e baladas.
 
 ### 🟣  Aplicar medidas de tendência central
 
@@ -391,22 +395,43 @@ Objetivo: detectar tendências temporais.
 
 - Streams médios por ano
 
-| Ano   | Média de Streams     |
-|--------|----------------------|
-| 2015  | 910.4 milhões         |
-| 2017  | 1.47 bilhões          |
-| 2020  | 945.3 milhões         |
-| 2021  | 631.2 milhões         |
-| 2022  | 285.0 milhões         |
-| 2023  | 143.9 milhões         |
+| Linha | Ano  | Média de Streams |
+| ----- | ---- | ---------------- |
+| 1     | 1930 | 90,598,517.0     |
+| 2     | 1942 | 395,591,396.0    |
+| 3     | 1946 | 389,771,964.0    |
+| 4     | 1950 | 473,248,298.0    |
+| 5     | 1957 | 459,981,011.0    |
+| ----- | ---- | ---------------- |
+| 43    | 2019 | 998,433,019.42   |
+| 44    | 2020 | 945,308,475.79   |
+| 45    | 2021 | 631,264,055.78   |
+| 46    | 2022 | 284,987,927.78   |
+| 47    | 2023 | 143,932,389.40   |
 
-📌 A análise temporal revelou importantes transformações na sonoridade das músicas:
+💡 No que diz respeito à média de streams por ano de lançamento, os maiores valores ocorrem entre 1998 e 2018, com picos entre 1 e 1,5 bilhão de reproduções por música. A partir de 2019, há uma queda contínua nessa média: 998 milhões em 2019, 945 milhões em 2020, caindo para 631 milhões em 2021, 284 milhões em 2022 e 143 milhões em 2023.
 
-- O BPM médio se estabilizou em torno de 120 nos últimos anos.
+Essa redução não indica necessariamente perda de popularidade, mas sim fatores como o aumento exponencial de lançamentos (o que dilui a média geral) e o fato de que músicas mais recentes ainda estão em fase de acumular streams. Em resumo, o cenário atual é marcado por uma produção musical massiva, impulsionada pela digitalização e plataformas de streaming, ao mesmo tempo em que a atenção do público se distribui entre um número muito maior de faixas.
 
-- A danceability média apresentou crescimento consistente desde os anos 1990, reforçando a tendência de músicas mais dançantes.
+- Quantidade de Músicas por Ano
 
-- A energia média oscilou, mas manteve-se em níveis moderados, entre 60 e 70.
+| Linha | Ano  | Qtde de Músicas |
+| ----- | ---- | --------------- |
+| 1     | 1930 | 1               |
+| 2     | 1942 | 1               |
+| 3     | 1946 | 1               |
+| 4     | 1950 | 1               |
+| 5     | 1957 | 2               |
+| ----- | ---- | --------------- |
+| 43    | 2019 | 33              |
+| 44    | 2020 | 29              |
+| 45    | 2021 | 107             |
+| 46    | 2022 | 361             |
+| 47    | 2023 | 159             |
+
+💡 De 1942 até o fim dos anos 1990, a quantidade de músicas lançadas por ano é bastante limitada (geralmente de 1 a 3 faixas), o que torna as médias de streams desses anos pouco representativas — uma única música de grande sucesso pode inflar significativamente os resultados. Um exemplo notável é 1975, que registra uma média de mais de 2 bilhões de streams com apenas uma música cadastrada.
+
+A partir de 1999, observa-se um aumento gradual na quantidade de lançamentos, que se intensifica consideravelmente a partir de 2010. Entre 2016 e 2020, esse crescimento se mantém estável, mas em 2021 ocorre um salto expressivo, com 107 músicas. Em 2022, atinge-se o maior valor da série, com 361 faixas lançadas. Embora haja uma queda para 159 em 2023, o número ainda é alto comparado aos anos anteriores.
 
 ### 🟣  Calcular quartis, decis ou percentis
 
@@ -507,6 +532,7 @@ Objetivo: entender relações lineares.
 📌 A análise de correlação demonstrou que:
 
 Streams x Playlists: forte correlação positiva (0,78).
+
 👉 Quanto mais playlists uma música aparece, maior seu número de streams.
 
 Streams x Danceability, Energy, Valence, BPM: correlação fraca (quase nula).
@@ -570,14 +596,19 @@ Streams x Speechiness: leve correlação negativa (–0,11).
 ## 🟧 Resumir as informações em um dashboard ou relatório
 
 ### 🟠 Representar os dados por meio de tabela resumo ou scorecards
+
 ### 🟠 Representar os dados através de gráficos simples
+
 ### 🟠 Representar os dados por meio de gráficos ou recursos visuais avançados
+
 ### 🟠 Aplicar opções de filtros para gerenciamento e interação
 
 ## 🟩 Apresentar os Resultados
 
 ### 🟢 Selecionar gráficos e informações relevantes
+
 ### 🟢 Criar uma apresentação
+
 ### 🟢 Apresentar resultados com conclusões e recomendações
 
 #### Limitações

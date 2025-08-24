@@ -381,68 +381,35 @@ FROM ranking_streams;
 
 ### 📍 Agrupar dados por variáveis categóricas
 
-```
--- Top 10 artistas com mais músicas
-
-SELECT 
-  artists_name,
-  COUNT(track_id) AS qtd_musicas
-FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
-GROUP BY artists_name
-ORDER BY qtd_musicas DESC
-LIMIT 10;
-
--- Distribuição de músicas por ano de lançamento
-
-SELECT 
-  released_year,
-  COUNT(track_id) AS qtd_musicas
-FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
-GROUP BY released_year
-ORDER BY released_year;
-
--- Distribuição por tonalidade (key)
-
-SELECT 
-  key,
-  COUNT(track_id) AS qtd_musicas
-FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
-GROUP BY key
-ORDER BY qtd_musicas DESC;
-
--- Distribuição por modo (maior/menor)
-
-SELECT 
-  mode,
-  COUNT(track_id) AS qtd_musicas
-FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
-GROUP BY mode
-ORDER BY qtd_musicas DESC;
-```
 
 ### 📍 Visualizar variáveis ​​categóricas
 
 ```
+
 -- Top 10 artistas com mais músicas
+
 SELECT artists_name, COUNT(track_id) AS qtd_musicas
 FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
 GROUP BY artists_name
 ORDER BY qtd_musicas DESC
 LIMIT 10;
 
--- Distribuição por ano
+-- Quantidade de músicas lançadas por ano
+
 SELECT released_year, COUNT(track_id) AS qtd_musicas
 FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
 GROUP BY released_year
 ORDER BY released_year;
 
 -- Distribuição por tonalidade (key)
+
 SELECT key, COUNT(track_id) AS qtd_musicas
 FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
 GROUP BY key
 ORDER BY qtd_musicas DESC;
 
 -- Distribuição por modo (maior/menor)
+
 SELECT mode, COUNT(track_id) AS qtd_musicas
 FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
 GROUP BY mode
@@ -503,29 +470,20 @@ FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`;
 
 ```
 -- Streams médios por ano
+
 SELECT released_year, AVG(streams) AS media_streams
 FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
 GROUP BY released_year
 ORDER BY released_year;
 
 -- Contagem de músicas lançadas por ano
+
 SELECT released_year, COUNT(track_id) AS qtd_musicas
 FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
 GROUP BY released_year
 ORDER BY released_year;
-```
 
 ```
-SELECT
-  released_year,
-  AVG(danceability) AS media_danceability,
-  AVG(bpm) AS media_bpm,
-  AVG(energy) AS media_energy
-FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
-GROUP BY released_year
-ORDER BY released_year;
-```
-
 ### 📍 Calcular quartis, decis e percentis
 
 ```
