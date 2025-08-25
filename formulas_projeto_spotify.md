@@ -828,3 +828,123 @@ ORDER BY categoria;
 - ACOUNT(*) → conta quantas músicas caíram em cada grupo.
 
 ### 📍 Validar hipótese
+
+```
+# Etapa 1: Importar bibliotecas
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+from scipy.stats import spearmanr, mannwhitneyu
+from google.colab import auth
+from google.cloud import bigquery
+
+# Etapa 2: Autenticar com Google
+auth.authenticate_user()
+
+# Etapa 3: Criar cliente BigQuery
+client = bigquery.Client(project="spotify-analysis-465623")
+
+# Etapa 4: Consulta SQL para carregar dados
+query = """
+SELECT *
+FROM `spotify-analysis-465623.spotify_data.tabela_unificada_tratada`
+"""
+df = client.query(query).to_dataframe()
+
+# Etapa 5: Preparação dos dados
+df['log_streams'] = np.log1p(df['streams'])  # log transform para visualizações
+
+### HIPÓTESE 1: Relação BPM x Streams
+print("### Hipótese 1: BPM x Streams")
+corr, p_val = spearmanr(df['bpm'], df['streams'])
+print(f"Correlação Spearman BPM x Streams: {corr:.4f}, p-valor: {p_val:.4f}")
+
+sns.scatterplot(data=df, x='bpm', y='log_streams')
+plt.title('Relação entre BPM e Streams (log1p)')
+plt.xlabel('BPM')
+plt.ylabel('Streams (log1p)')
+plt.show()
+
+### HIPÓTESE 2: Popularidade (Charts em diferentes plataformas)
+print("\n### Hipótese 2: Popularidade Spotify x Outras Plataformas")
+platform_cols = ['streams', 'in_apple_charts', 'in_deezer_charts', 'in_shazam_charts']
+corr_matrix, p_matrix = spearmanr(df[platform_cols])
+corr_df = pd.DataFrame(corr_matrix, index=platform_cols, columns=platform_cols)
+print("Matriz de correlação Spearman:")
+print(corr_df)
+
+plt.figure(figsize=(8, 6))
+sns.heatmap(corr_df, annot=True, cmap='coolwarm', vmin=-1, vmax=1)
+plt.title('Correlação entre Plataformas (Spearman)')
+plt.show()
+
+print("\nCoeficiente de determinação (R²) entre Streams e outras plataformas:")
+for plat in ['in_apple_charts', 'in_deezer_charts', 'in_shazam_charts']:
+    r = corr_df.loc['streams', plat]
+    print(f"{plat}: {r**2:.4f}")
+
+### HIPÓTESE 3: Playlists x Streams
+print("\n### Hipótese 3: Playlists x Streams")
+corr_spotify, p_val_spotify = spearmanr(df['in_spotify_playlists'], df['streams'])
+corr_total, p_val_total = spearmanr(df['total_playlists'], df['streams'])
+print(f"Corr. Spearman Spotify Playlists x Streams: {corr_spotify:.4f}, p-valor: {p_val_spotify:.4f}")
+print(f"Corr. Spearman Total Playlists x Streams: {corr_total:.4f}, p-valor: {p_val_total:.4f}")
+
+sns.scatterplot(data=df, x='total_playlists', y='log_streams')
+plt.title('Total de Playlists x Streams (log1p)')
+plt.xlabel('Total de Playlists')
+plt.ylabel('Streams (log1p)')
+plt.show()
+
+### HIPÓTESE 4: Artistas com mais músicas têm mais streams
+print("\n### Hipótese 4: Artistas com mais músicas têm mais streams")
+artist_summary = df.groupby('artists_name').agg(
+    num_musicas=('track_id', 'nunique'),
+    total_streams=('streams', 'sum')
+).reset_index()
+
+corr_artist, p_val_artist = spearmanr(artist_summary['num_musicas'], artist_summary['total_streams'])
+print(f"Corr. Spearman Nº Músicas x Streams por artista: {corr_artist:.4f}, p-valor: {p_val_artist:.4f}")
+
+sns.scatterplot(data=artist_summary, x='num_musicas', y=np.log1p(artist_summary['total_streams']))
+plt.title('Nº de Músicas por Artista x Total de Streams (log1p)')
+plt.xlabel('Número de Músicas')
+plt.ylabel('Total de Streams (log1p)')
+plt.show()
+
+### HIPÓTESE 5: Características musicais x Streams
+print("\n### Hipótese 5: Características musicais x Streams")
+caracteristicas = [
+    'danceability', 'energy', 'valence',
+    'acousticness', 'instrumentalness',
+    'liveness', 'speechiness'
+]
+
+for var in caracteristicas:
+    corr, p_val = spearmanr(df[var], df['streams'])
+    print(f"Corr. Spearman {var} x Streams: {corr:.4f}, p-valor: {p_val:.4f}")
+
+corr_carac = df[caracteristicas + ['streams']].corr(method='spearman')
+plt.figure(figsize=(10, 8))
+sns.heatmap(corr_carac, annot=True, cmap='coolwarm', vmin=-1, vmax=1)
+plt.title('Correlação Spearman Características Musicais x Streams')
+plt.show()
+
+# Teste Mann-Whitney U para danceability (alta vs baixa)
+median_dance = df['danceability'].median()
+df['dance_cat'] = df['danceability'].apply(lambda x: 'Alta' if x >= median_dance else 'Baixa')
+
+group_alta = df[df['dance_cat'] == 'Alta']['streams']
+group_baixa = df[df['dance_cat'] == 'Baixa']['streams']
+
+stat, p_val_mw = mannwhitneyu(group_alta, group_baixa)
+print(f"\nTeste Mann-Whitney U (streams) entre Alta e Baixa Dançabilidade: p-valor = {p_val_mw:.4f}")
+
+sns.boxplot(x='dance_cat', y='log_streams', data=df, order=['Baixa', 'Alta'])
+plt.title('Distribuição de Streams por Categoria de Dançabilidade (log1p)')
+plt.xlabel('Categoria Dançabilidade')
+plt.ylabel('Streams (log1p)')
+plt.show()
+
+```

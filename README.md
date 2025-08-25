@@ -596,9 +596,6 @@ Objetivo: Entender relações lineares entre o número de streams e característ
 | **bpm × energy**           | +0.02      | Quase nenhuma relação entre velocidade e energia.                                       |
 | **bpm × danceability**     | -0.16      | Correlação **fraca negativa**: músicas mais rápidas podem ser um pouco menos dançantes. |
 
-
-[Relatório Final](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/relat%C3%B3rioAnalise.md)
-
 ## 🟥 Aplicar técnica de análise
 
 ### 🔴 Aplicar segmentação
@@ -647,7 +644,70 @@ Objetivo: Entender relações lineares entre o número de streams e característ
 
 ### 🔴 Validar hipótese
 
+- ✅ Hipótese 1: Músicas com BPM mais altos fazem mais sucesso em termos de número de streams.
+
+| Variável | Correlação com `streams` |
+|----------|---------------------------|
+| `bpm`    | -0.0020                   |
+
+📌 Correlação praticamente nula. BPM não se relaciona com o sucesso (número de streams).
+
+- ✅ Hipótese 2: As músicas mais populares no Spotify também possuem comportamento semelhante em outras plataformas (Apple, Deezer).
+
+ Correlações com Streams
+
+| Variável            | Correlação com `streams` |
+|---------------------|---------------------------|
+| `in_apple_charts`   | 0.3143                    |
+| `in_deezer_charts`  | 0.2342                    |
+| `in_shazam_charts`  | -0.0142                   |
+
+Correlações entre Plataformas
+
+| Variável 1           | Variável 2           | Correlação |
+|----------------------|----------------------|------------|
+| `in_apple_charts`    | `in_deezer_charts`   | 0.3706     |
+| `in_apple_charts`    | `in_shazam_charts`   | 0.3901     |
+| `in_deezer_charts`   | `in_shazam_charts`   | 0.3438     |
+
+📌 Apple e Deezer mostram correlação moderada com Spotify. Shazam tem comportamento distinto (correlação fraca).
+
+- ✅ Hipótese 3: A presença em maior número de playlists está correlacionada com um maior número de streams.
+
+| Variável               | Correlação com `streams` |
+|------------------------|---------------------------|
+| `in_spotify_playlists` | 0.7881                    |
+| `total_playlists`      | 0.7819                    |
+
+📌 Correlação forte. Estar em playlists é um dos maiores indicadores de sucesso.
+
+- ✅ Hipótese 4: Artistas com mais músicas no Spotify têm mais streams.
+
+| Métrica                      | Correlação |
+|------------------------------|------------|
+| Nº de músicas por artista    | 0.7434     |
+
+📌 Confirma a hipótese: artistas com mais faixas têm mais streams acumulados.
+
+- ✅ Hipótese 5: As características musicais influenciam o sucesso em termos de streams.
+
+| Característica       | Correlação com `streams` |
+|----------------------|---------------------------|
+| `danceability`       | -0.1013                   |
+| `energy`             | -0.0300                   |
+| `valence`            | -0.0432                   |
+| `acousticness`       | 0.0111                    |
+| `instrumentalness`   | -0.0430                   |
+| `liveness`           | -0.0548                   |
+| `speechiness`        | -0.1128                   |
+
+📌 Correlações fracas. Características musicais isoladas não explicam sucesso.
+
+[Relatório Final](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/relat%C3%B3rioAnalise.md)
+
 ### 🔴 Regressão linear
+
+
 
 ## 🟧 Resumir as informações em um dashboard ou relatório
 
