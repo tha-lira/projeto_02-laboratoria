@@ -705,28 +705,6 @@ Correlações entre Plataformas
 
 [Relatório Final](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/relat%C3%B3rioAnalise.md)
 
-### 🔴 Regressão linear
-
-
-
-## 🟧 Resumir as informações em um dashboard ou relatório
-
-### 🟠 Representar os dados por meio de tabela resumo ou scorecards
-
-### 🟠 Representar os dados através de gráficos simples
-
-### 🟠 Representar os dados por meio de gráficos ou recursos visuais avançados
-
-### 🟠 Aplicar opções de filtros para gerenciamento e interação
-
-## 🟩 Apresentar os Resultados
-
-### 🟢 Selecionar gráficos e informações relevantes
-
-### 🟢 Criar uma apresentação
-
-### 🟢 Apresentar resultados com conclusões e recomendações
-
 #### Limitações
 
 Durante o desenvolvimento deste projeto, a ferramenta inicialmente proposta para a construção do dashboard foi o Power BI. No entanto, a execução local do Power BI Desktop apresentou limitações técnicas, principalmente devido à incompatibilidade com o sistema operacional Ubuntu utilizado no meu equipamento pessoal, além de restrições de hardware que inviabilizaram o uso de máquinas virtuais com Windows.
