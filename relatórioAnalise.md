@@ -38,7 +38,7 @@ Variáveis externas ao ambiente digital — como investimentos em marketing, cam
 
 - Power BI – Visualizações, dashboards e geração de insights interativos.
 
-### 🎧 Hipótese 1: Músicas com BPM mais altos fazem mais sucesso em termos de número de streams.
+## 🎧 Hipótese 1: Músicas com BPM mais altos fazem mais sucesso em termos de número de streams.
 
 📊 Gráficos utilizados: Dispersão (BPM vs Streams), boxplot por quartis de BPM
 
@@ -53,7 +53,7 @@ Variáveis externas ao ambiente digital — como investimentos em marketing, cam
 📌 Conclusão: **Hipótese refutada** BPM não tem relação significativa com o número de streams.
 📌 Interpretação: O BPM isoladamente não influencia o sucesso de uma faixa. Músicas com diferentes BPMs podem ter alto ou baixo desempenho.
 
-### 🎧 Hipótese 2: As músicas mais populares no Spotify também possuem comportamento semelhante em outras plataformas (Apple, Deezer).
+## 🎧 Hipótese 2: As músicas mais populares no Spotify também possuem comportamento semelhante em outras plataformas (Apple, Deezer).
 
 📊 Gráficos utilizados: Heatmap de correlação, dispersão entre plataformas, análise de regressão linear cruzada
 
@@ -69,7 +69,7 @@ Variáveis externas ao ambiente digital — como investimentos em marketing, cam
 📌 Conclusão: **Hipótese parcialmente validada** Correlação moderada com Apple Music, fraca com Deezer e muito baixa com Shazam.
 📌 Interpretação: Apple Music e Deezer seguem um padrão próximo ao Spotify, mas Shazam reflete mais momentos pontuais de descoberta do que popularidade sustentada.
 
-### 🎧 Hipótese 3: A presença em maior número de playlists está correlacionada com um maior número de streams.
+## 🎧 Hipótese 3: A presença em maior número de playlists está correlacionada com um maior número de streams.
 
 📊 Gráficos utilizados: Dispersão (Playlists x Streams), boxplots por faixas de inserção em playlists
 
@@ -88,7 +88,7 @@ Variáveis externas ao ambiente digital — como investimentos em marketing, cam
 📌 Conclusão: **Hipótese fortemente validada** A inserção em playlists é o fator isolado mais fortemente correlacionado ao sucesso de uma música.
 📌 Interpretação: A inserção em playlists é o fator mais fortemente relacionado ao sucesso. Curadoria editorial e algoritmos (e.g. Discover Weekly, Today's Top Hits) amplificam o alcance de forma exponencial.
 
-### 🎧 Hipótese 4: Artistas com mais músicas no Spotify têm mais streams.
+## 🎧 Hipótese 4: Artistas com mais músicas no Spotify têm mais streams.
 
 📊 Gráficos utilizados: Dispersão (número de músicas por artista x streams totais), ranking de artistas
 
@@ -105,7 +105,7 @@ Variáveis externas ao ambiente digital — como investimentos em marketing, cam
 📌 Conclusão: **A hipótese é validada** Existe uma relação clara, embora não absoluta, entre volume de catálogo e total de streams.
 📌 Interpretação: Um catálogo maior favorece o acúmulo de streams via presença contínua em playlists, efeito de cauda longa e redescoberta de faixas antigas.
 
-### 🎧 Hipótese 5: As características musicais influenciam o sucesso em termos de streams.
+## 🎧 Hipótese 5: As características musicais influenciam o sucesso em termos de streams.
 
 📊 Gráficos utilizados: Matriz de correlação, regressão multivariada, teste de diferença entre grupos
 
@@ -124,17 +124,17 @@ Variáveis externas ao ambiente digital — como investimentos em marketing, cam
 📌 Conclusão: **Hipótese refutada** As correlações são fracas e inconsistentes.
 📌 Interpretação: O sucesso de uma faixa não é explicado por variáveis musicais isoladas. Fatores como marketing, redes sociais e curadoria têm impacto muito maior.
 
-### 📈 Análises Adicionais
+## 📈 Análises Adicionais
 
-🎯 Concentração de Mercado
+### 🎯 Concentração de Mercado
 
 - Top 10% das músicas concentram 36,9% dos streams
 
 - Top 1% concentram 5,4% dos streams
 
-📌 O mercado é altamente concentrado, embora menos extremo do que sugerido anteriormente. Um pequeno grupo de faixas domina a atenção.
+- O mercado é altamente concentrado, embora menos extremo do que sugerido anteriormente. Um pequeno grupo de faixas domina a atenção.
 
-### Análise Temporal (2016–2025):
+### 📈 Análise Temporal (2016–2025):
 
 - Volume total de streams cresceu +384% desde 2016
 
@@ -143,7 +143,6 @@ Variáveis externas ao ambiente digital — como investimentos em marketing, cam
 - Danceability médio subiu de 0.61 → 0.68
 
 - Músicas estão ficando mais curtas, mais dançantes e mais energéticas, refletindo o consumo em plataformas como TikTok.
-
 
 ## 🎯 Conclusões Estratégicas para a Gravadora
 
