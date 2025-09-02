@@ -12,7 +12,8 @@ Este projeto tem como finalidade analisar dados de faixas musicais disponíveis 
 ### 🛠️ Ferramentas e Tecnologias Utilizadas
 
 - BigQuery
-- Looker Studio
+- Power BI
+- Python
 
 ## 🟦  Processamento e Preparação dos Dados
 
@@ -147,7 +148,7 @@ Já na tabela track_in_spotify, foram identificados alguns dados que destoam do 
 
 ### 🧼 Tratamento realizado
 
-Corrigimos o ano de lançamento das músicas que estavam incorretas, utilizando uma referência média de lançamentos dos respectivos artistas (quando possível). Removemos registros inconsistentes, como a linha com ID 4061483, que apresentava streams nulo e demais variáveis com valores muito baixos. Garantimos que campos numéricos estivessem corretamente preenchidos, eliminando ou ajustando valores textuais indevidos.
+Ano de lançamento incoerente: músicas com ano de lançamento 1930, associadas a artistas contemporâneos como Styrx, Utku INC e Thezth, sugerem possível erro de preenchimento. No entanto, optamos por manter os valores originais, por não haver uma base confiável para substituição. Removemos registros inconsistentes, como a linha com ID 4061483, que apresentava streams nulo e demais variáveis com valores muito baixos. Garantimos que campos numéricos estivessem corretamente preenchidos, eliminando ou ajustando valores textuais indevidos.
 
 [Consulta SQL usada no projeto](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/formulas_projeto_spotify.md)
 
@@ -704,6 +705,8 @@ Correlações entre Plataformas
 📌 Correlações fracas. Características musicais isoladas não explicam sucesso.
 
 [Relatório Final](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/relat%C3%B3rioAnalise.md)
+
+
 
 #### Limitações
 
