@@ -706,7 +706,9 @@ Correlações entre Plataformas
 
 [Relatório Final](https://github.com/tha-lira/projeto_02-laboratoria/blob/master/relat%C3%B3rioAnalise.md)
 
-
+📊 Spreadsheet: https://docs.google.com/presentation/d/1Yn1ObjXYU7dLdncHN0Bgxt9A7tSeghZzjjKjic7kfHI/edit?usp=sharing
+🎥 Apresentação: https://www.loom.com/share/c9e004baf8484ad9ba8a350c33c50ea1?sid=4229076f-8c09-4eb0-8a95-9119de8a651c
+📈 Dashboard: https://drive.google.com/file/d/1YJ597PtG8JRnpJFQ4O-5GFiO5AMaNldD/view?usp=sharing
 
 #### Limitações
 
