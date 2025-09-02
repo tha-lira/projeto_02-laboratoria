@@ -1,12 +1,42 @@
 # 🎵 Relatório Final de Aplicação de Técnica de Análise – Análise de Dados do Spotify
 
-## 📌 Objetivo
+### 📌 Objetivo
 
-Avaliar quais fatores influenciam o sucesso de músicas no Spotify (streams), validando hipóteses levantadas pela gravadora e fornecendo recomendações estratégicas para o lançamento de um novo artista.
+Este estudo tem como objetivo identificar os principais fatores que influenciam o sucesso de músicas no Spotify, medido pelo número de streams. A análise visa validar hipóteses formuladas previamente pela gravadora e, a partir disso, fornecer recomendações estratégicas para orientar o lançamento de um novo artista.
 
-## 📌 Metodologia e Ferramentas Utilizadas
+### 📌 Metodologia e Ferramentas Utilizadas
 
-Esta análise foi realizada com base em variáveis objetivas disponíveis nas plataformas de streaming (como características musicais, presença em playlists, número de faixas e volume de streams). Variáveis externas ao ambiente digital, como investimentos em marketing, presença em redes sociais, clipes no YouTube ou campanhas promocionais, não foram consideradas, devido à indisponibilidade de dados padronizados. Portanto, o foco da análise está na relação entre atributos musicais e a performance nas plataformas de streaming.
+A análise foi conduzida com base em variáveis internas às plataformas de streaming, como:
+
+- Características musicais (BPM, danceability, energy, etc.);
+
+- Presença em playlists (editoriais e algorítmicas);
+
+- Número de faixas publicadas por artista;
+
+- Volume de streams em Spotify e outras plataformas digitais (Apple Music, Deezer, Shazam).
+
+Variáveis externas ao ambiente digital — como investimentos em marketing, campanhas promocionais, clipes no YouTube ou engajamento em redes sociais — não foram consideradas, devido à ausência de dados estruturados e padronizados. Com isso, a análise se concentrou exclusivamente em fatores objetivos e mensuráveis dentro do ecossistema digital.
+
+### 🔍 Etapas Analíticas Realizadas:
+
+- Análise exploratória de dados (EDA);
+
+- Segmentação por quartis e agrupamentos;
+
+- Cálculo de correlações estatísticas (Spearman e Pearson);
+
+- Testes de significância (Mann-Whitney U);
+
+- Criação de visualizações interativas para análise comparativa.
+
+### 🛠️ Ferramentas Utilizadas:
+
+- Google BigQuery – Extração, limpeza e estruturação dos dados;
+
+- Python (Google Colab) – Análises estatísticas, testes de hipótese e modelagem;
+
+- Power BI – Visualizações, dashboards e geração de insights interativos.
 
 ### 🎧 Hipótese 1: Músicas com BPM mais altos fazem mais sucesso em termos de número de streams.
 
@@ -14,13 +44,14 @@ Esta análise foi realizada com base em variáveis objetivas disponíveis nas pl
 
 ✅ Resultado:
 
-- Correlação de Spearman = -0.0024, p-valor = 0.9436
+- Correlação Spearman: -0.0024, p = 0.9436
 
-- Quartis de BPM (Q1: <90, Q2: 90-110, Q3: 110-130, Q4: >130) não apresentaram diferenças significativas nos streams médios (Mann-Whitney U p > 0.1)
+- Correlação Pearson: 0.0049, p = 0.8854
 
-📌 Conclusão: Não há relação estatisticamente significativa entre BPM e número de streams. A hipótese é refutada com os dados atuais.
+- Teste Mann-Whitney (Q1 vs Q4): p = 0.5043
 
-👉 Interpretação: O BPM isoladamente não determina o sucesso da faixa; há grande variação de streams em todos os intervalos de BPM.
+📌 Conclusão: **Hipótese refutada** BPM não tem relação significativa com o número de streams.
+📌 Interpretação: O BPM isoladamente não influencia o sucesso de uma faixa. Músicas com diferentes BPMs podem ter alto ou baixo desempenho.
 
 ### 🎧 Hipótese 2: As músicas mais populares no Spotify também possuem comportamento semelhante em outras plataformas (Apple, Deezer).
 
@@ -35,9 +66,8 @@ Esta análise foi realizada com base em variáveis objetivas disponíveis nas pl
 | Shazam      | **0.1215**                        | **0.0148**            | 0.0002   |
 
 
-📌 Conclusão: Existe correlação moderada entre Spotify e Apple Music, e fraca com Deezer. Com Shazam, a correlação é muito baixa. A hipótese é parcialmente validada.
-
-👉 Interpretação: Apple e Deezer seguem um padrão similar de consumo. Já o Shazam é mais usado para descoberta de músicas (momento de escuta pontual), não refletindo necessariamente sucesso em volume de streams.
+📌 Conclusão: **Hipótese parcialmente validada** Correlação moderada com Apple Music, fraca com Deezer e muito baixa com Shazam.
+📌 Interpretação: Apple Music e Deezer seguem um padrão próximo ao Spotify, mas Shazam reflete mais momentos pontuais de descoberta do que popularidade sustentada.
 
 ### 🎧 Hipótese 3: A presença em maior número de playlists está correlacionada com um maior número de streams.
 
@@ -45,17 +75,18 @@ Esta análise foi realizada com base em variáveis objetivas disponíveis nas pl
 
 ✅ Resultado: 
 
-- Correlação Spearman (Spotify playlists x Streams): 0.836, p < 0.0001
+- Correlação Spearman (Spotify playlists): 0.836, p < 0.0001
 
-- Correlação Spearman (Total playlists x Streams): 0.837, p < 0.0001
+- Correlação Spearman (Total playlists): 0.837, p < 0.0001
 
-- Músicas em +5.000 playlists: média de 1.134.000.000 streams
+- Correlação Pearson (Total playlists x log(streams)): 0.621, p < 0.0001
 
-- Músicas com menos de 500 playlists: média de 22.000.000 streams
+- Músicas em +5.000 playlists: média 1,13 bi streams
 
-📌 Conclusão: Hipótese fortemente validada. A inserção em playlists é o fator isolado mais fortemente correlacionado ao sucesso de uma música.
+- Músicas em <500 playlists: média 22 mi streams
 
-👉 Interpretação: Algoritmos de recomendação e curadoria editorial possuem poder direto de amplificação. Atingir a recomendação automática do Spotify (e.g., Discover Weekly, Today's Top Hits) pode multiplicar os streams em escala exponencial.
+📌 Conclusão: **Hipótese fortemente validada** A inserção em playlists é o fator isolado mais fortemente correlacionado ao sucesso de uma música.
+📌 Interpretação: A inserção em playlists é o fator mais fortemente relacionado ao sucesso. Curadoria editorial e algoritmos (e.g. Discover Weekly, Today's Top Hits) amplificam o alcance de forma exponencial.
 
 ### 🎧 Hipótese 4: Artistas com mais músicas no Spotify têm mais streams.
 
@@ -63,15 +94,16 @@ Esta análise foi realizada com base em variáveis objetivas disponíveis nas pl
 
 ✅ Resultado:
 
-- Correlação Spearman: 0.428, p-valor < 0.0001
+- Correlação Spearman: 0.428, p < 0.0001
 
-- Artistas com mais de 200 músicas: stream médio total = 3,1 bilhões
+- Correlação Pearson: 0.382, p < 0.0001
 
-- Artistas com menos de 20 músicas: stream médio total = 380 milhões
+- Artistas com >200 músicas: média 3,1 bilhões de streams
 
-📌 Conclusão: A hipótese é validada. Existe uma relação clara, embora não absoluta, entre volume de catálogo e total de streams.
+- Artistas com <20 músicas: média 380 milhões de streams
 
-👉 Interpretação: Artistas com catálogos extensos tendem a acumular mais streams devido à presença recorrente em playlists, efeito de catálogo e potencial de viralização de faixas antigas.
+📌 Conclusão: **A hipótese é validada** Existe uma relação clara, embora não absoluta, entre volume de catálogo e total de streams.
+📌 Interpretação: Um catálogo maior favorece o acúmulo de streams via presença contínua em playlists, efeito de cauda longa e redescoberta de faixas antigas.
 
 ### 🎧 Hipótese 5: As características musicais influenciam o sucesso em termos de streams.
 
@@ -87,31 +119,33 @@ Esta análise foi realizada com base em variáveis objetivas disponíveis nas pl
 | Acousticness     | -0.048              | 0.1612  | Não                              |
 | Instrumentalness | -0.014              | 0.6863  | Não                              |
 | Liveness         | -0.071              | 0.0383  | Marginalmente                    |
-| Speechiness      | -0.108              | 0.0016  | Sim (mas fraca)                  |
+| Speechiness      | -0.108              | 0.0016  | Sim (fraca)                      |
 
-📌 Conclusão: As correlações são baixas e negativas. Nenhuma característica isolada explica de forma significativa o sucesso. A hipótese é refutada em termos absolutos.
-
-👉 Interpretação: O sucesso de uma faixa depende menos da composição musical objetiva e mais de fatores como campanhas, marketing, engajamento social e inserção em playlists.
+📌 Conclusão: **Hipótese refutada** As correlações são fracas e inconsistentes.
+📌 Interpretação: O sucesso de uma faixa não é explicado por variáveis musicais isoladas. Fatores como marketing, redes sociais e curadoria têm impacto muito maior.
 
 ### 📈 Análises Adicionais
 
-- Concentração de mercado:
+🎯 Concentração de Mercado
 
-Top 10% das músicas = 70,3% dos streams
+- Top 10% das músicas concentram 36,9% dos streams
 
-Top 1% = 41,6% dos streams
+- Top 1% concentram 5,4% dos streams
 
-📌 O mercado é altamente desigual e concentrado. Um pequeno número de músicas/nomes dominam a atenção.
+📌 O mercado é altamente concentrado, embora menos extremo do que sugerido anteriormente. Um pequeno grupo de faixas domina a atenção.
 
-- Análise Temporal (2016–2025):
+### Análise Temporal (2016–2025):
 
-Volume total de streams cresceu 384% entre 2016 e 2024.
+- Volume total de streams cresceu +384% desde 2016
 
-Desde 2021, a média de danceability passou de 0.61 para 0.68, e o BPM médio aumentou de 104 para 114.
+- BPM médio aumentou de 104 → 114
 
-Músicas mais recentes tendem a ser mais curtas, dançantes e energéticas, refletindo as exigências do consumo digital e redes sociais (e.g., TikTok).
+- Danceability médio subiu de 0.61 → 0.68
 
-### 🎯 Conclusões Estratégicas para a Gravadora
+- Músicas estão ficando mais curtas, mais dançantes e mais energéticas, refletindo o consumo em plataformas como TikTok.
+
+
+## 🎯 Conclusões Estratégicas para a Gravadora
 
 1. Foco em playlists: Investir em curadoria editorial e relacionamento com curadores é a principal alavanca para gerar tração. Playlists são o maior diferencial competitivo.
 
